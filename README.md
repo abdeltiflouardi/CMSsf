@@ -15,7 +15,6 @@ Symfony Standard Edition comes pre-configured with the following bundles:
  * AsseticBundle
  * WebProfilerBundle (in dev/test env)
  * SymfonyWebConfiguratorBundle (in dev/test env)
- * AcmeDemoBundle (in dev/test env)
 
 Installation from an Archive
 ----------------------------
@@ -51,23 +50,5 @@ The distribution is configured with the following defaults:
  * Doctrine ORM/DBAL is configured;
  * Swiftmailer is configured;
  * Annotations for everything are enabled.
-
-A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps :
- * delete the `src/Acme` directory.
- * remove the routing entry in `app/config/routing.yml`.
- * remove the `Acme` reference in `app/config/config.yml`.
- * remove the AcmeBundle from the registered bundles in `app/AppKernel.php`
- * remove the Acme registered namespace in `app/autoload.php`
-
-Configure the distribution by editing `app/config/parameters.ini` or by
-accessing `web/config.php` in a browser.
-
-A simple controller is configured at `/hello/{name}`. Access it via
-`web/app_dev.php/demo/hello/Fabien`.
-
-If you want to use the CLI, a console application is available at
-`app/console`. Check first that your PHP is correctly configured for the CLI
-by running `app/check.php`.
 
 Enjoy!
