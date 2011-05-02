@@ -1,0 +1,23 @@
+{% extends 'AppAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="button-new"><a href="{{ path('_admin_tag_add') }}" class="button-green">Add</a></div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+	</tr>
+
+	{% for tag in tags %}
+	<tr> 
+            <td>{{ tag.id }}</td>
+            <td>{{ tag.name }}</td>
+            <td>
+                <a href="{{ path('_admin_tag_edit', {'id': tag.id}) }}">{{ 'Edit'|trans }}</a>
+		<a href="{{ path('_admin_tag_delete', {'id': tag.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce tag?')">{{ 'Delete'|trans }}</a>
+            </td>
+	</tr>	
+	{% endfor %}
+    </table>	
+{% endblock %}

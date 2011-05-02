@@ -1,0 +1,10 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for post in posts %}
+    <div class="post-item widget">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,79 @@
+# index
+_admin_home:
+    pattern:  /admin
+    defaults: { _controller: AppAdminBundle:Default:index }
+
+_admin_category_index:
+    pattern: /admin/category
+    defaults: { _controller: AppAdminBundle:Category:index }
+
+_admin_post_index:
+    pattern: /admin/post
+    defaults: { _controller: AppAdminBundle:Post:index }
+    
+_admin_tag_index:
+    pattern: /admin/tag
+    defaults: { _controller: AppAdminBundle:Tag:index }    
+
+# add
+_admin_category_add:
+    pattern: /admin/category/add
+    defaults: { _controller: AppAdminBundle:Category:add }
+
+_admin_post_add:
+    pattern: /admin/post/add
+    defaults: { _controller: AppAdminBundle:Post:add }
+
+_admin_tag_add:
+    pattern: /admin/tag/add
+    defaults: { _controller: AppAdminBundle:Tag:add }  
+
+_admin_post_tag_add:
+    pattern: /admin/post/{post_id}/tag/add
+    defaults: { _controller: AppAdminBundle:Post:addTag }
+
+# edit
+_admin_category_edit:
+    pattern: /admin/category/{id}/edit
+    defaults: { _controller: AppAdminBundle:Category:edit }
+
+_admin_post_edit:
+    pattern: /admin/post/{id}/edit
+    defaults: { _controller: AppAdminBundle:Post:edit }
+
+_admin_tag_edit:
+    pattern: /admin/tag/{id}/edit
+    defaults: { _controller: AppAdminBundle:Tag:edit }
+
+# delete
+_admin_category_delete:
+    pattern: /admin/category/{id}/delete
+    defaults: { _controller: AppAdminBundle:Category:delete }
+
+_admin_post_delete:
+    pattern: /admin/post/{id}/delete
+    defaults: { _controller: AppAdminBundle:Post:delete }
+
+_admin_tag_delete:
+    pattern: /admin/tag/{id}/delete
+    defaults: { _controller: AppAdminBundle:Tag:delete }
+
+_admin_post_tag_delete:
+    pattern: /admin/post/{post_id}/tag/{tag_id}/delete
+    defaults: { _controller: AppAdminBundle:Post:deleteTag }
+
+# show
+_admin_post_show:
+    pattern: /admin/post/{id}/show
+    defaults: { _controller: AppAdminBundle:Post:show }
+
+#login
+_admin_login:
+  pattern: /admin/login
+  defaults: { _controller: AppAdminBundle:Security:login }
+  
+_admin_login_check:
+  pattern: /admin/login_check
+
+_admin_logout:
+  pattern: /admin/logout

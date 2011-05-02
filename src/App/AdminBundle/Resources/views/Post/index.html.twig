@@ -1,0 +1,26 @@
+{% extends 'AppAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="button-new"><a href="{{ path('_admin_post_add') }}" class="button-green">Add</a></div>
+    <table  border="1">
+        <tr>
+            <th>Id</th>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Actions</th>
+	</tr>
+
+	{% for post in posts %}
+	<tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.category.name }}</td>
+            <td>{{ post.title }}</td>
+            <td>
+                <a href="{{ path('_admin_post_show', {'id': post.id}) }}">{{ 'Show'|trans }}</a>
+                <a href="{{ path('_admin_post_edit', {'id': post.id}) }}">{{ 'Edit'|trans }}</a>
+                <a href="{{ path('_admin_post_delete', {'id': post.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet article?')">{{ 'Delete'|trans }}</a>
+            </td>
+	</tr>	
+	{% endfor %}
+    </table>	
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'AppAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="button-new"><a href="{{ path('_admin_category_add') }}" class="button-green">Add</a></div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+	</tr>
+
+	{% for category in categories %}
+	<tr> 
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+                <a href="{{ path('_admin_category_edit', {'id': category.id}) }}">{{ 'Edit'|trans }}</a>
+		<a href="{{ path('_admin_category_delete', {'id': category.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cette category?')">{{ 'Delete'|trans }}</a>
+            </td>
+	</tr>	
+	{% endfor %}
+    </table>	
+{% endblock %}

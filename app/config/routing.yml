@@ -1,0 +1,5 @@
+_default_web:
+    resource: "@AppWebBundle/Resources/config/routing.yml"
+    
+_default_admin:
+    resource: "@AppAdminBundle/Resources/config/routing.yml"

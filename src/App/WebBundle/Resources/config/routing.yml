@@ -1,0 +1,3 @@
+_home_web:
+    pattern:  /
+    defaults: { _controller: AppWebBundle:Default:index }

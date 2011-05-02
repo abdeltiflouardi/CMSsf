@@ -1,0 +1,15 @@
+{% extends 'AppAdminBundle::layout.html.twig' %}
+
+{% block body %}
+	<h2>{{ post.title }}</h2>
+	<p>{{ post.body }}</p>
+
+	<form action="{{ path('_admin_post_tag_add', {'post_id': post.id}) }}" method="post">
+	    {{ form_widget(tag_form) }}
+
+	    <input type="submit" />
+	</form>	
+
+	{% include 'AppAdminBundle:Post:tag.html.twig' %}
+
+{% endblock %}
