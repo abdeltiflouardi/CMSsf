@@ -1,4 +1,8 @@
-/app/logs/
-/app/cache/
-/app/bootstrap.php.cache
-/app/bootstrap_cache.php.cache
+app/logs/*
+app/cache/*
+app/bootstrap*
+nbproject/private/
+app/config/parameters.ini
+vendor/
+build/
+web/bundles/
