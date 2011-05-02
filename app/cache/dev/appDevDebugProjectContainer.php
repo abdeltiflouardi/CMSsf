@@ -125,7 +125,6 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppCoreBundle', '/media/data/server/sites/CMSsf/app/Resources/AppCoreBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppCoreBundle', '/media/data/server/sites/CMSsf/src/App/CoreBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppWebBundle', '/media/data/server/sites/CMSsf/app/Resources/AppWebBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppWebBundle', '/media/data/server/sites/CMSsf/src/App/WebBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppAdminBundle', '/media/data/server/sites/CMSsf/app/Resources/AppAdminBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'AppAdminBundle', '/media/data/server/sites/CMSsf/src/App/AdminBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
-        $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'KnplabsMenuBundle', '/media/data/server/sites/CMSsf/app/Resources/KnplabsMenuBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'KnplabsMenuBundle', '/media/data/server/sites/CMSsf/vendor/bundles/Knplabs/Bundle/MenuBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/media/data/server/sites/CMSsf/app/Resources/WebProfilerBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'WebProfilerBundle', '/media/data/server/sites/CMSsf/vendor/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Assetic\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SymfonyWebConfiguratorBundle', '/media/data/server/sites/CMSsf/app/Resources/SymfonyWebConfiguratorBundle/views', '/^[^.]+\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'SymfonyWebConfiguratorBundle', '/media/data/server/sites/CMSsf/vendor/bundles/Symfony/Bundle/WebConfiguratorBundle/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'))), 'twig');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, '', '/media/data/server/sites/CMSsf/app/Resources/views', '/^[^.]+\\.[^.]+\\.twig$/'), 'twig');
@@ -935,19 +934,6 @@ class appDevDebugProjectContainer extends Container
         require_once '/media/data/server/sites/CMSsf/vendor/swiftmailer/lib/swift_init.php';
 
         return $this->services['mailer'] = new \Swift_Mailer($this->get('swiftmailer.transport'));
-    }
-
-    /**
-     * Gets the 'menu.provider' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return Knplabs\Bundle\MenuBundle\Provider\LazyProvider A Knplabs\Bundle\MenuBundle\Provider\LazyProvider instance.
-     */
-    protected function getMenu_ProviderService()
-    {
-        return $this->services['menu.provider'] = new \Knplabs\Bundle\MenuBundle\Provider\LazyProvider($this);
     }
 
     /**
@@ -2317,7 +2303,6 @@ class appDevDebugProjectContainer extends Container
                 'AppCoreBundle' => 'App\\CoreBundle\\AppCoreBundle',
                 'AppWebBundle' => 'App\\WebBundle\\AppWebBundle',
                 'AppAdminBundle' => 'App\\AdminBundle\\AppAdminBundle',
-                'KnplabsMenuBundle' => 'Knplabs\\Bundle\\MenuBundle\\KnplabsMenuBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SymfonyWebConfiguratorBundle' => 'Symfony\\Bundle\\WebConfiguratorBundle\\SymfonyWebConfiguratorBundle',
             ),
@@ -2624,7 +2609,6 @@ class appDevDebugProjectContainer extends Container
             'security.extra.controller_listener.class' => 'JMS\\SecurityExtraBundle\\Controller\\ControllerListener',
             'security.access.iddqd_voter.class' => 'JMS\\SecurityExtraBundle\\Security\\Authorization\\Voter\\IddqdVoter',
             'security.extra.secure_all_services' => false,
-            'menu.provider.class' => 'Knplabs\\Bundle\\MenuBundle\\Provider\\LazyProvider',
             'web_profiler.debug.toolbar.class' => 'Symfony\\Bundle\\WebProfilerBundle\\WebDebugToolbarListener',
             'symfony.webconfigurator.class' => 'Symfony\\Bundle\\WebConfiguratorBundle\\Configurator',
             'data_collector.templates' => array(

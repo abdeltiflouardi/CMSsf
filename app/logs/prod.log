@@ -835,3 +835,18 @@
 [2011-05-02 22:32:46] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
 [2011-05-02 22:32:46] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
 [2011-05-02 22:32:46] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 
+[2011-05-03 00:04:05] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
+[2011-05-03 00:04:05] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
+[2011-05-03 00:04:05] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 
+[2011-05-03 00:04:15] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
+[2011-05-03 00:04:15] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
+[2011-05-03 00:04:15] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 
+[2011-05-03 00:04:18] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
+[2011-05-03 00:04:18] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
+[2011-05-03 00:04:18] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 
+[2011-05-03 00:04:21] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
+[2011-05-03 00:04:22] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
+[2011-05-03 00:04:22] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 
+[2011-05-03 00:04:23] request.ERROR: No route found for "GET /bundles/appadmin/images/blue-arrow.png" 
+[2011-05-03 00:04:23] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /bundles/appadmin/images/blue-arrow.png" (uncaught exception) 
+[2011-05-03 00:04:23] request.INFO: Using controller "Symfony\Bundle\FrameworkBundle\Controller\ExceptionController::showAction" 

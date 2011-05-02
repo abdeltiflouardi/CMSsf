@@ -20,7 +20,6 @@
       <parameter key="AppCoreBundle">App\CoreBundle\AppCoreBundle</parameter>
       <parameter key="AppWebBundle">App\WebBundle\AppWebBundle</parameter>
       <parameter key="AppAdminBundle">App\AdminBundle\AppAdminBundle</parameter>
-      <parameter key="KnplabsMenuBundle">Knplabs\Bundle\MenuBundle\KnplabsMenuBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SymfonyWebConfiguratorBundle">Symfony\Bundle\WebConfiguratorBundle\SymfonyWebConfiguratorBundle</parameter>
     </parameter>
@@ -323,7 +322,6 @@
     <parameter key="security.extra.controller_listener.class">JMS\SecurityExtraBundle\Controller\ControllerListener</parameter>
     <parameter key="security.access.iddqd_voter.class">JMS\SecurityExtraBundle\Security\Authorization\Voter\IddqdVoter</parameter>
     <parameter key="security.extra.secure_all_services">false</parameter>
-    <parameter key="menu.provider.class">Knplabs\Bundle\MenuBundle\Provider\LazyProvider</parameter>
     <parameter key="web_profiler.debug.toolbar.class">Symfony\Bundle\WebProfilerBundle\WebDebugToolbarListener</parameter>
     <parameter key="symfony.webconfigurator.class">Symfony\Bundle\WebConfiguratorBundle\Configurator</parameter>
     <parameter key="data_collector.templates" type="collection">
@@ -1954,33 +1952,6 @@
               <argument type="service">
                 <service class="%assetic.directory_resource.class%" public="false">
                   <argument type="service" id="templating.loader"/>
-                  <argument>KnplabsMenuBundle</argument>
-                  <argument>/media/data/server/sites/CMSsf/app/Resources/KnplabsMenuBundle/views</argument>
-                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
-                  <argument>KnplabsMenuBundle</argument>
-                  <argument>/media/data/server/sites/CMSsf/vendor/bundles/Knplabs/Bundle/MenuBundle/Resources/views</argument>
-                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-            </argument>
-          </service>
-        </argument>
-        <argument>twig</argument>
-      </call>
-      <call method="addResource">
-        <argument type="service">
-          <service class="Assetic\Factory\Resource\CoalescingDirectoryResource" public="false">
-            <tag name="assetic.templating.twig"/>
-            <tag name="assetic.formula_resource" loader="twig"/>
-            <argument type="collection">
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
                   <argument>WebProfilerBundle</argument>
                   <argument>/media/data/server/sites/CMSsf/app/Resources/WebProfilerBundle/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
@@ -2145,9 +2116,6 @@
     </service>
     <service id="security.extra.controller_listener" class="JMS\SecurityExtraBundle\Controller\ControllerListener">
       <tag name="kernel.listener" event="onCoreController" priority="-255"/>
-      <argument type="service" id="service_container"/>
-    </service>
-    <service id="menu.provider" class="Knplabs\Bundle\MenuBundle\Provider\LazyProvider">
       <argument type="service" id="service_container"/>
     </service>
     <service id="web_profiler.debug.toolbar" class="Symfony\Bundle\WebProfilerBundle\WebDebugToolbarListener">
