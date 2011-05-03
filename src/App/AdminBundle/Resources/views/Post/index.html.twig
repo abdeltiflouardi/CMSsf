@@ -7,6 +7,8 @@
             <th>Id</th>
             <th>Category</th>
             <th>Name</th>
+            <th>Created</th>          
+            <th>Updated</th>            
             <th>Actions</th>
 	</tr>
 
@@ -15,6 +17,8 @@
             <td>{{ post.id }}</td>
             <td>{{ post.category.name }}</td>
             <td>{{ post.title }}</td>
+            <td>{{ post.createdAt|date }}</td>
+            <td>{{ post.updatedAt|date }}</td>            
             <td>
                 <a href="{{ path('_admin_post_show', {'id': post.id}) }}">{{ 'Show'|trans }}</a>
                 <a href="{{ path('_admin_post_edit', {'id': post.id}) }}">{{ 'Edit'|trans }}</a>

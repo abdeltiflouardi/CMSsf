@@ -17,8 +17,8 @@
             <td>{{ user.id }}</td>
             <td>{{ user.team.name }}</td>            
             <td>{{ user.username }}</td>
-            <td>{{ user.createdAt }}</td>
-            <td>{{ user.updatedAt }}</td>
+            <td>{{ user.createdAt|date }}</td>
+            <td>{{ user.updatedAt|date }}</td>
             <td>
                 <a href="{{ path('_admin_user_edit', {'id': user.id}) }}">{{ 'Edit'|trans }}</a>
 		<a href="{{ path('_admin_user_delete', {'id': user.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur?')">{{ 'Delete'|trans }}</a>
