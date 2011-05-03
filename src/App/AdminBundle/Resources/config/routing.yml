@@ -13,7 +13,15 @@ _admin_post_index:
     
 _admin_tag_index:
     pattern: /admin/tag
-    defaults: { _controller: AppAdminBundle:Tag:index }    
+    defaults: { _controller: AppAdminBundle:Tag:index } 
+
+_admin_user_index:
+    pattern: /admin/user
+    defaults: { _controller: AppAdminBundle:User:index }
+    
+_admin_team_index:
+    pattern: /admin/team
+    defaults: { _controller: AppAdminBundle:Team:index }    
 
 # add
 _admin_category_add:
@@ -32,6 +40,14 @@ _admin_post_tag_add:
     pattern: /admin/post/{post_id}/tag/add
     defaults: { _controller: AppAdminBundle:Post:addTag }
 
+_admin_team_add:
+    pattern: /admin/team/add
+    defaults: { _controller: AppAdminBundle:Team:add }  
+    
+_admin_user_add:
+    pattern: /admin/user/add
+    defaults: { _controller: AppAdminBundle:User:add }      
+
 # edit
 _admin_category_edit:
     pattern: /admin/category/{id}/edit
@@ -44,6 +60,14 @@ _admin_post_edit:
 _admin_tag_edit:
     pattern: /admin/tag/{id}/edit
     defaults: { _controller: AppAdminBundle:Tag:edit }
+
+_admin_team_edit:
+    pattern: /admin/team/{id}/edit
+    defaults: { _controller: AppAdminBundle:Team:edit }
+    
+_admin_user_edit:
+    pattern: /admin/user/{id}/edit
+    defaults: { _controller: AppAdminBundle:User:edit }    
 
 # delete
 _admin_category_delete:
@@ -61,6 +85,14 @@ _admin_tag_delete:
 _admin_post_tag_delete:
     pattern: /admin/post/{post_id}/tag/{tag_id}/delete
     defaults: { _controller: AppAdminBundle:Post:deleteTag }
+
+_admin_team_delete:
+    pattern: /admin/team/{id}/delete
+    defaults: { _controller: AppAdminBundle:Team:delete }
+
+_admin_user_delete:
+    pattern: /admin/user/{id}/delete
+    defaults: { _controller: AppAdminBundle:User:delete }
 
 # show
 _admin_post_show:
