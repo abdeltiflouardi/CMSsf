@@ -11,13 +11,19 @@
         <div class="header widget">
             <ul class="menu">
                 <li><a href="{{ path('_admin_home') }}">{{ 'Home'|trans }}</a></li>
+                {% if app.user %}
                 <li><a href="{{ path('_admin_post_index') }}">{{ 'Posts'|trans }}</a></li>
                 <li><a href="{{ path('_admin_category_index') }}">{{ 'Categories'|trans }}</a></li>
                 <li><a href="{{ path('_admin_tag_index') }}">{{ 'Tags'|trans }}</a></li>
                 <li><a href="{{ path('_admin_user_index') }}">{{ 'Users'|trans }}</a></li>
                 <li><a href="{{ path('_admin_team_index') }}">{{ 'Teams'|trans }}</a></li>
+                 {% endif %}
                 <li class="menu-right">
-                    <a href="{{ path('_admin_logout') }}">{{ 'Logout'|trans }}</a>
+                    {% if app.user %}
+                        <a href="{{ path('_admin_logout') }}">{{ 'Logout'|trans }}</a>
+                    {% else %}
+                        <a href="{{ path('_signup') }}">{{ 'Signup'|trans }}</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
