@@ -2,14 +2,17 @@
 
 namespace App\CoreBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface,
+    Symfony\Component\Security\Core\Role\Role;
+
 /**
  * App\CoreBundle\Entity\User
  *
  * @orm:Table(name="user")
  * @orm:Entity
  */
-class User
-{
+class User implements UserInterface {
+
     /**
      * @var integer $id
      *
@@ -18,35 +21,30 @@ class User
      * @orm:GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var string $username
      *
      * @orm:Column(name="username", type="string", length=100, nullable=true)
      */
     private $username;
-
     /**
      * @var string $password
      *
      * @orm:Column(name="password", type="string", length=100, nullable=true)
      */
     private $password;
-
     /**
      * @var datetime $createdAt
      *
      * @orm:Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
-
     /**
      * @var datetime $updatedAt
      *
      * @orm:Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-
     /**
      * @var Team
      *
@@ -57,15 +55,12 @@ class User
      */
     private $team;
 
-
-
     /**
      * Get id
      *
      * @return integer $id
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -74,8 +69,7 @@ class User
      *
      * @param string $username
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
     }
 
@@ -84,8 +78,7 @@ class User
      *
      * @return string $username
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -94,8 +87,7 @@ class User
      *
      * @param string $password
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
@@ -104,8 +96,7 @@ class User
      *
      * @return string $password
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -114,8 +105,7 @@ class User
      *
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
@@ -124,8 +114,7 @@ class User
      *
      * @return datetime $createdAt
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -134,8 +123,7 @@ class User
      *
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
 
@@ -144,8 +132,7 @@ class User
      *
      * @return datetime $updatedAt
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -154,8 +141,7 @@ class User
      *
      * @param App\CoreBundle\Entity\Team $team
      */
-    public function setTeam(\App\CoreBundle\Entity\Team $team)
-    {
+    public function setTeam(\App\CoreBundle\Entity\Team $team) {
         $this->team = $team;
     }
 
@@ -164,8 +150,28 @@ class User
      *
      * @return App\CoreBundle\Entity\Team $team
      */
-    public function getTeam()
-    {
+    public function getTeam() {
         return $this->team;
     }
+
+    public function getSalt() {
+        return mb_substr(md5($this->getUsername()), 3, 3);
+    }
+
+    public function eraseCredentials() {
+        return true;
+    }
+
+    public function equals(UserInterface $user) {
+        if ($this->getUsername() != $user->getUsername()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getRoles() {
+        return array(new Role('ROLE_USER'));
+    }
+
 }

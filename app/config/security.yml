@@ -1,16 +1,10 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        App\CoreBundle\Entity\User: md5
 
     providers:
-        in_memory:
-            users:
-                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+      main:
+        entity: { class: App\CoreBundle\Entity\User, property: username }
 
     firewalls:
         profiler:
@@ -20,7 +14,11 @@ security:
         wdt:
             pattern:  ^/_wdt
             security: false
-
+            
+        configurator:
+            pattern: ^/_configurator
+            security: false
+            
         login:
             pattern:  ^/admin/login$
             security: false

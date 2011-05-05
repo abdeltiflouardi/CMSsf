@@ -1,3 +1,7 @@
-_home_web:
+_home:
     pattern:  /
     defaults: { _controller: AppWebBundle:Default:index }
+
+_signup:
+  pattern: /signup
+  defaults: { _controller: AppWebBundle:User:signup }

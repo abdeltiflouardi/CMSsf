@@ -1,0 +1,9 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block body %}
+<form action="{{ path('_signup') }}" method="post">
+    {{ form_widget(form) }}
+
+    <input type="submit" />
+</form>    
+{% endblock %}
