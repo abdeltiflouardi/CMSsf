@@ -7,7 +7,7 @@ class PostController extends AdminBaseController {
     protected $_name = 'Post';
     
     public function indexAction() {
-        $posts = $this->getAll($this->_name);
+        $posts = $this->paginator($this->_name);
         return $this->renderTpl($this->_name . ':index', compact('posts'));
     }   
 

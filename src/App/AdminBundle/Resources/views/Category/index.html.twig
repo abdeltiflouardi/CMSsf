@@ -19,5 +19,6 @@
             </td>
 	</tr>	
 	{% endfor %}
-    </table>	
+    </table>	    
+        {{ paginator_render(categories)|raw }}
 {% endblock %}

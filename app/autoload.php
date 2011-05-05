@@ -16,6 +16,7 @@ $loader->registerNamespaces(array(
     //My Autoload
     'App'	       => __DIR__.'/../src',
     'Knplabs'          => __DIR__.'/../vendor/bundles',
+    'Zend'             => __DIR__.'/../vendor/bundles',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

@@ -171,7 +171,7 @@ class User implements UserInterface {
     }
 
     public function getRoles() {
-        return array(new Role('ROLE_USER'));
+        return array(new Role('ROLE_ADMIN'));
     }
 
 }

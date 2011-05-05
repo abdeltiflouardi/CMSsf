@@ -35,6 +35,31 @@ class BaseController extends Controller {
         return $this->getEm()->getRepository($this->_commonNamespace . $entity);
     }
 
+    public function paginator($entity, $options = array()) {
+        
+        $_default_options = array(
+          'itemPerPage' => 10,
+          'pageRange' => 5
+        );
+        
+        $options = array_merge($_default_options, $options);
+        
+        $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
+        
+        $query = $this->getEm()->createQuery($dql);
+
+        $adapter = $this->get('knplabs_paginator.adapter');
+        $adapter->setQuery($query);
+        $adapter->setDistinct(true);
+
+        $paginator = new \Zend\Paginator\Paginator($adapter);
+        $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
+        $paginator->setItemCountPerPage($options['itemPerPage']);
+        $paginator->setPageRange($options['pageRange']);
+        
+        return $paginator;
+    }
+
     public function renderTpl($action, $params = array()) {
         return $this->render($this->getNamespace() . $action . $this->getTplEngine(), $params);
     }
@@ -73,11 +98,11 @@ class BaseController extends Controller {
             }
 
             if ($form->isValid()) {
-                
+
                 if (isset($options['afterValid']))
                     foreach ($options['afterValid'] as $method => $value)
-                        $$entity->$method($value);                
-                
+                        $$entity->$method($value);
+
                 $em = $this->getEm();
                 $em->persist($$entity);
                 $em->flush();
@@ -104,11 +129,11 @@ class BaseController extends Controller {
             }
 
             if ($form->isValid()) {
-                
+
                 if (isset($options['afterValid']))
                     foreach ($options['afterValid'] as $method => $value)
                         $$entity->$method($value);
-                
+
                 $em = $this->getEm();
                 $em->persist($$entity);
                 $em->flush();

@@ -1,0 +1,3 @@
+[submodule "vendor/bundles/Knplabs/Bundle/PaginatorBundle"]
+	path = vendor/bundles/Knplabs/Bundle/PaginatorBundle
+	url = git://github.com/knplabs/PaginatorBundle.git

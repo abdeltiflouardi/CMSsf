@@ -20,6 +20,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    extensions: [twig.extension.debug, twig.extension.text]
 
 # Assetic Configuration
 assetic:
@@ -64,3 +65,6 @@ jms_security_extra:
 #          - { type: service, id: templating.helper.menu }
 #        tags:
 #            - { name: twig.extension, alias: menu }
+
+knplabs_paginator: 
+    templating: ~
