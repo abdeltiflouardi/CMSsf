@@ -4,11 +4,11 @@
     <div class="button-new"><a href="{{ path('_admin_user_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>Id</th>
-            <th>Team</th>            
-            <th>Username</th>
-            <th>Created</th>
-            <th>Updated</th>            
+            <th>{{ paginator_sort('Id', 'a.id')|raw }}</th>
+            <th>Team{# { paginator_sort('Team', 'a.team')|raw } #}</th>            
+            <th>{{ paginator_sort('Username', 'a.username')|raw }}</th>
+            <th>{{ paginator_sort('CreatedAt', 'a.createdAt')|raw }}</th>
+            <th>{{ paginator_sort('UpdatedAt', 'a.updatedAt')|raw }}</th>            
             <th>Actions</th>
 	</tr>
 

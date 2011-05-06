@@ -4,8 +4,8 @@
     <div class="button-new"><a href="{{ path('_admin_tag_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th>{{ paginator_sort('Id', 'a.id')|raw }}</th>
+            <th>{{ paginator_sort('Name', 'a.name')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
