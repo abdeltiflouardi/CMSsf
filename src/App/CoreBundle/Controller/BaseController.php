@@ -46,6 +46,9 @@ class BaseController extends Controller {
         
         $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
         
+        if (isset($options['where']))
+            $dql .= ' WHERE ' . $options['where'];
+        
         $query = $this->getEm()->createQuery($dql);
 
         $adapter = $this->get('knplabs_paginator.adapter');

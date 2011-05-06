@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface,
  * @orm:Table(name="user")
  * @orm:Entity
  */
-class User implements UserInterface {
+class User implements UserInterface, \Serializable {
 
     /**
      * @var integer $id
@@ -173,5 +173,21 @@ class User implements UserInterface {
     public function getRoles() {
         return array(new Role('ROLE_ADMIN'));
     }
+    
+    public function serialize()
+    {
+      return serialize(
+           array(
+                $this->getUsername()
+           )
+      );
+    }
+
+    public function unserialize($serialized)
+    {
+
+      $arr = unserialize($serialized);
+      $this->setUsername($arr[0]);
+    }    
 
 }

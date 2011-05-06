@@ -9,7 +9,10 @@
     </head>
     <body>
         <div id="sidebar">
-            
+            <form action="{{ path('_home') }}">
+                <input type="text" name="q" />
+                <input type="submit" value={{ "Rechercher"|trans }} />
+            </form>
         </div>
 
         <div id="content">
