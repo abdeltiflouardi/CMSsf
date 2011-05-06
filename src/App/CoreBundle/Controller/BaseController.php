@@ -38,7 +38,7 @@ class BaseController extends Controller {
     public function paginator($entity, $options = array()) {
         
         $_default_options = array(
-          'itemPerPage' => 10,
+          'itemPerPage' => 5,
           'pageRange' => 5
         );
         

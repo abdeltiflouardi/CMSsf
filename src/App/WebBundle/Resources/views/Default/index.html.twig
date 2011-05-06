@@ -7,4 +7,6 @@
         <p>{{ post.body }}</p>
     </div>
     {% endfor %}
+
+    {{ paginator_render(posts)|raw }}
 {% endblock %}

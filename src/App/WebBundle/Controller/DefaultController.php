@@ -6,7 +6,7 @@ class DefaultController extends WebBaseController
 {
     public function indexAction()
     {
-        $posts = $this->getAll('Post');
+        $posts = $this->paginator('Post');
         return $this->renderTpl('Default:index', compact('posts'));
     }
 }
