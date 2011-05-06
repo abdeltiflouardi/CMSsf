@@ -5,3 +5,7 @@ _home:
 _signup:
   pattern: /signup
   defaults: { _controller: AppWebBundle:User:signup }
+  
+_category:
+  pattern: /{category_id}-{slug}
+  defaults: { _controller: AppWebBundle:Default:index }
