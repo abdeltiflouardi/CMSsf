@@ -94,4 +94,3 @@ $DIR/bin/build_bootstrap.php
 
 # Update assets
 $DIR/app/console assets:install $DIR/web/
-
