@@ -3,3 +3,7 @@ _default_web:
     
 _default_admin:
     resource: "@AppAdminBundle/Resources/config/routing.yml"
+
+_error403:
+    pattern: /error403
+    defaults: { _controller: AppCoreBundle:Error:error403 }

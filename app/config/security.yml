@@ -33,6 +33,7 @@ security:
 
         secured_area:
             pattern:    ^/.*
+            access_denied_url: /error403
             form_login:
                 check_path: /admin/login_check
                 login_path: /admin/login

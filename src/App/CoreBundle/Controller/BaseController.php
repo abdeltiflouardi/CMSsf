@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller {
 
-    protected $_namespace = null;
+    protected $_namespace = 'AppCoreBundle:';
     protected $_commonNamespace = 'AppCoreBundle:';
     protected $_commonNamespacePath = 'App\CoreBundle';
     protected $_tplEngine = '.html.twig';

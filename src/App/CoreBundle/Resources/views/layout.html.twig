@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Test Application{% endblock %}</title>
+        <link href="{{ asset('bundles/appcore/css/common.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/appadmin/css/admin.css') }}" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        
+        <div class="header widget">
+            <ul class="menu">
+                <li><a href="{{ path('_admin_home') }}">{{ 'Home'|trans }}</a></li>
+                <li class="menu-right">
+                    {% if app.user %}
+                        <a href="{{ path('_admin_logout') }}">{{ 'Logout'|trans }}</a>
+                    {% else %}
+                        <a href="{{ path('_signup') }}">{{ 'Signup'|trans }}</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content widget">
+            {% block body %}{% endblock %}
+        </div>
+        
+        <div class="footer widget">
+        </div>
+        
+    </body>
+</html>
