@@ -10,6 +10,7 @@ class Team extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
+        $builder->add('role');     
     }
 
     public function getDefaultOptions(array $options)

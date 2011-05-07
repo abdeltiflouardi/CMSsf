@@ -26,7 +26,12 @@ class Team
      */
     private $name;
 
-
+    /**
+     * @var string $role
+     *
+     * @orm:Column(name="role", type="string", length=100, nullable=true)
+     */
+    private $role;
 
     /**
      * Get id
@@ -57,4 +62,24 @@ class Team
     {
         return $this->name;
     }
+    /**
+     * Set role
+     *
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string $role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }    
+    
 }

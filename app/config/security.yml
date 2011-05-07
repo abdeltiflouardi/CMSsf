@@ -6,6 +6,14 @@ security:
       main:
         entity: { class: App\CoreBundle\Entity\User, property: username }
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_MODERATE
+        ROLE_MODERATE:    ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_MODERATE, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    acl:
+        connection: default
+
     firewalls:
         profiler:
             pattern:  ^/_profiler
@@ -36,5 +44,5 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-      - { path: /admin.*, roles: ROLE_ADMIN }
+      - { path: /admin.*, roles: [ROLE_MODERATE] }
       - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

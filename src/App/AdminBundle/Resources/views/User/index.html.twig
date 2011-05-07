@@ -21,7 +21,9 @@
             <td>{{ user.updatedAt|date }}</td>
             <td>
                 <a href="{{ path('_admin_user_edit', {'id': user.id}) }}">{{ 'Edit'|trans }}</a>
+                {% if is_granted('ROLE_ADMIN') %}
 		<a href="{{ path('_admin_user_delete', {'id': user.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur?')">{{ 'Delete'|trans }}</a>
+                {% endif %}
             </td>
 	</tr>	
 	{% endfor %}

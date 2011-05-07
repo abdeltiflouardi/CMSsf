@@ -53,6 +53,16 @@ class UserController extends AdminBaseController {
          */
         $password = $this->getEncodePassword($user);
         return $this->addItem($this->_name, array('afterValid' => array('setPassword' => $password)));
-    }    
+    }
+    
+    public function deleteAction($id) {
+        $securityContext = $this->container->get('security.context');
+
+        // check for edit access
+        if (!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
+        return parent::deleteAction($id);
+    }
 }
 

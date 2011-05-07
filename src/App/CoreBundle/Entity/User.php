@@ -175,7 +175,7 @@ class User implements UserInterface, \Serializable {
     }
 
     public function getRoles() {
-        return array(new Role('ROLE_ADMIN'));
+        return array(new Role($this->getTeam()->getRole()));
     }
     
     public function serialize()

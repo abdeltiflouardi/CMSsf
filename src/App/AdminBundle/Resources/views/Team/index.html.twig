@@ -6,6 +6,7 @@
         <tr>
             <th>{{ paginator_sort('Id', 'a.id')|raw }}</th>
             <th>{{ paginator_sort('Name', 'a.name')|raw }}</th>
+            <th>{{ paginator_sort('Role', 'a.role')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
@@ -13,6 +14,7 @@
 	<tr> 
             <td>{{ team.id }}</td>
             <td>{{ team.name }}</td>
+            <td>{{ team.role }}</td>
             <td>
                 <a href="{{ path('_admin_team_edit', {'id': team.id}) }}">{{ 'Edit'|trans }}</a>
 		<a href="{{ path('_admin_team_delete', {'id': team.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce groupe?')">{{ 'Delete'|trans }}</a>
