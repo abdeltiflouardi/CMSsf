@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
 
 framework:
+    translator: { fallback: %locale% }
     secret:        %secret%
     charset:       UTF-8
     csrf_protection:
@@ -19,7 +20,6 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    extensions: [twig.extension.debug, twig.extension.text]
 
 # Assetic Configuration
 assetic:

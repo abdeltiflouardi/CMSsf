@@ -11,7 +11,7 @@
         <div id="sidebar">
             <form action="{{ path('_home') }}">
                 <input type="text" name="q" />
-                <input type="submit" value={{ "Rechercher"|trans }} />
+                <input type="submit" value="{% trans %}Search{% endtrans %}" />
             </form>
         </div>
 
