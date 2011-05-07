@@ -9,7 +9,7 @@ security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_MODERATE
         ROLE_MODERATE:    ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_MODERATE, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_MODERATE, ROLE_ADMIN]
 
     acl:
         connection: default
@@ -32,16 +32,14 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/admin.*
+            pattern:    ^/.*
             form_login:
                 check_path: /admin/login_check
                 login_path: /admin/login
             logout:
                 path:   /admin/logout
                 target: /admin
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
+            anonymous: ~
 
     access_control:
       - { path: /admin.*, roles: [ROLE_MODERATE] }
