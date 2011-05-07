@@ -7,6 +7,7 @@ namespace App\CoreBundle\Entity;
  *
  * @orm:Table(name="post")
  * @orm:Entity
+ * @orm:HasLifecycleCallbacks
  */
 class Post
 {
@@ -236,5 +237,20 @@ class Post
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * @orm:PrePersist
+     */
+    public function prePersist() {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+    }    
+    
+    /**
+     * @orm:PreUpdate
+     */
+    public function preUpdate() {
+        $this->setUpdatedAt(new \DateTime);
     }
 }

@@ -92,14 +92,6 @@ class BaseController extends Controller {
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 
-            if (method_exists($$entity, 'setCreatedAt')) {
-                $$entity->setCreatedAt(new \DateTime);
-            }
-
-            if (method_exists($$entity, 'setUpdatedAt')) {
-                $$entity->setUpdatedAt(new \DateTime);
-            }
-
             if ($form->isValid()) {
 
                 if (isset($options['afterValid']))
@@ -126,10 +118,6 @@ class BaseController extends Controller {
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
-
-            if (method_exists($$entity, 'setUpdatedAt')) {
-                $$entity->setUpdatedAt(new \DateTime);
-            }
 
             if ($form->isValid()) {
 

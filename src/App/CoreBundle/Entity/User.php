@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface,
  *
  * @orm:Table(name="user")
  * @orm:Entity
+ * @orm:HasLifecycleCallbacks
  */
 class User implements UserInterface, \Serializable {
 
@@ -154,6 +155,9 @@ class User implements UserInterface, \Serializable {
         return $this->team;
     }
 
+    /*
+     * 
+     */
     public function getSalt() {
         return mb_substr(md5($this->getUsername()), 3, 3);
     }
@@ -190,4 +194,18 @@ class User implements UserInterface, \Serializable {
       $this->setUsername($arr[0]);
     }    
 
+    /**
+     * @orm:PrePersist
+     */
+    public function prePersist() {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+    }    
+    
+    /**
+     * @orm:PreUpdate
+     */
+    public function preUpdate() {
+        $this->setUpdatedAt(new \DateTime);
+    }
 }
