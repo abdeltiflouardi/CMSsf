@@ -37,13 +37,15 @@ class BaseController extends Controller {
 
     public function paginator($entity, $options = array()) {
         
+	$entity = isset($options['entity']) ? $options['entity'] : $entity;
+
         $_default_options = array(
           'itemPerPage' => 5,
           'pageRange' => 5
         );
         
-        $options = array_merge($_default_options, $options);
-        
+        $options = array_merge($_default_options, $options);     
+ 
         $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
         
         if (isset($options['where']))

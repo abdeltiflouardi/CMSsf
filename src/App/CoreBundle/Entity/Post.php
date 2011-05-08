@@ -83,6 +83,11 @@ class Post
      */
     private $user;
 
+    /**
+     * Words tags
+     */
+    private $words;
+
     public function __construct()
     {
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
@@ -252,5 +257,19 @@ class Post
      */
     public function preUpdate() {
         $this->setUpdatedAt(new \DateTime);
+    }
+
+    /**
+     * set $words
+     */
+    public function setWords($words) {
+	$this->words = $words;
+    }
+
+    /**
+     * get words
+     */
+    public function getWords() {
+	return $this->words;
     }
 }

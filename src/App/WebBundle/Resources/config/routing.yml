@@ -9,3 +9,7 @@ _signup:
 _category:
   pattern: /{category_id}-{slug}
   defaults: { _controller: AppWebBundle:Default:index }
+
+_tag:
+  pattern: /tag/{tag_id}-{tag}
+  defaults: { _controller: AppWebBundle:Default:index }

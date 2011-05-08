@@ -6,10 +6,11 @@ class DefaultController extends WebBaseController {
 
     public function indexAction() {
         $categories = $this->getAll('Category');
-        
+       
         $params = array();
         $this->searchByWord($params);
         $this->searchByCategory($params);
+	$this->searchByTag($params);
 
         //$params['itemPerPage'] = 1;
         $posts = $this->paginator('Post', $params);
@@ -30,6 +31,18 @@ class DefaultController extends WebBaseController {
         $slug = $this->get('request')->get('slug');
         if (!empty($category_id)) {
             $params['where'] = "a.category = $category_id";
+        }
+    }
+
+    private function searchByTag(&$params) {
+        $tag_id = $this->get('request')->get('tag_id');
+        $tag = $this->get('request')->get('tag');
+        if (!empty($tag_id)) {
+	    $tag = $this->findOne("Tag", $tag_id);
+	    foreach($tag->getPost() as $post) 
+		$in[] = $post->getId();
+	    $in = implode(',', $in);	    
+            $params['where'] = "a.id IN ($in)";
         }
     }
 

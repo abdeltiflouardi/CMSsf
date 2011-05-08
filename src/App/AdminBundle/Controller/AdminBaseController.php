@@ -18,6 +18,6 @@ class AdminBaseController extends BaseController {
     }
 
     public function deleteAction($id) {
-        return $this->removeItem($this->_name, $id);
-    }    
+       return $this->removeItem($this->_name, $id);
+    }
  }

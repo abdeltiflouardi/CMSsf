@@ -13,12 +13,13 @@ class Post extends AbstractType
         $builder->add('category', null, array('property' => 'name'));
         $builder->add('title');
         $builder->add('body');
+	$builder->add('words', 'text');
     }
 
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'App\CoreBundle\Entity\Post',
+	    'data_class' => 'App\CoreBundle\Entity\Post',
         );
     }
 }

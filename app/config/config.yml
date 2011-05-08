@@ -57,7 +57,13 @@ jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
 
-#services:
+services:
+     tags:
+          class:     App\CoreBundle\Services\Tags     
+          arguments: [@request]
+          scope: request
+
+
 #    twig.extension.menu:
 #        class: Knplabs\Bundle\MenuBundle\Twig\MenuExtension
 #        arguments:
@@ -67,3 +73,4 @@ jms_security_extra:
 
 knplabs_paginator: 
     templating: ~
+

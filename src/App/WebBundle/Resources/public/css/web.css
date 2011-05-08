@@ -199,3 +199,8 @@ ul.menu li {
 ul.menu li.menu-right {
     float: right;
 }
+
+.post-tags a{
+	color: #666;
+	font-size: 10px;
+}
