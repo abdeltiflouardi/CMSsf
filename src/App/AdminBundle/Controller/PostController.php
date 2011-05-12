@@ -9,11 +9,6 @@ class PostController extends AdminBaseController {
     public function __construct() {
     }
 
-    public function init() {
-        $this->get('tags')->parseTags();
-       exit; 
-	}
-
     public function indexAction() {
         $posts = $this->paginator($this->_name);
         return $this->renderTpl($this->_name . ':index', compact('posts'));

@@ -99,10 +99,15 @@ class BaseController extends Controller {
                 if (isset($options['afterValid']))
                     foreach ($options['afterValid'] as $method => $value)
                         $$entity->$method($value);
-
+		
                 $em = $this->getEm();
                 $em->persist($$entity);
                 $em->flush();
+
+		//Insert Tags
+		$this->get('tags')->addTags($$entity->getId());
+
+		//Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
             }
         }
@@ -130,6 +135,11 @@ class BaseController extends Controller {
                 $em = $this->getEm();
                 $em->persist($$entity);
                 $em->flush();
+		
+		//Edit Tags
+		$this->get('tags')->editTags($$entity->getId());
+
+		//Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
             }
         }
@@ -140,6 +150,11 @@ class BaseController extends Controller {
 
     public function removeItem($entity, $id) {
         $this->removeOne($entity, $id);
+	
+	// Delete Tags
+	$this->get('tags')->deleteTags($id);
+
+	// Redirect
         return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
     }
 

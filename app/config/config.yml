@@ -59,9 +59,9 @@ jms_security_extra:
 
 services:
      tags:
-          class:     App\CoreBundle\Services\Tags     
-          arguments: [@request]
-          scope: request
+         class: App\CoreBundle\Services\Tags
+         arguments: [@request, @doctrine.orm.entity_manager]
+         scope: request
 
 
 #    twig.extension.menu:
