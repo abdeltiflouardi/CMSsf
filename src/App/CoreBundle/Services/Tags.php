@@ -59,14 +59,18 @@ class Tags {
 	}
 
 	public function editTags($id) {
-                $tags = $this->parseTags();
-                if (!$tags)
-                        return null;
+		
+		$post = $this->_em->find($this->_namespace . ':Post', $id);
+		foreach ($post->getTag() as $tag) {
+			$post->getTag()->removeElement($tag);
+			$tag->getPost()->removeElement($post);
+
+			$this->_em->persist($post);
+			$this->_em->persist($tag);
+			$this->_em->flush();
+		}
+
+		$this->addTags($id);
 	}
 
-	public function deleteTags($id) {
-                $tags = $this->parseTags();
-                if (!$tags)
-                        return null;
-	}
 }

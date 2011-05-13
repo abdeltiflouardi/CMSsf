@@ -270,6 +270,8 @@ class Post
      * get words
      */
     public function getWords() {
-	return $this->words;
+	$tags = array();
+	foreach ($this->getTag() as $tag) $tags[] = $tag->getName();
+	return implode(',', $tags);
     }
 }

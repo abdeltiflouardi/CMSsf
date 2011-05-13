@@ -150,9 +150,6 @@ class BaseController extends Controller {
 
     public function removeItem($entity, $id) {
         $this->removeOne($entity, $id);
-	
-	// Delete Tags
-	$this->get('tags')->deleteTags($id);
 
 	// Redirect
         return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
