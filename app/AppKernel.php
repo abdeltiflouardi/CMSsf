@@ -6,10 +6,9 @@ use Symfony\Component\ClassLoader\DebugUniversalClassLoader;
 use Symfony\Component\HttpKernel\Debug\ErrorHandler;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
+class AppKernel extends Kernel {
+
+    public function registerBundles() {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -17,16 +16,15 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-	    new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-
-	    //My Bundle
-	    new App\CoreBundle\AppCoreBundle(),
+            //My Bundle
+            new App\CoreBundle\AppCoreBundle(),
             new App\WebBundle\AppWebBundle(),
             new App\AdminBundle\AppAdminBundle(),
-            new Knplabs\Bundle\PaginatorBundle\KnplabsPaginatorBundle(),            
+            new Knplabs\Bundle\PaginatorBundle\KnplabsPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -37,8 +35,7 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function init()
-    {
+    public function init() {
         if ($this->debug) {
             ini_set('display_errors', 1);
             error_reporting(-1);
@@ -49,10 +46,10 @@ class AppKernel extends Kernel
         } else {
             ini_set('display_errors', 0);
         }
-    }    
-    
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    public function registerContainerConfiguration(LoaderInterface $loader) {
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+    }
+
 }
