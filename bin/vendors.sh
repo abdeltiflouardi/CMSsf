@@ -52,10 +52,10 @@ install_git assetic http://github.com/kriswallsmith/assetic.git
 install_git symfony http://github.com/symfony/symfony.git #v$VERSION
 
 # Doctrine ORM
-install_git doctrine http://github.com/doctrine/doctrine2.git 2.0.4
+install_git doctrine http://github.com/doctrine/doctrine2.git 2.0.5
 
 # Doctrine DBAL
-install_git doctrine-dbal http://github.com/doctrine/dbal.git 2.0.4
+install_git doctrine-dbal http://github.com/doctrine/dbal.git 2.0.5
 
 # Doctrine Common
 install_git doctrine-common http://github.com/doctrine/common.git 2.0.2
@@ -71,6 +71,9 @@ install_git twig-extensions http://github.com/fabpot/Twig-extensions.git
 
 # Monolog
 install_git monolog http://github.com/Seldaek/monolog.git
+
+# Doctrine Fixtures
+install_git doctrine-fixtures https://github.com/doctrine/data-fixtures.git
 
 # SensioFrameworkExtraBundle
 mkdir -p $BUNDLES/Sensio/Bundle
@@ -88,6 +91,9 @@ cd $BUNDLES/Symfony/Bundle
 
 # WebConfiguratorBundle
 install_git WebConfiguratorBundle http://github.com/symfony/WebConfiguratorBundle.git
+
+# DoctrineFixturesBundle
+install_git DoctrineFixturesBundle https://github.com/symfony/DoctrineFixturesBundle.git
 
 # Update the bootstrap files
 $DIR/bin/build_bootstrap.php
