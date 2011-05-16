@@ -15,7 +15,7 @@
 	{% for user in users %}
 	<tr> 
             <td>{{ user.id }}</td>
-            <td>{{ user.team.name }}</td>            
+            <td>{% for team in user.team %} {{ team.name }} <br /> {% endfor %}</td>            
             <td>{{ user.username }}</td>
             <td>{{ user.createdAt|date }}</td>
             <td>{{ user.updatedAt|date }}</td>

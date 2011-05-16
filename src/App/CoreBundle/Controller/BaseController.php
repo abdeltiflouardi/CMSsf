@@ -98,7 +98,7 @@ class BaseController extends Controller {
 
                 if (isset($options['afterValid']))
                     foreach ($options['afterValid'] as $method => $value)
-                        $$entity->$method($value);
+                        	$$entity->$method($value);
 		
                 $em = $this->getEm();
                 $em->persist($$entity);

@@ -40,39 +40,49 @@ install_git()
     fi
 
     cd $INSTALL_DIR
+    echo "> Reseting to version" $REV
     git fetch origin
     git reset --hard $REV
-    cd ..
 }
 
 # Assetic
+cd $VENDOR
 install_git assetic http://github.com/kriswallsmith/assetic.git
 
 # Symfony
+cd $VENDOR
 install_git symfony http://github.com/symfony/symfony.git #v$VERSION
 
 # Doctrine ORM
+cd $VENDOR
 install_git doctrine http://github.com/doctrine/doctrine2.git 2.0.5
 
 # Doctrine DBAL
+cd $VENDOR
 install_git doctrine-dbal http://github.com/doctrine/dbal.git 2.0.5
 
 # Doctrine Common
+cd $VENDOR
 install_git doctrine-common http://github.com/doctrine/common.git 2.0.2
 
 # Swiftmailer
+cd $VENDOR
 install_git swiftmailer http://github.com/swiftmailer/swiftmailer.git origin/4.1
 
 # Twig
+cd $VENDOR
 install_git twig http://github.com/fabpot/Twig.git
 
 # Twig Extensions
+cd $VENDOR
 install_git twig-extensions http://github.com/fabpot/Twig-extensions.git
 
 # Monolog
+cd $VENDOR
 install_git monolog http://github.com/Seldaek/monolog.git
 
 # Doctrine Fixtures
+cd $VENDOR
 install_git doctrine-fixtures https://github.com/doctrine/data-fixtures.git
 
 # SensioFrameworkExtraBundle

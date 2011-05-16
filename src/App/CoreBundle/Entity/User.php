@@ -7,62 +7,40 @@ use Symfony\Component\Security\Core\User\UserInterface,
 
 /**
  * App\CoreBundle\Entity\User
- *
- * @orm:Table(name="user")
- * @orm:Entity
- * @orm:HasLifecycleCallbacks
  */
 class User implements UserInterface, \Serializable {
 
     /**
-     * @var integer $id
-     *
-     * @orm:Column(name="id", type="integer", nullable=false)
-     * @orm:Id
-     * @orm:GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-    /**
      * @var string $username
-     *
-     * @orm:Column(name="username", type="string", length=100, nullable=true)
      */
     private $username;
     /**
      * @var string $password
-     *
-     * @orm:Column(name="password", type="string", length=100, nullable=true)
      */
     private $password;
     /**
+     * @var boolean $enabled
+     */
+    private $enabled;
+    /**
      * @var datetime $createdAt
-     *
-     * @orm:Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
     /**
      * @var datetime $updatedAt
-     *
-     * @orm:Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
     /**
-     * @var Team
-     *
-     * @orm:ManyToOne(targetEntity="Team")
-     * @orm:JoinColumns({
-     *   @orm:JoinColumn(name="team_id", referencedColumnName="id")
-     * })
+     * @var integer $id
+     */
+    private $id;
+    /**
+     * @var App\CoreBundle\Entity\Team
      */
     private $team;
 
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId() {
-        return $this->id;
+    public function __construct() {
+        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -102,6 +80,24 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean $enabled
+     */
+    public function getEnabled() {
+        return $this->enabled;
+    }
+
+    /**
      * Set createdAt
      *
      * @param datetime $createdAt
@@ -138,18 +134,27 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
-     * Set team
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Add team
      *
      * @param App\CoreBundle\Entity\Team $team
      */
-    public function setTeam(\App\CoreBundle\Entity\Team $team) {
-        $this->team = $team;
+    public function addTeam(\App\CoreBundle\Entity\Team $team) {
+        $this->team[] = $team;
     }
 
     /**
      * Get team
      *
-     * @return App\CoreBundle\Entity\Team $team
+     * @return Doctrine\Common\Collections\Collection $team
      */
     public function getTeam() {
         return $this->team;
@@ -158,6 +163,7 @@ class User implements UserInterface, \Serializable {
     /*
      * 
      */
+
     public function getSalt() {
         return mb_substr(md5($this->getUsername()), 3, 3);
     }
@@ -175,37 +181,25 @@ class User implements UserInterface, \Serializable {
     }
 
     public function getRoles() {
-        return array(new Role($this->getTeam()->getRole()));
-    }
-    
-    public function serialize()
-    {
-      return serialize(
-           array(
-                $this->getUsername()
-           )
-      );
+        $roles = array();
+        foreach ($this->getTeam() as $team)
+            $roles[] = new Role($team->getRole());
+
+        return $roles;
     }
 
-    public function unserialize($serialized)
-    {
-
-      $arr = unserialize($serialized);
-      $this->setUsername($arr[0]);
-    }    
-
-    /**
-     * @orm:PrePersist
-     */
-    public function prePersist() {
-        $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt(new \DateTime);
-    }    
-    
-    /**
-     * @orm:PreUpdate
-     */
-    public function preUpdate() {
-        $this->setUpdatedAt(new \DateTime);
+    public function serialize() {
+        return serialize(
+                array(
+                    $this->getUsername()
+                )
+        );
     }
+
+    public function unserialize($serialized) {
+
+        $arr = unserialize($serialized);
+        $this->setUsername($arr[0]);
+    }
+
 }

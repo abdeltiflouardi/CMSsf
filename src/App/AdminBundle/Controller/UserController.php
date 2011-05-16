@@ -54,7 +54,7 @@ class UserController extends AdminBaseController {
         $password = $this->getEncodePassword($user);
         return $this->addItem($this->_name, array('afterValid' => array('setPassword' => $password)));
     }
-    
+
     public function deleteAction($id) {
         $securityContext = $this->container->get('security.context');
 

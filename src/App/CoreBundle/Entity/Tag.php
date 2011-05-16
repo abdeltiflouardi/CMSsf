@@ -4,49 +4,24 @@ namespace App\CoreBundle\Entity;
 
 /**
  * App\CoreBundle\Entity\Tag
- *
- * @orm:Table(name="tag")
- * @orm:Entity
  */
-class Tag
-{
-    /**
-     * @var integer $id
-     *
-     * @orm:Column(name="id", type="integer", nullable=false)
-     * @orm:Id
-     * @orm:GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+class Tag {
 
     /**
      * @var string $name
-     *
-     * @orm:Column(name="name", type="string", length=100, nullable=true)
      */
     private $name;
-
     /**
-     * @var Post
-     *
-     * @orm:ManyToMany(targetEntity="Post", mappedBy="tag")
+     * @var integer $id
+     */
+    private $id;
+    /**
+     * @var App\CoreBundle\Entity\Post
      */
     private $post;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->post = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -54,8 +29,7 @@ class Tag
      *
      * @param string $name
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
     }
 
@@ -64,9 +38,17 @@ class Tag
      *
      * @return string $name
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**
@@ -74,8 +56,7 @@ class Tag
      *
      * @param App\CoreBundle\Entity\Post $post
      */
-    public function addPost(\App\CoreBundle\Entity\Post $post)
-    {
+    public function addPost(\App\CoreBundle\Entity\Post $post) {
         $this->post[] = $post;
     }
 
@@ -84,8 +65,8 @@ class Tag
      *
      * @return Doctrine\Common\Collections\Collection $post
      */
-    public function getPost()
-    {
+    public function getPost() {
         return $this->post;
     }
+
 }

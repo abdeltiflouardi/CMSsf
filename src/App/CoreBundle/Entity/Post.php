@@ -4,104 +4,52 @@ namespace App\CoreBundle\Entity;
 
 /**
  * App\CoreBundle\Entity\Post
- *
- * @orm:Table(name="post")
- * @orm:Entity
- * @orm:HasLifecycleCallbacks
  */
-class Post
-{
-    /**
-     * @var integer $id
-     *
-     * @orm:Column(name="id", type="integer", nullable=false)
-     * @orm:Id
-     * @orm:GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+class Post {
 
     /**
      * @var string $title
-     *
-     * @orm:Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
-
     /**
      * @var text $body
-     *
-     * @orm:Column(name="body", type="text", nullable=true)
      */
     private $body;
-
+    /**
+     * @var boolean $enabled
+     */
+    private $enabled;
     /**
      * @var datetime $createdAt
-     *
-     * @orm:Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
-
     /**
      * @var datetime $updatedAt
-     *
-     * @orm:Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-
     /**
-     * @var Tag
-     *
-     * @orm:ManyToMany(targetEntity="Tag", inversedBy="post")
-     * @orm:JoinTable(name="post_tag",
-     *   joinColumns={
-     *     @orm:JoinColumn(name="post_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @orm:JoinColumn(name="tag_id", referencedColumnName="id")
-     *   }
-     * )
+     * @var integer $id
      */
-    private $tag;
-
+    private $id;
     /**
-     * @var Category
-     *
-     * @orm:ManyToOne(targetEntity="Category")
-     * @orm:JoinColumns({
-     *   @orm:JoinColumn(name="category_id", referencedColumnName="id")
-     * })
+     * @var App\CoreBundle\Entity\Category
      */
     private $category;
-
     /**
-     * @var User
-     *
-     * @orm:ManyToOne(targetEntity="User")
-     * @orm:JoinColumns({
-     *   @orm:JoinColumn(name="user_id", referencedColumnName="id")
-     * })
+     * @var App\CoreBundle\Entity\User
      */
     private $user;
-
+    /**
+     * @var App\CoreBundle\Entity\Tag
+     */
+    private $tag;
     /**
      * Words tags
      */
     private $words;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -109,8 +57,7 @@ class Post
      *
      * @param string $title
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
 
@@ -119,8 +66,7 @@ class Post
      *
      * @return string $title
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -129,8 +75,7 @@ class Post
      *
      * @param text $body
      */
-    public function setBody($body)
-    {
+    public function setBody($body) {
         $this->body = $body;
     }
 
@@ -139,9 +84,26 @@ class Post
      *
      * @return text $body
      */
-    public function getBody()
-    {
+    public function getBody() {
         return $this->body;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean $enabled
+     */
+    public function getEnabled() {
+        return $this->enabled;
     }
 
     /**
@@ -149,8 +111,7 @@ class Post
      *
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
@@ -159,8 +120,7 @@ class Post
      *
      * @return datetime $createdAt
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -169,8 +129,7 @@ class Post
      *
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
 
@@ -179,29 +138,17 @@ class Post
      *
      * @return datetime $updatedAt
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
     /**
-     * Add tag
+     * Get id
      *
-     * @param App\CoreBundle\Entity\Tag $tag
+     * @return integer $id
      */
-    public function addTag(\App\CoreBundle\Entity\Tag $tag)
-    {
-        $this->tag[] = $tag;
-    }
-
-    /**
-     * Get tag
-     *
-     * @return Doctrine\Common\Collections\Collection $tag
-     */
-    public function getTag()
-    {
-        return $this->tag;
+    public function getId() {
+        return $this->id;
     }
 
     /**
@@ -209,8 +156,7 @@ class Post
      *
      * @param App\CoreBundle\Entity\Category $category
      */
-    public function setCategory(\App\CoreBundle\Entity\Category $category)
-    {
+    public function setCategory(\App\CoreBundle\Entity\Category $category) {
         $this->category = $category;
     }
 
@@ -219,8 +165,7 @@ class Post
      *
      * @return App\CoreBundle\Entity\Category $category
      */
-    public function getCategory()
-    {
+    public function getCategory() {
         return $this->category;
     }
 
@@ -229,8 +174,7 @@ class Post
      *
      * @param App\CoreBundle\Entity\User $user
      */
-    public function setUser(\App\CoreBundle\Entity\User $user)
-    {
+    public function setUser(\App\CoreBundle\Entity\User $user) {
         $this->user = $user;
     }
 
@@ -239,39 +183,43 @@ class Post
      *
      * @return App\CoreBundle\Entity\User $user
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
-    
+
     /**
-     * @orm:PrePersist
+     * Add tag
+     *
+     * @param App\CoreBundle\Entity\Tag $tag
      */
-    public function prePersist() {
-        $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt(new \DateTime);
-    }    
-    
+    public function addTag(\App\CoreBundle\Entity\Tag $tag) {
+        $this->tag[] = $tag;
+    }
+
     /**
-     * @orm:PreUpdate
+     * Get tag
+     *
+     * @return Doctrine\Common\Collections\Collection $tag
      */
-    public function preUpdate() {
-        $this->setUpdatedAt(new \DateTime);
+    public function getTag() {
+        return $this->tag;
     }
 
     /**
      * set $words
      */
     public function setWords($words) {
-	$this->words = $words;
+        $this->words = $words;
     }
 
     /**
      * get words
      */
     public function getWords() {
-	$tags = array();
-	foreach ($this->getTag() as $tag) $tags[] = $tag->getName();
-	return implode(',', $tags);
+        $tags = array();
+        foreach ($this->getTag() as $tag)
+            $tags[] = $tag->getName();
+        return implode(',', $tags);
     }
+
 }
