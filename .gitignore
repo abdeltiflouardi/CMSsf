@@ -2,7 +2,7 @@ app/logs/*
 app/cache/*
 app/bootstrap*
 nbproject/private/
-config/parameters.ini
+app/config/parameters.ini
 vendor/
 build/
 web/bundles/
