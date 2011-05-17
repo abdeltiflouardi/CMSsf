@@ -27,6 +27,12 @@
                 </li>
             </ul>
         </div>
+
+	{% if app.session.flash('message') %}
+	<div class="flash-message widget">
+		{{ app.session.flash('message') }}
+	</div>
+	{% endif %}	
         
         <div class="content widget">
             {% block body %}{% endblock %}

@@ -106,7 +106,10 @@ class BaseController extends Controller {
 
 		//Insert Tags
 		$this->get('tags')->addTags($$entity->getId());
-
+		
+		// Session flash
+		$this->flash(strtolower($entity) . ' added');
+		
 		//Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
             }
@@ -138,6 +141,9 @@ class BaseController extends Controller {
 		
 		//Edit Tags
 		$this->get('tags')->editTags($$entity->getId());
+
+		// Session flash
+		$this->flash(strtolower($entity) . ' edited');
 
 		//Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
