@@ -165,8 +165,8 @@ class BaseController extends Controller {
         return new $type;
     }
 
-    public function getForm($entity) {
-        return $this->get('form.factory')->create($this->getType($entity));
+    public function getForm($entity, $param = null) {
+        return $this->get('form.factory')->create($this->getType($entity), $param);
     }
 
     public function getEncodePassword($user = null) {
@@ -174,6 +174,18 @@ class BaseController extends Controller {
         $encoder = $encoders->getEncoder($user);
 
         return $encoder->encodePassword($user->getPassword(), $user->getSalt());
+    }
+
+    public function trans($text) {
+	return $this->get('translator')->trans($text);
+    }
+
+    public function flash($message, $type = "message") {
+	$this->get('session')->setFlash($type, $this->trans($message));
+    }
+
+    public function myRedirect($router) {
+	return $this->redirect($this->generateUrl($router));
     }
 
 }

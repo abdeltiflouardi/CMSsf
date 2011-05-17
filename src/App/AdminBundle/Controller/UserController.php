@@ -11,48 +11,79 @@ class UserController extends AdminBaseController {
         return $this->renderTpl($this->_name . ':index', compact('users'));
     }
 
-    public function editAction($id) {
-        /**
-         * Get posted password
-         */
-        $request = $this->get('request');
-        $request_user = $request->request->get('user');
-        $password = $request_user['password']['Password'];
+    public function addAction() {
+	
+	$user = $this->getEntity($this->_name);
 
-        /**
-         * Return User object
-         */
-        $user = $this->findOne($this->_name, $id);
-        $user->setPassword($password);
+	$form = $this->getForm($this->_name);
+	$form->setData($user);
 
-        /**
-         * Return User encode password
-         */
-        $password = $this->getEncodePassword($user);
-        return $this->editItem($this->_name, $id, array('afterValid' => array('setPassword' => $password)));
+	$req_user = $this->get('request');
+	if ($req_user->getMethod() == 'POST') {
+		$form->bindRequest($req_user);
+
+		/**
+		 * Return User encode password
+		 */
+		$password = $this->getEncodePassword($user);
+		$user->setPassword($password);
+
+		$em = $this->getEm();
+		foreach ($user->getTeam() as $team) {
+			$team->getUser()->add($user);
+
+			$em->persist($user);
+			$em->persist($team);
+			$em->flush();
+		}
+		$this->flash('User add');
+		return $this->myRedirect('_admin_user_index');
+	}
+	
+	$form = $form->createView();
+	return $this->renderTpl($this->_name . ':add', compact('form'));
     }
 
-    public function addAction() {
-        /**
-         * Get posted username and password
-         */
-        $request = $this->get('request');
-        $request_user = $request->request->get('user');
-        $username = $request_user['username'];
-        $password = $request_user['password']['Password'];
+    public function editAction($id) {
+	
+	$user = $this->findOne($this->_name, $id);
+	$form = $this->getForm($this->_name, $user);
 
-        /**
-         * Return User object
-         */
-        $user = $this->getEntity($this->_name);
-        $user->setUsername($username);
-        $user->setPassword($password);
+	$req_user = $this->get('request');
+	if ($req_user->getMethod() == 'POST') {
+		$form->bindRequest($req_user); 
+		/**
+		 * Return User encode password
+		 */
+		$password = $this->getEncodePassword($user);
+		$user->setPassword($password);
 
-        /**
-         * Return User encode password
-         */
-        $password = $this->getEncodePassword($user);
-        return $this->addItem($this->_name, array('afterValid' => array('setPassword' => $password)));
+		$em = $this->getEm();
+
+		// delete user's team
+		foreach (current($user->getTeam()) as $team) {
+			$user->getTeam()->removeElement($team);
+			$team->getUser()->removeElement($user);
+
+			$em->persist($user);
+			$em->persist($team);
+			$em->flush();
+		}
+
+		// Insert user's team
+		foreach ($user->getTeam() as $team) {
+			$team->getUser()->add($user);
+
+			$em->persist($user);
+			$em->persist($team);
+			$em->flush();
+		}
+		$this->flash('User edited');
+		return $this->myRedirect('_admin_user_index');
+	}
+	
+	$form = $form->createView();
+	return $this->renderTpl($this->_name . ':add', compact('form'));
     }
 
     public function deleteAction($id) {
