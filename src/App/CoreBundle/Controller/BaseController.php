@@ -65,8 +65,13 @@ class BaseController extends Controller {
         return $paginator;
     }
 
-    public function renderTpl($action, $params = array()) {
-        return $this->render($this->getNamespace() . $action . $this->getTplEngine(), $params);
+    public function renderTpl($action, $params = array(), $common = false) {
+        if ($common === false)
+            $ns = $this->getNamespace();
+        else
+            $ns = $this->_commonNamespace;
+        
+        return $this->render($ns . $action . $this->getTplEngine(), $params);
     }
 
     public function getAll($entity) {
@@ -123,6 +128,10 @@ class BaseController extends Controller {
         $form = $this->get('form.factory')->create($this->getType($entity));
 
         $$entity = $this->findOne($entity, $id);
+        
+	if (!$$entity)
+		return $this->renderTpl ('Error:error', ErrorController::error (404), true);
+
         $form->setData($$entity);
 
         $request = $this->get('request');

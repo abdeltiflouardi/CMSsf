@@ -2,6 +2,8 @@
 
 namespace App\AdminBundle\Controller;
 
+use App\CoreBundle\Controller\ErrorController;
+
 class PostController extends AdminBaseController {
 
     protected $_name = 'Post';
@@ -16,7 +18,10 @@ class PostController extends AdminBaseController {
 
     public function showAction($id) {
 	$post = $this->findOne($this->_name, $id);
-
+        
+	if (!$post)
+		return $this->renderTpl ('Error:error', ErrorController::error (404), true);
+        
 	$tag_form = $this->getForm('TagList');
 	$tag_form = $tag_form->createView();	
 
