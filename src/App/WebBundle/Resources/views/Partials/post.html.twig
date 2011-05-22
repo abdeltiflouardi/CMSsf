@@ -12,8 +12,9 @@
         <footer>
                 <p class="date">Date: 10/10/2010</p>
                 <p class="author">Par: Admin</p>
-
-                <p class="actions"><a href="#" class="button">Voir la suite</a></p>
+                <p class="actions">
+			<a href="{{ path('_post', {'post_id': post.id, 'slug': post.title}) }}" class="button">Voir la suite</a>
+		</p>
         </footer>
     </article>
     {% endfor %}

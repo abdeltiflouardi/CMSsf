@@ -1,6 +1,6 @@
 _home:
     pattern:  /
-    defaults: { _controller: AppWebBundle:Default:index }
+    defaults: { _controller: AppWebBundle:Post:index }
 
 _signup:
   pattern: /signup
@@ -8,12 +8,17 @@ _signup:
   
 _category:
   pattern: /{category_id}-{slug}
-  defaults: { _controller: AppWebBundle:Default:index }
+  defaults: { _controller: AppWebBundle:Post:index }
 
 _subcategory:
   pattern: /{category_id}-{slug}/{subcategory_id}-{subslug}
-  defaults: { _controller: AppWebBundle:Default:index }
+  defaults: { _controller: AppWebBundle:Post:index }
 
 _tag:
   pattern: /tag/{tag_id}-{tag}
-  defaults: { _controller: AppWebBundle:Default:index }
+  defaults: { _controller: AppWebBundle:Post:index }
+
+_post:
+  pattern: /article/{slug}/{post_id}
+  defaults: { _controller: AppWebBundle:Post:show }
+

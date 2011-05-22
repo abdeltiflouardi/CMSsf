@@ -1,0 +1,13 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block pagination %}{% endblock %}
+
+{% block body %}
+<div class="content">
+	<article>
+		<header><h1>{{ post.title }}</h1></header>
+		<div>{{ post.body }}</div>
+		
+	</article>
+</div>
+{% endblock %}

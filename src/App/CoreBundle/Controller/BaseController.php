@@ -10,6 +10,7 @@ class BaseController extends Controller {
     protected $_commonNamespace = 'AppCoreBundle:';
     protected $_commonNamespacePath = 'App\CoreBundle';
     protected $_tplEngine = '.html.twig';
+    protected $_data = array();
 
     public function setNamespace($namespace) {
         $this->_namespace = $namespace;
@@ -65,13 +66,24 @@ class BaseController extends Controller {
         return $paginator;
     }
 
+    public function renderData(array $data = array()) {
+	$this->_data += $data;
+	return $this;
+    }
+
+    public function getData() {
+	return $this->_data;
+    }
+
     public function renderTpl($action, $params = array(), $common = false) {
         if ($common === false)
             $ns = $this->getNamespace();
         else
             $ns = $this->_commonNamespace;
         
-        return $this->render($ns . $action . $this->getTplEngine(), $params);
+	$this->renderData($params);
+
+        return $this->render($ns . $action . $this->getTplEngine(), $this->getData());
     }
 
     public function getAll($entity) {

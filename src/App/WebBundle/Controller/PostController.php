@@ -2,31 +2,17 @@
 
 namespace App\WebBundle\Controller;
 
-class DefaultController extends WebBaseController {
+class PostController extends WebBaseController {
 
     public function indexAction() {
         /**
-         * Menu
+         * Menu & Navigation
          */
-        $categories = $this->getRepo('Category')->findBy(array('parent' => NULL));
+	$this->menu();
+        $this->renderNavigation();
 
         /**
-         * Submenu
-         */
-        $sub_categories = array();
-        $category_id = $this->get('request')->get('category_id');
-        if (!empty($category_id)) {
-            $sub_categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
-        }
-
-        /**
-         * Navigation
-         */
-        $this->template = $this->get('twig');
-        $this->template->addGlobal('navigation', $this->renderNavigation());
-
-        /**
-         * Select
+         * Select posts
          */
         $params = array();
         $this->searchByWord($params);
@@ -35,7 +21,22 @@ class DefaultController extends WebBaseController {
 
         //$params['itemPerPage'] = 1;
         $posts = $this->paginator('Post', $params);
-        return $this->renderTpl('Default:index', compact('posts', 'categories', 'sub_categories'));
+        return $this->renderTpl('Post:index', compact('posts'));
+    }
+
+    public function showAction($post_id) {
+	/**
+         * Menu & Navigation
+         */
+	$this->menu();
+        $this->renderNavigation();
+
+
+	$this->renderData(array('post' => $this->findOne('Post', $post_id)));
+
+	$this->renderData(array('posts' => null));
+	
+	return $this->renderTpl('Post:show');
     }
 
     private function searchByWord(&$params) {
@@ -124,8 +125,27 @@ class DefaultController extends WebBaseController {
                       )
             );
         }         
-        
-        return $navigation;
+
+        $this->template = $this->get('twig');
+        $this->template->addGlobal('navigation', $navigation);        
     }
 
+    public function menu() {
+        /**
+         * Menu
+         */
+        $categories = $this->getRepo('Category')->findBy(array('parent' => NULL));
+
+        /**
+         * Submenu
+         */
+        $sub_categories = array();
+        $category_id = $this->get('request')->get('category_id');
+        if (!empty($category_id)) {
+            $sub_categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
+        }
+        $this->template = $this->get('twig');
+        $this->template->addGlobal('categories', $categories);        
+        $this->template->addGlobal('sub_categories', $sub_categories);
+    }
 }
