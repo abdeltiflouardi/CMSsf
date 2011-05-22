@@ -1,0 +1,13 @@
+<footer class="footer">
+    {% for category in categories %}
+        <nav>
+                <header>{{ category.name }}</header>
+                <ul>
+                    {% for subcategory in category.subCategories %}
+                        <li>{{ subcategory.name }}</li>
+                    {% endfor %}
+                </ul>
+        </nav>
+    {% endfor %}
+    <div class="copyright">Réalisé par: LOUARDI Abdeltif</div>
+</footer>

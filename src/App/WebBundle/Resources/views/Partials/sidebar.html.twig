@@ -1,0 +1,34 @@
+<div class="sidebar">
+        <div class="menu widget">
+                <header>
+                        <h3>Catégories</h3>
+                </header>
+                <nav>
+                        <ul>
+                            {% for sub_category in sub_categories %}
+                                <li>
+                                    <a href="{{ path('_subcategory', {'category_id': sub_category.parent.id, 'slug': sub_category.parent.name, 'subcategory_id': sub_category.id, 'subslug': sub_category.name}) }}">
+                                        {{ sub_category.name }}                                    
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                </nav>
+        </div>
+
+        <div class="tag widget">
+                <header>
+                        <h3>Tags</h3>
+                </header>
+                <nav>
+                    {# @TODO Helper to remove repeated tag #}
+                    {% for post in posts %}
+                        {% for tag in post.tag %}
+                            <a href="{{ path('_tag', {'tag_id': tag.id,'tag': tag.name}) }}">
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    {% endfor %}
+                </nav>				
+        </div>
+</div>

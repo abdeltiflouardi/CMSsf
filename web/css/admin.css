@@ -175,10 +175,6 @@ td, th {
     box-shadow: 2px 2px 5px #888;    
 }
 
-.post-item {
-    margin-bottom: 15px;
-}
-
 .header {
     margin-bottom: 10px;
 }
@@ -198,9 +194,4 @@ ul.menu li {
 
 ul.menu li.menu-right {
     float: right;
-}
-
-.post-tags a{
-	color: #666;
-	font-size: 10px;
 }

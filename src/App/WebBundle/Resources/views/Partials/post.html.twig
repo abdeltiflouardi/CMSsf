@@ -1,0 +1,28 @@
+<div class="content">
+    {% for post in posts %}
+    <article class="widget">
+        <header>
+                <h1>{{ post.title }}</h1>
+        </header>
+        <div>
+                <p>
+                    {{ post.body }}
+                </p>
+        </div>
+        <footer>
+                <p class="date">Date: 10/10/2010</p>
+                <p class="author">Par: Admin</p>
+
+                <p class="actions"><a href="#" class="button">Voir la suite</a></p>
+        </footer>
+    </article>
+    {% endfor %}
+</div>
+{#
+@TODO Post's tags & Author & Date
+<div class="post-tags">
+{% for tag in post.tag %}
+        <a href="{{ path('_tag', {'tag_id': tag.id, 'tag': tag.name}) }}">{{ tag.name }}</a>
+{% endfor %}
+</div>
+#}

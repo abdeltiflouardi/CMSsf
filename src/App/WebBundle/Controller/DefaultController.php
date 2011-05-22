@@ -5,16 +5,37 @@ namespace App\WebBundle\Controller;
 class DefaultController extends WebBaseController {
 
     public function indexAction() {
-        $categories = $this->getAll('Category');
-       
+        /**
+         * Menu
+         */
+        $categories = $this->getRepo('Category')->findBy(array('parent' => NULL));
+
+        /**
+         * Submenu
+         */
+        $sub_categories = array();
+        $category_id = $this->get('request')->get('category_id');
+        if (!empty($category_id)) {
+            $sub_categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
+        }
+
+        /**
+         * Navigation
+         */
+        $this->template = $this->get('twig');
+        $this->template->addGlobal('navigation', $this->renderNavigation());
+
+        /**
+         * Select
+         */
         $params = array();
         $this->searchByWord($params);
         $this->searchByCategory($params);
-	$this->searchByTag($params);
+        $this->searchByTag($params);
 
         //$params['itemPerPage'] = 1;
         $posts = $this->paginator('Post', $params);
-        return $this->renderTpl('Default:index', compact('posts', 'categories'));
+        return $this->renderTpl('Default:index', compact('posts', 'categories', 'sub_categories'));
     }
 
     private function searchByWord(&$params) {
@@ -28,9 +49,20 @@ class DefaultController extends WebBaseController {
 
     private function searchByCategory(&$params) {
         $category_id = $this->get('request')->get('category_id');
-        $slug = $this->get('request')->get('slug');
         if (!empty($category_id)) {
-            $params['where'] = "a.category = $category_id";
+            $categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
+            if (!empty($categories)) {
+                $ids = array();
+                foreach ($categories as $category) {
+                    $ids[] = $category->getId();
+                }
+
+                if (!empty($ids)) {
+                    $ids = implode(',', $ids);
+                    $params['where'] = "a.category IN ($ids)";
+                }
+            }else
+                $params['where'] = "a.category = $category_id";
         }
     }
 
@@ -38,12 +70,62 @@ class DefaultController extends WebBaseController {
         $tag_id = $this->get('request')->get('tag_id');
         $tag = $this->get('request')->get('tag');
         if (!empty($tag_id)) {
-	    $tag = $this->findOne("Tag", $tag_id);
-	    foreach($tag->getPost() as $post) 
-		$in[] = $post->getId();
-	    $in = implode(',', $in);	    
+            $tag = $this->findOne("Tag", $tag_id);
+            foreach ($tag->getPost() as $post)
+                $in[] = $post->getId();
+            $in = implode(',', $in);
             $params['where'] = "a.id IN ($in)";
         }
+    }
+
+    private function renderNavigation() {
+        $navigation = array(
+            array(
+                'label' => 'Home',
+                'url' => $this->generateUrl('_home')
+            )
+        );
+
+        $category_id = $this->get('request')->get('category_id');
+        $slug = $this->get('request')->get('slug');
+        if ($category_id) {            
+            $navigation[] = array(
+              'label' => $slug,
+              'url' => $this->generateUrl('_category', array('category_id' => $category_id, 'slug' => $slug))
+            );
+        }
+        
+        $subcategory_id = $this->get('request')->get('subcategory_id');
+        $subslug = $this->get('request')->get('subslug');
+        if ($subcategory_id) {           
+            $navigation[] = array(
+              'label' => $subslug,
+              'url' => $this->generateUrl('_subcategory', 
+                      array(
+                          'category_id' => $category_id, 
+                          'slug' => $slug,
+                          'subcategory_id' => $subcategory_id, 
+                          'subslug' => $subslug,                          
+                          )
+                      )
+            );
+        }     
+
+        $tag_id = $this->get('request')->get('tag_id');
+        $tag = $this->get('request')->get('tag');
+        if ($tag_id) {           
+            $navigation[] = array(
+              'label' => $tag,
+              'url' => $this->generateUrl('_tag',
+                      array(
+                          'tag_id' => $tag_id, 
+                          'tag' => $tag,                
+                          )
+                      )
+            );
+        }         
+        
+        return $navigation;
     }
 
 }

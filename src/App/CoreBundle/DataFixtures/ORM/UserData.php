@@ -13,13 +13,13 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface {
         $user = new User();
         $user->setUsername('admin');
         $user->setPassword('admin');
-
+	$user->setEnabled(1);
         $encoder = new MessageDigestPasswordEncoder('md5');
 
         $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
 
         $user->setPassword($password);
-        $user->setTeam($manager->merge($this->getReference('team')));
+        $user->addTeam($manager->merge($this->getReference('team')));
         $manager->persist($user);
         $manager->flush();
 
