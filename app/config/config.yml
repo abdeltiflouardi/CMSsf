@@ -4,12 +4,12 @@ imports:
 
 framework:
     translator: { fallback: %locale% }
-    secret:        %secret%
-    charset:       UTF-8
-    csrf_protection:
-        enabled: true
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
-    validation:    { enabled: true, annotations: true }
+    secret:          %secret%
+    charset:         UTF-8
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    csrf_protection: true
+    validation:    { enable_annotations: true }
     templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme
     session:
         default_locale: %locale%
@@ -58,12 +58,11 @@ jms_security_extra:
     secure_all_services: false
 
 services:
-     tags:
-         class: App\CoreBundle\Services\Tags
-         arguments: [@request, @doctrine.orm.entity_manager]
-         scope: request
-
-
+  tags:
+    class: App\CoreBundle\Services\Tags
+    arguments: ["@request", "@doctrine.orm.entity_manager"]
+    scope: request
+    
 #    twig.extension.menu:
 #        class: Knplabs\Bundle\MenuBundle\Twig\MenuExtension
 #        arguments:
