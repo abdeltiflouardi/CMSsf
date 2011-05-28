@@ -99,7 +99,7 @@ ul.header-menu li.active a:HOVER {
 }
 
 .sidebar {
-    float: left;
+    float: right;
     width: 220px;
 }
 
@@ -142,7 +142,7 @@ ul.header-menu li.active a:HOVER {
 .navigation {
         padding: 10px;
 	width: 718px;
-	float: right;
+	float: left;
 }
 
 .navigation ul li {
@@ -155,7 +155,7 @@ ul.header-menu li.active a:HOVER {
 
 .pagination {
 	width: 740px;
-	float: right;
+	float: left;
 }
 
 .pagination a {
@@ -175,7 +175,7 @@ ul.header-menu li.active a:HOVER {
 
 .content {
 	width: 740px;
-	float: right;
+	float: left;
 }
 
 .content article h1 {

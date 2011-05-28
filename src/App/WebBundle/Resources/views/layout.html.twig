@@ -21,14 +21,16 @@ Search
 	<div class="line"></div>
 
 	<div class="content-wrapper">
-                {% block sidebar %}
+                {# block sidebar %}
                     {% include 'AppWebBundle:Partials:sidebar.html.twig' %}                
-                {% endblock%}
+                {% endblock#}
 		
                 {% block navigation %}
                     {% include 'AppWebBundle:Partials:navigation.html.twig' %}
                 {% endblock%}
-		
+			{% block sidebar %}
+                    {% include 'AppWebBundle:Partials:sidebar.html.twig' %}                
+                {% endblock%}	
                 {% block body %}
                     {% include 'AppWebBundle:Partials:post.html.twig' %}                
                 {% endblock %}
@@ -36,6 +38,8 @@ Search
                 {% block pagination %}
                     {% include 'AppWebBundle:Partials:pagination.html.twig' %}
                 {% endblock%}
+	
+
 	</div>
 
 	<div class="line"></div>
