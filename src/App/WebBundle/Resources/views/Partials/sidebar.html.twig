@@ -20,10 +20,10 @@
 		<header>
 			<h3>Recherche</h3>
 		</header>
-		<div>
-			<form action="">
+		<div>                  
+			<form action="{{ path('_home') }}">
 				<input id="q" name="q" type="text" />
-				<input id="submit" value="Ok" type="submit" class="button" />
+				<input id="submit" value="{% trans %}Search{% endtrans %}" type="submit" class="button" />
 			</form>
 		</div>
 	</div>
@@ -33,13 +33,10 @@
                         <h3>Tags</h3>
                 </header>
                 <nav>
-                    {# @TODO Helper to remove repeated tag #}
-                    {% for post in posts %}
-                        {% for tag in post.tag %}
-                            <a href="{{ path('_tag', {'tag_id': tag.id,'tag': tag.name}) }}">
-                                {{ tag.name }}
-                            </a>
-                        {% endfor %}
+                    {% for tag in tags(posts) %}
+                       <a href="{{ path('_tag', {'tag_id': tag.id,'tag': tag.name}) }}">
+                           {{ tag.name }}
+                       </a>
                     {% endfor %}
                 </nav>				
         </div>

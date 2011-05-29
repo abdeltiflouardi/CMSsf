@@ -8,7 +8,7 @@ class PostController extends WebBaseController {
         /**
          * Menu & Navigation
          */
-	$this->menu();
+        $this->menu();
         $this->renderNavigation();
 
         /**
@@ -25,18 +25,18 @@ class PostController extends WebBaseController {
     }
 
     public function showAction($post_id) {
-	/**
+        /**
          * Menu & Navigation
          */
-	$this->menu();
+        $this->menu();
         $this->renderNavigation();
 
 
-	$this->renderData(array('post' => $this->findOne('Post', $post_id)));
+        $this->renderData(array('post' => $this->findOne('Post', $post_id)));
 
-	$this->renderData(array('posts' => null));
-	
-	return $this->renderTpl('Post:show');
+        $this->renderData(array('posts' => null));
+
+        return $this->renderTpl('Post:show');
     }
 
     private function searchByWord(&$params) {
@@ -90,44 +90,43 @@ class PostController extends WebBaseController {
 
         // Category & subcategory
         $category_id = $this->get('request')->get('category_id');
-        if ($category_id) {            
-	    $category = $this->findOne('Category', $category_id);
+        if ($category_id) {
+            $category = $this->findOne('Category', $category_id);
             if ($category->getParent() != null) {
-		$subcategory = $category;
-		$category = $category->getParent();
-	    }
-           
-            $navigation[] = array(
-                      'label' => $category->getName(),
-                      'url' => $this->generateUrl('_category', array('category_id' => $category->getId(), 'slug' => $category->getName()))
-           );
+                $subcategory = $category;
+                $category = $category->getParent();
+            }
 
-           if (isset($subcategory)) {
+            $navigation[] = array(
+                'label' => $category->getName(),
+                'url' => $this->generateUrl('_category', array('category_id' => $category->getId(), 'slug' => $category->getName()))
+            );
+
+            if (isset($subcategory)) {
                 $navigation[] = array(
-                      'label' => $subcategory->getName(),
-                      'url' => $this->generateUrl('_category', array('category_id' => $subcategory->getId(), 'slug' => $subcategory->getName()))
+                    'label' => $subcategory->getName(),
+                    'url' => $this->generateUrl('_category', array('category_id' => $subcategory->getId(), 'slug' => $subcategory->getName()))
                 );
-           }
+            }
         }
 
         // Generate navigation of tag
         $tag_id = $this->get('request')->get('tag_id');
         $tag = $this->get('request')->get('tag');
-        if ($tag_id) {           
+        if ($tag_id) {
             $navigation[] = array(
-              'label' => $tag,
-              'url' => $this->generateUrl('_tag',
-                      array(
-                          'tag_id' => $tag_id, 
-                          'tag' => $tag,                
-                          )
-                      )
+                'label' => $tag,
+                'url' => $this->generateUrl('_tag', array(
+                    'tag_id' => $tag_id,
+                    'tag' => $tag,
+                        )
+                )
             );
-        }         
+        }
 
         // Return navigation to template
         $this->template = $this->get('twig');
-        $this->template->addGlobal('navigation', $navigation);        
+        $this->template->addGlobal('navigation', $navigation);
     }
 
     public function menu() {
@@ -139,27 +138,28 @@ class PostController extends WebBaseController {
         /**
          * Submenu
          */
-	$selected_menu = "";
+        $selected_menu = "";
         $sub_categories = array();
         $category_id = $this->get('request')->get('category_id');
         if (!empty($category_id)) {
             $category = $this->findOne('Category', $category_id);
             if ($category->getParent() != null) {
                 $parent = $category->getParent();
-                $sub_categories = $parent->getSubCategories();     
+                $sub_categories = $parent->getSubCategories();
 
                 $selected_menu = $parent->getName();
             } else {
-                 $sub_categories = $category->getSubCategories();
+                $sub_categories = $category->getSubCategories();
 
-                 $selected_menu = $category->getName();
+                $selected_menu = $category->getName();
             }
         }
 
-	// Return datas to template
+        // Return datas to template
         $this->template = $this->get('twig');
         $this->template->addGlobal('selected_menu', $selected_menu);
-        $this->template->addGlobal('categories', $categories);        
+        $this->template->addGlobal('categories', $categories);
         $this->template->addGlobal('sub_categories', $sub_categories);
     }
+
 }

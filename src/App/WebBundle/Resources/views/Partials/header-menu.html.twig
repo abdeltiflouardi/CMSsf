@@ -5,8 +5,7 @@
                     {% for category in categories %}
                     <li{% if selected_menu == category.name %} class="active"{% endif %}>
                         <a href="{{ path('_category', {'category_id': category.id, 'slug': category.name}) }}">
-                            {{ category.name }}
-                        </a>
+                            {{ category.name }}</a>
                     </li>
                     {% endfor %}
                     <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right"><a href="#">Connexion</a></li>

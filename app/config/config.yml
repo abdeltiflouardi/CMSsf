@@ -20,6 +20,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    extensions:       [twig.extension.text]
 
 # Assetic Configuration
 assetic:
@@ -62,14 +63,8 @@ services:
     class: App\CoreBundle\Services\Tags
     arguments: ["@request", "@doctrine.orm.entity_manager"]
     scope: request
-    
-#    twig.extension.menu:
-#        class: Knplabs\Bundle\MenuBundle\Twig\MenuExtension
-#        arguments:
-#          - { type: service, id: templating.helper.menu }
-#        tags:
-#            - { name: twig.extension, alias: menu }
 
 knplabs_paginator: 
     templating: ~
 
+app_core: ~
