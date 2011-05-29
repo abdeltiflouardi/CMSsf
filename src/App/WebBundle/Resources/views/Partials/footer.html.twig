@@ -5,10 +5,10 @@
                 <ul>
                     {% for subcategory in category.subCategories %}
                         <li>
-				<a href="{{ path('_subcategory', {'slug': category.name, 'category_id': category.id, 'subslug': subcategory.name, 'subcategory_id': subcategory.id}) }}">
-					{{ subcategory.name }}
-				</a>
-			</li>
+                                <a href="{{ path('_subcategory', {'slug': category.name, 'category_id': category.id, 'subslug': subcategory.name, 'subcategory_id': subcategory.id}) }}">
+                                     {{ subcategory.name }}
+                                </a>
+                        </li>
                     {% endfor %}
                 </ul>
         </nav>
