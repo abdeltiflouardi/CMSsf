@@ -19,7 +19,7 @@ class PostController extends WebBaseController {
         $this->searchByCategory($params);
         $this->searchByTag($params);
 
-        $params['itemPerPage'] = 1;
+        //$params['itemPerPage'] = 1;
         $posts = $this->paginator('Post', $params);
         return $this->renderTpl('Post:index', compact('posts'));
     }
@@ -80,6 +80,7 @@ class PostController extends WebBaseController {
     }
 
     private function renderNavigation() {
+        // Home
         $navigation = array(
             array(
                 'label' => 'Home',
@@ -87,31 +88,29 @@ class PostController extends WebBaseController {
             )
         );
 
+        // Category & subcategory
         $category_id = $this->get('request')->get('category_id');
-        $slug = $this->get('request')->get('slug');
         if ($category_id) {            
+	    $category = $this->findOne('Category', $category_id);
+            if ($category->getParent() != null) {
+		$subcategory = $category;
+		$category = $category->getParent();
+	    }
+           
             $navigation[] = array(
-              'label' => $slug,
-              'url' => $this->generateUrl('_category', array('category_id' => $category_id, 'slug' => $slug))
-            );
-        }
-        
-        $subcategory_id = $this->get('request')->get('subcategory_id');
-        $subslug = $this->get('request')->get('subslug');
-        if ($subcategory_id) {           
-            $navigation[] = array(
-              'label' => $subslug,
-              'url' => $this->generateUrl('_subcategory', 
-                      array(
-                          'category_id' => $category_id, 
-                          'slug' => $slug,
-                          'subcategory_id' => $subcategory_id, 
-                          'subslug' => $subslug,                          
-                          )
-                      )
-            );
-        }     
+                      'label' => $category->getName(),
+                      'url' => $this->generateUrl('_category', array('category_id' => $category->getId(), 'slug' => $category->getName()))
+           );
 
+           if (isset($subcategory)) {
+                $navigation[] = array(
+                      'label' => $subcategory->getName(),
+                      'url' => $this->generateUrl('_category', array('category_id' => $subcategory->getId(), 'slug' => $subcategory->getName()))
+                );
+           }
+        }
+
+        // Generate navigation of tag
         $tag_id = $this->get('request')->get('tag_id');
         $tag = $this->get('request')->get('tag');
         if ($tag_id) {           
@@ -126,6 +125,7 @@ class PostController extends WebBaseController {
             );
         }         
 
+        // Return navigation to template
         $this->template = $this->get('twig');
         $this->template->addGlobal('navigation', $navigation);        
     }
@@ -139,12 +139,26 @@ class PostController extends WebBaseController {
         /**
          * Submenu
          */
+	$selected_menu = "";
         $sub_categories = array();
         $category_id = $this->get('request')->get('category_id');
         if (!empty($category_id)) {
-            $sub_categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
+            $category = $this->findOne('Category', $category_id);
+            if ($category->getParent() != null) {
+                $parent = $category->getParent();
+                $sub_categories = $parent->getSubCategories();     
+
+                $selected_menu = $parent->getName();
+            } else {
+                 $sub_categories = $category->getSubCategories();
+
+                 $selected_menu = $category->getName();
+            }
         }
+
+	// Return datas to template
         $this->template = $this->get('twig');
+        $this->template->addGlobal('selected_menu', $selected_menu);
         $this->template->addGlobal('categories', $categories);        
         $this->template->addGlobal('sub_categories', $sub_categories);
     }

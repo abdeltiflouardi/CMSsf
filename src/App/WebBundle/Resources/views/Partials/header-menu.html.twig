@@ -1,15 +1,15 @@
 <header class="header">
     <nav>
             <ul class="header-menu">
-                    <li class="active"><a href="{{ path("_home") }}">{{ "Home"|trans }}</a></li>
+                    <li{% if selected_menu == "" %} class="active"{% endif %}><a href="{{ path("_home") }}">{{ "Home"|trans }}</a></li>
                     {% for category in categories %}
-                    <li>
+                    <li{% if selected_menu == category.name %} class="active"{% endif %}>
                         <a href="{{ path('_category', {'category_id': category.id, 'slug': category.name}) }}">
                             {{ category.name }}
                         </a>
                     </li>
                     {% endfor %}
-                    <li class="header-menu-right"><a href="#">Connexion</a></li>
+                    <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right"><a href="#">Connexion</a></li>
             </ul>
     </nav>
 </header>
