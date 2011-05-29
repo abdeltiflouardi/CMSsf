@@ -27,6 +27,9 @@ class PostData extends AbstractFixture implements OrderedFixtureInterface {
         $manager->persist($post_php);
         $manager->persist($post_symfony);
         $manager->flush();
+        
+        $this->addReference('post_php', $post_php);
+        $this->addReference('post_symfony', $post_symfony);        
     }
 
     public function getOrder() {

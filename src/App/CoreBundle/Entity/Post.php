@@ -44,12 +44,17 @@ class Post {
      */
     private $tag;
     /**
+     * @var App\CoreBundle\Entity\Comment
+     */
+    private $comments;
+    /**
      * Words tags
      */
     private $words;
 
     public function __construct() {
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -222,4 +227,23 @@ class Post {
         return implode(',', $tags);
     }
 
+    /**
+     * Add comments
+     *
+     * @param App\CoreBundle\Entity\Comment $comments
+     */
+    public function addComments(\App\CoreBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection $comments
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

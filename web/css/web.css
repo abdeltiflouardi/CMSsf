@@ -216,3 +216,11 @@ ul.header-menu li.active a:HOVER {
 	margin-top: 10px;
 }
 
+.comments {
+	width: 720px;
+	float: left;
+}
+
+.comments h3 {
+	color: #bb0000;
+}

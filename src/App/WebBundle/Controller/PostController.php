@@ -25,17 +25,39 @@ class PostController extends WebBaseController {
     }
 
     public function showAction($post_id) {
+        
+        $post = $this->findOne('Post', $post_id);
+        if (!$post)
+            return $this->notFound();
+        
+        $comment = new \App\CoreBundle\Entity\Comment();
+        $form_comment = $this->getForm('Comment', $comment);
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            $form_comment->bindRequest($request);
+            if ($form_comment->isValid()) {
+                
+                $comment->setPost($post);
+                $comment->setUser($this->getUser());
+                
+                $em = $this->getEm();
+                $em->persist($comment);
+                $em->flush();
+            }
+        }
+
+        $form_comment = $form_comment->createView();
+
         /**
          * Menu & Navigation
          */
         $this->menu();
         $this->renderNavigation();
 
+        $posts = array($post);
 
-        $this->renderData(array('post' => $this->findOne('Post', $post_id)));
-
-        $this->renderData(array('posts' => null));
-
+        $this->renderData(compact('post', 'posts', 'form_comment'));
         return $this->renderTpl('Post:show');
     }
 

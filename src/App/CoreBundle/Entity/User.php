@@ -38,9 +38,14 @@ class User implements UserInterface, \Serializable {
      * @var App\CoreBundle\Entity\Team
      */
     private $team;
+    /**
+     * @var App\CoreBundle\Entity\Comment
+     */
+    private $comments;
 
     public function __construct() {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -202,4 +207,23 @@ class User implements UserInterface, \Serializable {
         $this->setUsername($arr[0]);
     }
 
+    /**
+     * Add comments
+     *
+     * @param App\CoreBundle\Entity\Comment $comments
+     */
+    public function addComments(\App\CoreBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection $comments
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

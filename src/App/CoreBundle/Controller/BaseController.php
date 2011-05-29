@@ -29,7 +29,7 @@ class BaseController extends Controller {
     }
 
     public function getEm() {
-        return $this->get('doctrine.orm.entity_manager');
+        return $this->get('doctrine')->getEntityManager();
     }
 
     public function getRepo($entity) {
@@ -215,4 +215,13 @@ class BaseController extends Controller {
 	return $this->redirect($this->generateUrl($router));
     }
 
+    public function getUser() {
+        $token = $this->get('security.context')->getToken();
+        
+        return $token->getUser();
+    }
+    
+    public function notFound($message = null) {
+        return $this->renderTpl ('Error:error', ErrorController::error (404, $message), true);        
+    }
 }

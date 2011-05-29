@@ -4,10 +4,25 @@
 
 {% block body %}
 <div class="content">
-	<article>
+	<article class="widget">
 		<header><h1>{{ post.title }}</h1></header>
-		<div>{{ post.body }}</div>
-		
+		<p>{{ post.body }}</p>
+		<p class="date">Le: {{ post.updatedAt|date('d/m/Y') }}
+		<p class="author">Par: {{ post.user.username }}</p>		
 	</article>
+</div>
+
+<div class="comments widget">
+	<h3>Commentaires</h3>
+        {% for comment in post.comments %}
+		{{ comment.comment }}
+	{% endfor %}
+	<form action="#" method="post" {{ form_enctype(form_comment) }}>
+		{{ form_widget(form_comment) }}
+		
+		<div class="input submit">
+			<input type="submit" value="Envoyer" class="button" />
+		</div>
+	</form>
 </div>
 {% endblock %}
