@@ -11,7 +11,7 @@ _category:
   defaults: { _controller: AppWebBundle:Post:index }
 
 _subcategory:
-  pattern: /{category_id}-{slug}/{subcategory_id}-{subslug}
+  pattern: /{category_id}-{slug}
   defaults: { _controller: AppWebBundle:Post:index }
 
 _tag:

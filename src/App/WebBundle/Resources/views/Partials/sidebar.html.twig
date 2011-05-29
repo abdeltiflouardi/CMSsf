@@ -7,7 +7,7 @@
                         <ul>
                             {% for sub_category in sub_categories %}
                                 <li>
-                                    <a href="{{ path('_subcategory', {'category_id': sub_category.parent.id, 'slug': sub_category.parent.name, 'subcategory_id': sub_category.id, 'subslug': sub_category.name}) }}">
+                                    <a href="{{ path('_subcategory', {'category_id': sub_category.id, 'slug': sub_category.name}) }}">
                                         {{ sub_category.name }}                                    
                                     </a>
                                 </li>
