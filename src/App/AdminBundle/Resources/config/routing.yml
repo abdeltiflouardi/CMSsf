@@ -10,6 +10,10 @@ _admin_category_index:
 _admin_post_index:
     pattern: /admin/post
     defaults: { _controller: AppAdminBundle:Post:index }
+
+_admin_comment_index:
+    pattern: /admin/comment
+    defaults: { _controller: AppAdminBundle:Comment:index }
     
 _admin_tag_index:
     pattern: /admin/tag
@@ -31,6 +35,10 @@ _admin_category_add:
 _admin_post_add:
     pattern: /admin/post/add
     defaults: { _controller: AppAdminBundle:Post:add }
+
+_admin_comment_add:
+    pattern: /admin/comment/add
+    defaults: { _controller: AppAdminBundle:Comment:add }
 
 _admin_tag_add:
     pattern: /admin/tag/add
@@ -57,6 +65,10 @@ _admin_post_edit:
     pattern: /admin/post/{id}/edit
     defaults: { _controller: AppAdminBundle:Post:edit }
 
+_admin_comment_edit:
+    pattern: /admin/comment/{id}/edit
+    defaults: { _controller: AppAdminBundle:Comment:edit }
+
 _admin_tag_edit:
     pattern: /admin/tag/{id}/edit
     defaults: { _controller: AppAdminBundle:Tag:edit }
@@ -77,6 +89,10 @@ _admin_category_delete:
 _admin_post_delete:
     pattern: /admin/post/{id}/delete
     defaults: { _controller: AppAdminBundle:Post:delete }
+
+_admin_comment_delete:
+    pattern: /admin/comment/{id}/delete
+    defaults: { _controller: AppAdminBundle:Comment:delete }
 
 _admin_tag_delete:
     pattern: /admin/tag/{id}/delete

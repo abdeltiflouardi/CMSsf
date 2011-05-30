@@ -19,6 +19,7 @@ class OutputExtension extends \Twig_Extension {
     {
         return array(
             'tags' => new \Twig_Function_Method($this, 'getTags'),
+            'count' => new \Twig_Function_Method($this, 'getCount'),
         );
     }
 
@@ -37,6 +38,17 @@ class OutputExtension extends \Twig_Extension {
 				$tags[] = $tag;
 	}
 	return $tags;
+    }
+
+   /**
+    * Returns count of items
+    *
+    * @param array $posts
+    * @return integer
+    */
+    public function getCount($items)
+    {
+	return count($items);
     }
 
     /**

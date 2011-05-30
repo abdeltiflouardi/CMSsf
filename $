@@ -18,10 +18,9 @@
                 <p class="date">Date: {{ post.createdAt|date('d/m/Y') }}</p>
                 <p class="author">Par: {{ post.user.username }}</p>
 		<p class="post-comments">
-                     {% set count = count(post.comments) %}
-                     {% transchoice count %}
-                          [0,1] %count% commentaire|]1,Inf] %count% commentaires
-                     {% endtranschoice %}	
+                     {% transchoice count(post.comments) %}
+                          [0,1] commentaire|]1,Inf] commentaires
+                     {% endtrans %}	
 		</p>
                 <p class="actions">
 			<a href="{{ path('_post', {'post_id': post.id, 'slug': post.title}) }}" class="button">Voir la suite</a>
