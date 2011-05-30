@@ -11,18 +11,26 @@
 		<p class="author">Par: {{ post.user.username }}</p>		
 	</article>
 </div>
-
+{# @TODO authentication #}
 <div class="comments widget">
 	<h3>Commentaires</h3>
         {% for comment in post.comments %}
-		{{ comment.comment }}
+        <div class="comment-items">
+             <p class="comment">{{ comment.comment }}</p>
+             <p class="date">Le: {{ comment.updatedAt|date('d/m/Y') }}</p>
+             <p class="author">Par: {{ comment.user.username }}</p>
+        </div>
 	{% endfor %}
 	<form action="#" method="post" {{ form_enctype(form_comment) }}>
-		{{ form_widget(form_comment) }}
-		
-		<div class="input submit">
-			<input type="submit" value="Envoyer" class="button" />
-		</div>
+		<fieldset>
+			<legend>Ajouter un commentaire</legend>
+			<div class="input textarea">
+				{{ form_widget(form_comment.comment) }}	
+			</div>
+			<div class="input submit">
+				<input type="submit" value="Envoyer" class="button" />
+			</div>
+		</fieldset>
 	</form>
 </div>
 {% endblock %}

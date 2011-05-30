@@ -6,3 +6,4 @@ app/config/parameters.ini
 vendor/
 build/
 web/bundles/
+*~
