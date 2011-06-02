@@ -5,7 +5,19 @@ _home:
 _signup:
   pattern: /signup
   defaults: { _controller: AppWebBundle:User:signup }
+
+_activate:
+  pattern: /activate
+  defaults: { _controller: AppWebBundle:User:activate }
+
+_signin:
+  pattern: /signin
+  defaults: { _controller: AppWebBundle:User:signin }
   
+_forgotten_password:
+  pattern: /forgotten-password
+  defaults: { _controller: AppWebBundle:User:forgotten_password }
+
 _category:
   pattern: /{category_id}-{slug}
   defaults: { _controller: AppWebBundle:Post:index }

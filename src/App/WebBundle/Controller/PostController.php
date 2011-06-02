@@ -10,6 +10,7 @@ class PostController extends WebBaseController {
          */
         $this->menu();
         $this->renderNavigation();
+	$this->meta();
 
         /**
          * Select posts
@@ -54,6 +55,7 @@ class PostController extends WebBaseController {
          */
         $this->menu();
         $this->renderNavigation();
+	$this->meta();
 
         $posts = array($post);
 
@@ -151,7 +153,7 @@ class PostController extends WebBaseController {
         $this->template->addGlobal('navigation', $navigation);
     }
 
-    public function menu() {
+    private function menu() {
         /**
          * Menu
          */
@@ -182,6 +184,16 @@ class PostController extends WebBaseController {
         $this->template->addGlobal('selected_menu', $selected_menu);
         $this->template->addGlobal('categories', $categories);
         $this->template->addGlobal('sub_categories', $sub_categories);
+    }
+
+    private function meta() {
+        $this->template = $this->get('twig');
+        $title = $this->get('request')->get('slug', 'PHP Symfony Zend CakePHP');
+        $title = $this->get('request')->get('tag', $title);
+	$title = ucwords(strtolower($title));
+        $this->template->addGlobal('meta_title', $title);
+        $this->template->addGlobal('meta_keywords', 'symfony, web');
+        $this->template->addGlobal('meta_description', 'symfony ....');
     }
 
 }
