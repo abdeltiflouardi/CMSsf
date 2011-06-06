@@ -5,18 +5,16 @@ namespace App\CoreBundle\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class Signup extends AbstractType
+class Signin extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('username', 'text');
-        $builder->add('password', 'repeated',
-                array('type' => 'password', 'first_name' => 'Password', 'second_name' => 'Again'));
+        $builder->add('login', 'text');
+        $builder->add('password', 'password');     
     }
 
     public function getDefaultOptions(array $options)
     {
-        return array(
-        );
+        return array();
     }
 }

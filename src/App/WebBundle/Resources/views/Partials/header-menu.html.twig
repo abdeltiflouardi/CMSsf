@@ -8,7 +8,9 @@
                             {{ category.name }}</a>
                     </li>
                     {% endfor %}
-                    <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right"><a href="#">Connexion</a></li>
+                    <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right">
+                         <a href="{{ path('_signin') }}">Connexion</a>
+                    </li>
             </ul>
     </nav>
 </header>

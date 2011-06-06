@@ -1,0 +1,23 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block pagination %}{% endblock %}
+
+{% block body %}
+<div class="login widget">
+     <form action="{{ path('_signin') }}" method="post">
+          <fieldset>
+                <legend>Se connecter</legend>
+                {{ form_widget(form_signin) }}
+                <input type="submit" value="Se connecter" class="button" />         
+          </fieldset>
+     </form>
+
+     <form action="{{ path('_signup') }}" method="post">
+          </fieldset>
+               <legend>S'inscrire</legend>
+               {{ form_widget(form_signup) }}
+               <input type="submit" value="S'inscrire" class="button" />
+          </fieldset>
+     </form>
+</div>
+{% endblock %}

@@ -60,9 +60,9 @@ class BaseController extends Controller {
 
         $paginator = new \Zend\Paginator\Paginator($adapter);
         $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
-        $paginator->setItemCountPerPage($options['itemPerPage']);
         $paginator->setPageRange($options['pageRange']);
-        
+        $paginator->setItemCountPerPage($options['itemPerPage']);
+       
         return $paginator;
     }
 

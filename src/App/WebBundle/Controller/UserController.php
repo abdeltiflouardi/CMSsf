@@ -6,6 +6,18 @@ class UserController extends WebBaseController {
 
     protected $_name = 'User';
 
+    public function signinAction() {
+        $this->menu();
+        $this->renderNavigation();
+        $this->meta();
+
+        $form_signin = $this->getForm('Signin')->createView();
+        $form_signup = $this->getForm('Signup')->createView(); 
+ 
+        $this->renderData(compact('form_signin', 'form_signup'));
+        return $this->renderTpl('User:signin');
+    }
+
     public function signupAction() {
         $form = $this->getForm('Signup');
 
