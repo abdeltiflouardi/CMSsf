@@ -4,7 +4,6 @@ app/bootstrap*
 nbproject/private/
 .project
 app/config/parameters.ini
-vendor/
 build/
 web/bundles/
 *~
