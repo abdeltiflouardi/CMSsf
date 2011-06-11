@@ -13,5 +13,5 @@ FrameworkExtraBundle  /bundles/Sensio/Bundle  http://github.com/sensio/SensioFra
 SecurityExtraBundle   /bundles/JMS            http://github.com/schmittjoh/SecurityExtraBundle.git
 WebConfiguratorBundle /bundles/Symfony/Bundle http://github.com/symfony/WebConfiguratorBundle.git
 DoctrineFixturesBundle /bundles/Symfony/Bundle http://github.com/symfony/DoctrineFixturesBundle.git
-PaginatorBundle	      /bundles/Knplabs/Bundle http://github.com/knplabs/PaginatorBundle.git
+PaginatorBundle /bundles/Knplabs/Bundle http://github.com/knplabs/PaginatorBundle.git
 zend                  /                       http://github.com/zendframework/zf2.git
