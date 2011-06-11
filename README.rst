@@ -28,12 +28,7 @@ directory and you're done.
 If you have downloaded an archive without the vendors, you must have ``git``
 available to install the vendors:
 
-    php bin/vendors.php
-
-.. tip::
-
-    You can pass the `--min` option if you don't want all the history. This
-    also makes the installation much faster.
+    php bin/vendors install
 
 Installation from Git
 ---------------------
@@ -46,7 +41,7 @@ Run the following commands:
     git clone http://github.com/symfony/symfony-standard.git
     cd symfony-standard
     rm -rf .git
-    php bin/vendors.php
+    php bin/vendors install
 
 .. note::
 
@@ -72,7 +67,6 @@ playing with it, you can remove it by following these steps:
 * delete the ``src/Acme`` directory;
 * remove the routing entries referencing AcmeBundle in ``app/config/routing_dev.yml``;
 * remove the AcmeBundle from the registered bundles in ``app/AppKernel.php``;
-* remove the Acme registered namespace in ``app/autoload.php``.
 
 Configure the distribution by editing ``app/config/parameters.ini`` or by
 accessing ``web/config.php`` in a browser.

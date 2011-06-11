@@ -45,7 +45,7 @@ ul.header-menu li.active a:HOVER {
  *  * 	Footer
  *   * 	 **/
 .footer {
-	padding: 10px 0 10px 250px;
+	padding: 10px;
 	background: #2b2b2b; /* for non-css3 browsers */
 	background: -moz-linear-gradient(top,  #323232,  #1b1b1b); /* for firefox 3.6+ */ 	
 
@@ -57,7 +57,7 @@ ul.header-menu li.active a:HOVER {
 	float: left;
 }
 
-.footer nav header {
+.footer nav p {
 	color: #fff;
 	font-weight: bold;
 	letter-spacing: 1px;

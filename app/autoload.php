@@ -14,25 +14,22 @@ $loader->registerNamespaces(array(
     'Monolog'                           => __DIR__ . '/../vendor/monolog/src',
     'Assetic'                           => __DIR__ . '/../vendor/assetic/src',
     'Metadata'                          => __DIR__ . '/../vendor/metadata/src',
-
-        //My Autoload
-    'App' => __DIR__ . '/../src',
-    'Knplabs' => __DIR__ . '/../vendor/bundles',
-    'Zend' => __DIR__ . '/../vendor/bundles',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_'                  => __DIR__ . '/../vendor/twig-extensions/lib',
     'Twig_'                             => __DIR__ . '/../vendor/twig/lib',
 ));
 
-$loader->registerPrefixFallback(array(
+$loader->registerPrefixFallbacks(array(
     __DIR__ . '/../vendor/symfony/src/Symfony/Component/Locale/Resources/stubs',
 ));
 
 // My namespaces
-//$loader->registerNamespaceFallbacks(array(
-//   __DIR__ . '/../vendor/bundles', __DIR__.'/../src')
-//);
+$loader->registerNamespaceFallbacks(array(
+   __DIR__ . '/../vendor/bundles', 
+   __DIR__ . '/../src',
+   __DIR__ . '/../vendor/zend/library')
+);
 
 $loader->register();
 // Swiftmailer needs a special autoloader to allow

@@ -1,7 +1,7 @@
 <footer class="footer">
     {% for category in categories %}
         <nav>
-                <header>{{ category.name }}</header>
+                <p>{{ category.name }}</p>
                 <ul>
                     {% for subcategory in category.subCategories %}
                         <li>
