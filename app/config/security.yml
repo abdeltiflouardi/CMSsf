@@ -57,4 +57,5 @@ security:
 
     access_control:
       - { path: /admin.*, roles: [ROLE_MODERATE] }
+      - { path: /profile, roles: [ROLE_USER] }
       - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

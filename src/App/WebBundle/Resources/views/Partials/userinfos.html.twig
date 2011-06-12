@@ -1,0 +1,15 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="menu widget">
+     <header>
+          <h3>Mon compte</h3>
+     </header>
+
+     <nav>
+          <ul>
+               <li><a href="{{ path('_profile') }}">Modifier mes infos</li>
+               <li><a href="{{ path('_comments') }}">Mes commentaires</a></li>
+               <li><a href="{{ path('_posts') }}">Mes articles</a></li>
+          </ul>
+     </nav>
+</div>
+{% endif %}

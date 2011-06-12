@@ -1,0 +1,22 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block pagination %}{% endblock %}
+
+{% block body %}
+<div class="login widget">
+{% if app.session.hasFlash('message') %}
+    <div class="flash-message">
+        {{ app.session.flash('message') }}
+    </div>
+{% endif %}
+<form action="#" method="post" {{ form_enctype(form) }}>
+     {{ form_widget(form) }}
+     
+     
+     {{ form_rest(form) }}
+     <div class="input submit">
+          <input type="submit" value="Envoyer" class="button" />
+     </div>
+</form>
+</div>
+{% endblock %}

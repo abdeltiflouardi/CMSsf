@@ -40,3 +40,15 @@ _post:
   pattern: /article/{slug}/{post_id}
   defaults: { _controller: AppWebBundle:Post:show }
 
+_profile:
+  pattern: /profile
+  defaults: { _controller: AppWebBundle:User:profile }
+
+_comments:
+  pattern: /comments
+  defaults: { _controller: AppWebBundle:User:comments }
+
+_posts:
+  pattern: /posts
+  defaults: { _controller: AppWebBundle:User:posts }
+

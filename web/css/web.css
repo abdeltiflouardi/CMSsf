@@ -264,3 +264,12 @@ ul.header-menu li.active a:HOVER {
         margin-top: 10px;
 }
 
+.flash-message {
+        background-color: #FFFFCC;
+        border: 1px solid #FFCC66;
+        color: #CC9966;
+        font-weight: bold;
+
+        margin: 5px;
+        padding: 5px;
+}

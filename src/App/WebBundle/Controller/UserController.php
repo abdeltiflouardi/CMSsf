@@ -48,4 +48,47 @@ class UserController extends WebBaseController {
         return $this->renderTpl($this->_name . ':signup', compact('form'));
     }
 
+    public function profileAction() {
+        $this->menu();
+        $this->renderNavigation();
+        $this->meta();
+
+        $user = $this->getUser();
+
+	$form = $this->getForm('Signup', $user);
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+             $form->bindRequest($request);
+             if ($form->isValid()) {
+
+                  $user->setPassword($this->getEncodePassword($user));
+
+                  $em = $this->getEm();
+                  $em->persist($user);              
+                  $em->flush();
+
+                  $this->flash('Profile modifié');
+                  return $this->redirect($this->generateUrl('_profile'));
+             }
+        }
+        $form = $form->createView();
+	
+        return $this->renderTpl($this->_name . ':profile', compact('form'));
+    }
+    public function commentsAction() {
+        $this->menu();
+        $this->renderNavigation();
+        $this->meta();
+
+        return $this->renderTpl($this->_name . ':comments');
+    }
+    public function postsAction() {
+        $this->menu();
+        
+        $this->renderNavigation();
+        $this->meta();
+
+        return $this->renderTpl($this->_name . ':posts');
+    }
+
 }
