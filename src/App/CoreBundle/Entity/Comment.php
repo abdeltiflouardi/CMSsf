@@ -2,41 +2,77 @@
 
 namespace App\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * App\CoreBundle\Entity\Comment
+ *
+ * @ORM\Table(name="comment")
+ * @ORM\Entity
  */
 class Comment
 {
     /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var text $comment
+     *
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 
     /**
      * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @var integer $id
-     */
-    private $id;
-
-    /**
-     * @var App\CoreBundle\Entity\Post
+     * @var Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * })
      */
     private $post;
 
     /**
-     * @var App\CoreBundle\Entity\User
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
     private $user;
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set comment
@@ -96,16 +132,6 @@ class Comment
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

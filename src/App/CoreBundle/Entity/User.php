@@ -3,49 +3,88 @@
 namespace App\CoreBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface,
-    Symfony\Component\Security\Core\Role\Role;
+    Symfony\Component\Security\Core\Role\Role,
+    Doctrine\ORM\Mapping as ORM;
 
 /**
  * App\CoreBundle\Entity\User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
  */
 class User implements UserInterface, \Serializable {
 
     /**
-     * @var string $username
-     */
-    private $username;
-    /**
-     * @var string $password
-     */
-    private $password;
-    /**
-     * @var boolean $enabled
-     */
-    private $enabled;
-    /**
-     * @var datetime $createdAt
-     */
-    private $createdAt;
-    /**
-     * @var datetime $updatedAt
-     */
-    private $updatedAt;
-    /**
      * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
     /**
-     * @var App\CoreBundle\Entity\Team
+     * @var string $username
+     *
+     * @ORM\Column(name="username", type="string", length=100, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string $password
+     *
+     * @ORM\Column(name="password", type="string", length=100, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var boolean $enabled
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var Team
+     *
+     * @ORM\ManyToMany(targetEntity="Team", mappedBy="user")
      */
     private $team;
+
     /**
-     * @var App\CoreBundle\Entity\Comment
+     * 
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     private $comments;
-
-    public function __construct() {
+    
+    public function __construct()
+    {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -53,7 +92,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param string $username
      */
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
@@ -62,7 +102,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string $username
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -71,7 +112,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param string $password
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
@@ -80,7 +122,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string $password
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -89,7 +132,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param boolean $enabled
      */
-    public function setEnabled($enabled) {
+    public function setEnabled($enabled)
+    {
         $this->enabled = $enabled;
     }
 
@@ -98,7 +142,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return boolean $enabled
      */
-    public function getEnabled() {
+    public function getEnabled()
+    {
         return $this->enabled;
     }
 
@@ -107,7 +152,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
     }
 
@@ -116,7 +162,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return datetime $createdAt
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -125,7 +172,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
     }
 
@@ -134,17 +182,9 @@ class User implements UserInterface, \Serializable {
      *
      * @return datetime $updatedAt
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
@@ -152,7 +192,8 @@ class User implements UserInterface, \Serializable {
      *
      * @param App\CoreBundle\Entity\Team $team
      */
-    public function addTeam(\App\CoreBundle\Entity\Team $team) {
+    public function addTeam(\App\CoreBundle\Entity\Team $team)
+    {
         $this->team[] = $team;
     }
 
@@ -161,10 +202,31 @@ class User implements UserInterface, \Serializable {
      *
      * @return Doctrine\Common\Collections\Collection $team
      */
-    public function getTeam() {
+    public function getTeam()
+    {
         return $this->team;
     }
 
+    /**
+     * Add comments
+     *
+     * @param App\CoreBundle\Entity\Comment $comments
+     */
+    public function addComments(\App\CoreBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection $comments
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    
     /*
      * 
      */
@@ -205,25 +267,5 @@ class User implements UserInterface, \Serializable {
 
         $arr = unserialize($serialized);
         $this->setUsername($arr[0]);
-    }
-
-    /**
-     * Add comments
-     *
-     * @param App\CoreBundle\Entity\Comment $comments
-     */
-    public function addComments(\App\CoreBundle\Entity\Comment $comments)
-    {
-        $this->comments[] = $comments;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return Doctrine\Common\Collections\Collection $comments
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
+    }    
 }

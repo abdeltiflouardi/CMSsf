@@ -25,7 +25,7 @@ class PostController extends WebBaseController {
         return $this->renderTpl('Post:index', compact('posts'));
     }
 
-    public function showAction($post_id) {
+    public function showAction($post_id, $slug = null) {
         
         $post = $this->findOne('Post', $post_id);
         if (!$post)
@@ -37,19 +37,21 @@ class PostController extends WebBaseController {
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form_comment->bindRequest($request);
+            
+            $comment->setPost($post);
+            $comment->setUser($this->getUser());
+            
             if ($form_comment->isValid()) {
-                
-                $comment->setPost($post);
-                $comment->setUser($this->getUser());
-                
                 $em = $this->getEm();
                 $em->persist($comment);
                 $em->flush();
+                
+                return $this->redirect($this->generateUrl('_post', compact('post_id', 'slug')));
             }
         }
 
         $form_comment = $form_comment->createView();
-
+        
         /**
          * Menu & Navigation
          */

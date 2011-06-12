@@ -2,47 +2,86 @@
 
 namespace App\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * App\CoreBundle\Entity\Category
+ *
+ * @ORM\Table(name="category")
+ * @ORM\Entity
  */
-class Category {
+class Category
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
      * @var string $name
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
     private $name;
-    /**
-     * @var integer $id
-     */
-    private $id;
-    /**
-     * @var App\CoreBundle\Entity\Category
-     */
-    private $parent;
+
     /**
      * @var integer $position
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;
+
     /**
-     * @var App\CoreBundle\Entity\Post
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * })
+     */
+    private $parent;
+    
+    /**
+     * @var Post
+     * 
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
     private $posts;
-    /**
-     * @var App\CoreBundle\Entity\Category
-     */
-    private $subCategories;
     
+    /**
+     * @var Category
+     * 
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */    
+    private $subCategories;
+
     public function __construct()
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subCategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set name
      *
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
@@ -51,35 +90,9 @@ class Category {
      *
      * @return string $name
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param App\CoreBundle\Entity\Category $parent
-     */
-    public function setParent(\App\CoreBundle\Entity\Category $parent) {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return App\CoreBundle\Entity\Category $parent
-     */
-    public function getParent() {
-        return $this->parent;
     }
 
     /**
@@ -87,7 +100,8 @@ class Category {
      *
      * @param integer $position
      */
-    public function setPosition($position) {
+    public function setPosition($position)
+    {
         $this->position = $position;
     }
 
@@ -96,10 +110,31 @@ class Category {
      *
      * @return integer $position
      */
-    public function getPosition() {
+    public function getPosition()
+    {
         return $this->position;
     }
-    
+
+    /**
+     * Set parent
+     *
+     * @param App\CoreBundle\Entity\Category $parent
+     */
+    public function setParent(\App\CoreBundle\Entity\Category $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return App\CoreBundle\Entity\Category $parent
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
     /**
      * Add posts
      *

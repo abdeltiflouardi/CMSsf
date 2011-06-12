@@ -2,49 +2,99 @@
 
 namespace App\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * App\CoreBundle\Entity\Post
+ *
+ * @ORM\Table(name="post")
+ * @ORM\Entity
  */
-class Post {
+class Post
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
      * @var string $title
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
+
     /**
      * @var text $body
+     *
+     * @ORM\Column(name="body", type="text", nullable=true)
      */
     private $body;
+
     /**
      * @var boolean $enabled
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     private $enabled;
+
     /**
      * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
+
     /**
      * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
     /**
-     * @var integer $id
-     */
-    private $id;
-    /**
-     * @var App\CoreBundle\Entity\Category
-     */
-    private $category;
-    /**
-     * @var App\CoreBundle\Entity\User
-     */
-    private $user;
-    /**
-     * @var App\CoreBundle\Entity\Tag
+     * @var Tag
+     *
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="post")
+     * @ORM\JoinTable(name="post_tag",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     *   }
+     * )
      */
     private $tag;
+
     /**
-     * @var App\CoreBundle\Entity\Comment
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * })
+     */
+    private $category;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+    /**
+     * @var Comment
+     * 
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comments;
     /**
@@ -52,9 +102,21 @@ class Post {
      */
     private $words;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -62,7 +124,8 @@ class Post {
      *
      * @param string $title
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
@@ -71,7 +134,8 @@ class Post {
      *
      * @return string $title
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -80,7 +144,8 @@ class Post {
      *
      * @param text $body
      */
-    public function setBody($body) {
+    public function setBody($body)
+    {
         $this->body = $body;
     }
 
@@ -89,7 +154,8 @@ class Post {
      *
      * @return text $body
      */
-    public function getBody() {
+    public function getBody()
+    {
         return $this->body;
     }
 
@@ -98,7 +164,8 @@ class Post {
      *
      * @param boolean $enabled
      */
-    public function setEnabled($enabled) {
+    public function setEnabled($enabled)
+    {
         $this->enabled = $enabled;
     }
 
@@ -107,7 +174,8 @@ class Post {
      *
      * @return boolean $enabled
      */
-    public function getEnabled() {
+    public function getEnabled()
+    {
         return $this->enabled;
     }
 
@@ -116,7 +184,8 @@ class Post {
      *
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
     }
 
@@ -125,7 +194,8 @@ class Post {
      *
      * @return datetime $createdAt
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -134,7 +204,8 @@ class Post {
      *
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
     }
 
@@ -143,53 +214,9 @@ class Post {
      *
      * @return datetime $updatedAt
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Set category
-     *
-     * @param App\CoreBundle\Entity\Category $category
-     */
-    public function setCategory(\App\CoreBundle\Entity\Category $category) {
-        $this->category = $category;
-    }
-
-    /**
-     * Get category
-     *
-     * @return App\CoreBundle\Entity\Category $category
-     */
-    public function getCategory() {
-        return $this->category;
-    }
-
-    /**
-     * Set user
-     *
-     * @param App\CoreBundle\Entity\User $user
-     */
-    public function setUser(\App\CoreBundle\Entity\User $user) {
-        $this->user = $user;
-    }
-
-    /**
-     * Get user
-     *
-     * @return App\CoreBundle\Entity\User $user
-     */
-    public function getUser() {
-        return $this->user;
     }
 
     /**
@@ -197,7 +224,8 @@ class Post {
      *
      * @param App\CoreBundle\Entity\Tag $tag
      */
-    public function addTag(\App\CoreBundle\Entity\Tag $tag) {
+    public function addTag(\App\CoreBundle\Entity\Tag $tag)
+    {
         $this->tag[] = $tag;
     }
 
@@ -206,25 +234,49 @@ class Post {
      *
      * @return Doctrine\Common\Collections\Collection $tag
      */
-    public function getTag() {
+    public function getTag()
+    {
         return $this->tag;
     }
 
     /**
-     * set $words
+     * Set category
+     *
+     * @param App\CoreBundle\Entity\Category $category
      */
-    public function setWords($words) {
-        $this->words = $words;
+    public function setCategory(\App\CoreBundle\Entity\Category $category)
+    {
+        $this->category = $category;
     }
 
     /**
-     * get words
+     * Get category
+     *
+     * @return App\CoreBundle\Entity\Category $category
      */
-    public function getWords() {
-        $tags = array();
-        foreach ($this->getTag() as $tag)
-            $tags[] = $tag->getName();
-        return implode(',', $tags);
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set user
+     *
+     * @param App\CoreBundle\Entity\User $user
+     */
+    public function setUser(\App\CoreBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return App\CoreBundle\Entity\User $user
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -246,4 +298,21 @@ class Post {
     {
         return $this->comments;
     }
+
+    /**
+     * set $words
+     */
+    public function setWords($words) {
+        $this->words = $words;
+    }
+
+    /**
+     * get words
+     */
+    public function getWords() {
+        $tags = array();
+        foreach ($this->getTag() as $tag)
+            $tags[] = $tag->getName();
+        return implode(',', $tags);
+    }    
 }

@@ -33,7 +33,7 @@ class UserController extends WebBaseController {
             $team->addUser($user);
 
             if ($form->isValid()) {
-                //Encore password
+                //Encode password
                 $user->setPassword($this->getEncodePassword($user));
                 
                 $em = $this->getEm();

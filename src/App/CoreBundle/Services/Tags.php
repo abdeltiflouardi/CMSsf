@@ -63,7 +63,6 @@ class Tags {
 		if (!$tags)
 			return null;
 
-	
 		$post = $this->_em->find($this->_namespace . ':Post', $id);
 		foreach ($post->getTag() as $tag) {
 			$post->getTag()->removeElement($tag);

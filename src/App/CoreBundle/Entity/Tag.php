@@ -2,26 +2,53 @@
 
 namespace App\CoreBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * App\CoreBundle\Entity\Tag
+ *
+ * @ORM\Table(name="tag")
+ * @ORM\Entity
  */
-class Tag {
+class Tag
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
      * @var string $name
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
     private $name;
+
     /**
-     * @var integer $id
-     */
-    private $id;
-    /**
-     * @var App\CoreBundle\Entity\Post
+     * @var Post
+     *
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tag")
      */
     private $post;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->post = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+
+    /**
+     * Get id
+     *
+     * @return integer $id
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -29,7 +56,8 @@ class Tag {
      *
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
@@ -38,17 +66,9 @@ class Tag {
      *
      * @return string $name
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer $id
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
@@ -56,7 +76,8 @@ class Tag {
      *
      * @param App\CoreBundle\Entity\Post $post
      */
-    public function addPost(\App\CoreBundle\Entity\Post $post) {
+    public function addPost(\App\CoreBundle\Entity\Post $post)
+    {
         $this->post[] = $post;
     }
 
@@ -65,8 +86,8 @@ class Tag {
      *
      * @return Doctrine\Common\Collections\Collection $post
      */
-    public function getPost() {
+    public function getPost()
+    {
         return $this->post;
     }
-
 }
