@@ -22,4 +22,9 @@ class Post extends AbstractType
 	    'data_class' => 'App\CoreBundle\Entity\Post',
         );
     }
+
+    public function getName()
+    {
+         return 'post';
+    }
 }

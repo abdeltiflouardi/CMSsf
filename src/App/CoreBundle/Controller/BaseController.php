@@ -51,6 +51,9 @@ class BaseController extends Controller {
         
         if (isset($options['where']))
             $dql .= ' WHERE ' . $options['where'];
+
+        if (isset($options['order']))
+            $dql .= ' ORDER BY ' . $options['order'];
         
         $query = $this->getEm()->createQuery($dql);
 
