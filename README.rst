@@ -5,7 +5,8 @@ Download archive from here https://github.com/ouardisoft/CMSsf/archives/master
 
 Unpack it somewhere under your web server root directory and run the following command.
 
-    cd CMSsf ; php bin/vendors install
+    - cd CMSsf 
+    - php bin/vendors install
 
 Installation from Git
 ---------------------
@@ -15,9 +16,9 @@ distribution. If you still want to use Git, your are on your own.
 
 Run the following commands:
 
-    git clone git@github.com:ouardisoft/CMSsf.git
-    cd CMSsf
-    php bin/vendors install
+    - git clone git@github.com:ouardisoft/CMSsf.git
+    - cd CMSsf
+    - php bin/vendors install
 
 Configuration
 -------------
