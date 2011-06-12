@@ -277,6 +277,7 @@ class User implements UserInterface, \Serializable {
     public function setCreatedValue() 
     {
          $this->setCreatedAt(new \DateTime());
+         $this->setUpdatedAt(new \DateTime());
     }
 
     /**

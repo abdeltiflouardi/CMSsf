@@ -96,6 +96,7 @@ class Post
      * @var Comment
      * 
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OrderBy({"updatedAt" = "DESC"})
      */
     private $comments;
     /**
@@ -324,6 +325,7 @@ class Post
     public function setCreatedValue() 
     {
          $this->setCreatedAt(new \DateTime());
+         $this->setUpdatedAt(new \DateTime());
     }
 
     /**

@@ -182,6 +182,7 @@ class Comment
     public function setCreatedValue() 
     {
          $this->setCreatedAt(new \DateTime());
+         $this->setUpdatedAt(new \DateTime());
     }
 
     /**

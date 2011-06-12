@@ -11,16 +11,18 @@
 		<p class="author">Par: {{ post.user.username }}</p>		
 	</article>
 </div>
-{# @TODO authentication #}
+
 <div class="comments widget">
 	<h3>Commentaires</h3>
         {% for comment in post.comments %}
         <div class="comment-items">
              <p class="comment">{{ comment.comment }}</p>
-             <p class="date">Le: {{ comment.updatedAt|date('d/m/Y') }}</p>
+             <p class="date">Le: {{ comment.updatedAt|date() }}</p>
              <p class="author">Par: {{ comment.user.username }}</p>
         </div>
 	{% endfor %}
+        
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 	<form action="#" method="post" {{ form_enctype(form_comment) }}>
 		<fieldset>
 			<legend>Ajouter un commentaire</legend>
@@ -34,5 +36,8 @@
 			</div>
 		</fieldset>
 	</form>
+        {% else %}
+        <a href="{{ path('_signin') }}" class="button">Se connecter pour ajouter un commentaire</a>
+        {% endif %}
 </div>
 {% endblock %}
