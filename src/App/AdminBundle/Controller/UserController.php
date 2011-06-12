@@ -71,7 +71,10 @@ class UserController extends AdminBaseController {
 		}
 
 		// Insert user's team
-		foreach ($user->getTeam() as $team) {
+		$user_data = $req_user->get('user');
+                $teams = $user_data['team'];
+		foreach ($teams as $team_id) {
+                        $team = $this->findOne('Team', $team_id);
 			$team->getUser()->add($user);
 
 			$em->persist($user);

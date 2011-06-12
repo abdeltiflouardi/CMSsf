@@ -21,4 +21,9 @@ class User extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\User',
         );
     }
+
+    public function getName()
+    {
+         return 'user';
+    }
 }
