@@ -8,9 +8,16 @@
                             {{ category.name }}</a>
                     </li>
                     {% endfor %}
+                    
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="header-menu-right">
+                         <a href="{{ path('_logout') }}">Se déconncter</a>
+                    </li>
+                    {% else %}
                     <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right">
                          <a href="{{ path('_signin') }}">Connexion</a>
                     </li>
+                    {% endif %}
             </ul>
     </nav>
 </header>

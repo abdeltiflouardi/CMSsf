@@ -6,6 +6,12 @@ _signup:
   pattern: /signup
   defaults: { _controller: AppWebBundle:User:signup }
 
+_check:
+  pattern: /login_check
+
+_logout:
+  pattern: /logout
+
 _activate:
   pattern: /activate
   defaults: { _controller: AppWebBundle:User:activate }

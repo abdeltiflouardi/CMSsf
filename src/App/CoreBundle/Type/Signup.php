@@ -16,7 +16,10 @@ class Signup extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        return array(
-        );
+        return array('required' => false);
+    }
+
+    public function getName() {
+        return 'signup';
     }
 }

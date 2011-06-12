@@ -4,10 +4,12 @@
 
 {% block body %}
 <div class="login widget">
-     <form action="{{ path('_signin') }}" method="post">
+     <form action="{{ path('_check') }}" method="post">
           <fieldset>
                 <legend>Se connecter</legend>
+
                 {{ form_widget(form_signin) }}
+
                 <input type="submit" value="Se connecter" class="button" />         
           </fieldset>
      </form>

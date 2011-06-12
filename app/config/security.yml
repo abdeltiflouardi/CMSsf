@@ -31,16 +31,29 @@ security:
             pattern:  ^/admin/login$
             security: false
 
-        secured_area:
-            pattern:    ^/.*
-            access_denied_url: /error403
+        secured_admin_area:
+            pattern:    ^/admin.*
+            access_denied_url: /admin/error403
             form_login:
                 check_path: /admin/login_check
                 login_path: /admin/login
             logout:
                 path:   /admin/logout
                 target: /admin
-            anonymous: ~
+            anonymous: ~        
+
+        secured_web_area:
+            pattern:    ^/.*
+            access_denied_url: /error403
+            form_login:
+                check_path: /login_check
+                login_path: /signin
+                username_parameter: signin[login]
+                password_parameter: signin[password]
+            logout:
+                path:   /logout
+                target: /
+            anonymous: ~        
 
     access_control:
       - { path: /admin.*, roles: [ROLE_MODERATE] }
