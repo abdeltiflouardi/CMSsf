@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -173,4 +174,23 @@ class Comment
     {
         return $this->user;
     }
+
+    /**
+     *
+     * @ORM\prePersist
+     */
+    public function setCreatedValue() 
+    {
+         $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     *
+     * @ORM\preUpdate
+     */
+    public function setUpdatedValue()
+    {
+         $this->setUpdatedAt(new \DateTime());
+    }
+
 }

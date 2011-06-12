@@ -17,7 +17,7 @@
             <td>{{ comment.user.username }}</td>
             <td>{{ comment.post.title }}</td>
             <td>{{ comment.comment }}</td>
-            <td>{{ comment.createdAt }}</td>
+            <td>{{ comment.createdAt|date() }}</td>
             <td>
                 <a href="{{ path('_admin_comment_edit', {'id': comment.id}) }}">{{ 'Edit'|trans }}</a>
 		<a href="{{ path('_admin_comment_delete', {'id': comment.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire?')">{{ 'Delete'|trans }}</a>

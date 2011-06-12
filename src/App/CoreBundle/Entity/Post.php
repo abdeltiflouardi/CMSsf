@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="post")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -315,4 +316,22 @@ class Post
             $tags[] = $tag->getName();
         return implode(',', $tags);
     }    
+
+    /**
+     *
+     * @ORM\prePersist
+     */
+    public function setCreatedValue() 
+    {
+         $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     *
+     * @ORM\preUpdate
+     */
+    public function setUpdatedValue()
+    {
+         $this->setUpdatedAt(new \DateTime());
+    }
 }

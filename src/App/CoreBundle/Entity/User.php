@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface,
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, \Serializable {
 
@@ -267,5 +268,24 @@ class User implements UserInterface, \Serializable {
 
         $arr = unserialize($serialized);
         $this->setUsername($arr[0]);
-    }    
+    }
+
+    /**
+     *
+     * @ORM\prePersist
+     */
+    public function setCreatedValue() 
+    {
+         $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     *
+     * @ORM\preUpdate
+     */
+    public function setUpdatedValue()
+    {
+         $this->setUpdatedAt(new \DateTime());
+    }
+
 }
