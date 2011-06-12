@@ -27,14 +27,17 @@ class UserController extends WebBaseController {
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
-            $user->setCreatedAt(new \DateTime);
-            $user->setUpdatedAt(new \DateTime);
-            $user->setTeam($this->findOne('Team', 1));
+
+            $team = $this->findOne('Team', 3);
+            $user->addTeam($team);
+            $team->addUser($user);
+
             if ($form->isValid()) {
                 //Encore password
                 $user->setPassword($this->getEncodePassword($user));
                 
                 $em = $this->getEm();
+                $em->persist($team);
                 $em->persist($user);
                 $em->flush();
                 return $this->redirect($this->generateUrl('_home'));
