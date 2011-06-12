@@ -30,8 +30,8 @@ You shoud add your database infos (server, user, password)
 
 Run the following commands to generate database tables
 
-    php app/console doctirne:database:create
-    php app/console doctrine:schema:create
-    php app/console doctrine:fixtures:load
+    - php app/console doctirne:database:create
+    - php app/console doctrine:schema:create
+    - php app/console doctrine:fixtures:load
 
 Enjoy!
