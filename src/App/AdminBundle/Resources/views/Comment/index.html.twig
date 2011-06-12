@@ -1,7 +1,6 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="button-new"><a href="{{ path('_admin_comment_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
             <th>{{ comments|sortable('Id', 'a.id')|raw }}</th>
