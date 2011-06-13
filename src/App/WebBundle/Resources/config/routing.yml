@@ -24,12 +24,12 @@ _forgotten_password:
   pattern: /forgotten-password
   defaults: { _controller: AppWebBundle:User:forgotten_password }
 
-_category:
-  pattern: /{slug}/{category_id}
-  defaults: { _controller: AppWebBundle:Post:index }
-
 _tag:
   pattern: /tag/{tag_id}-{tag}
+  defaults: { _controller: AppWebBundle:Post:index }
+
+_category:
+  pattern: /{slug}/{category_id}
   defaults: { _controller: AppWebBundle:Post:index }
 
 _post:

@@ -10,22 +10,18 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load($manager) {
         $category_prog = new Category();
-	// $category_prog->setParent(0);
         $category_prog->setName('Programmation');
 	$category_prog->setPosition(1);
 
         $category_web = new Category();
-	// $category_web->setParent(0);
         $category_web->setName('Web');
 	$category_web->setPosition(2);
 
 	$category_soft = new Category();
-	// $cateogry_soft->setParent(0);
 	$category_soft->setName('Logiciels');
 	$category_soft->setPosition(3);
 
 	$category_hard = new Category();
-	// $category_hard->setParent(0);
 	$category_hard->setName('Matériels');
 	$category_hard->setPosition(4);
 
@@ -48,6 +44,46 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
 	$manager->persist($category_php);
 	$manager->persist($category_symfony);
 	$manager->flush();
+
+        foreach (array('JAVA', 'C#', 'VB', 'Python') as $id => $name) {
+            $category = new Category();
+            $category->setParent($category_prog);
+            $category->setName($name);
+            $category->setPosition($id);
+
+            $manager->persist($category);
+            $manager->flush();
+        }
+
+        foreach (array('CSS', 'HTML', 'XML', 'Javascript') as $id => $name) {
+            $category = new Category();
+            $category->setParent($category_web);
+            $category->setName($name);
+            $category->setPosition($id+2);
+
+            $manager->persist($category);
+            $manager->flush();
+        }        
+
+        foreach (array('Développement', 'Anti-virus', 'Multimedia', 'Jeux', 'Autres') as $id => $name) {
+            $category = new Category();
+            $category->setParent($category_soft);
+            $category->setName($name);
+            $category->setPosition($id);
+
+            $manager->persist($category);
+            $manager->flush();
+        }
+
+        foreach (array('Drivers', 'Carte mère', 'Ordinateur portable', 'Serveurs', 'Carte graphique', 'Autres') as $id => $name) {
+            $category = new Category();
+            $category->setParent($category_hard);
+            $category->setName($name);
+            $category->setPosition($id);
+
+            $manager->persist($category);
+            $manager->flush();
+        }
 
         $this->addReference('category_php', $category_php);
         $this->addReference('category_symfony', $category_symfony);
