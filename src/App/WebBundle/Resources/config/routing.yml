@@ -60,3 +60,10 @@ _posts:
   pattern: /posts
   defaults: { _controller: AppWebBundle:User:posts }
 
+_post_edit:
+  pattern: /post/e/{post_id}
+  defaults: { _controller: AppWebBundle:User:postEdit }
+
+_post_delete:
+  pattern: /post/d/{post_id}
+  defaults: { _controller: AppWebBundle:User:postDelete }

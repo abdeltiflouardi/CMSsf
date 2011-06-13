@@ -78,13 +78,21 @@ class UserController extends WebBaseController {
     }
 
     public function commentDeleteAction($comment_id) {
-	return $this->renderTpl($this->_name . 'comment_delete');
+	return $this->renderTpl($this->_name . ':comment_delete');
     }
 
     public function postsAction() {
         $posts = $this->getUser()->getPosts();
 
         return $this->renderTpl($this->_name . ':posts', compact('posts'));
+    }
+
+    public function postEditAction($post_id) {
+        return $this->renderTpl($this->_name . ':post_edit');
+    }
+
+    public function postDeleteAction($post_id) {
+        return $this->renderTpl($this->_name . ':post_delete');
     }
 
 }

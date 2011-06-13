@@ -1,7 +1,5 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
-{% block pagination %}{% endblock %}
-
 {% block body %}
 <div class="login widget">
      <table>
@@ -15,8 +13,8 @@
           <tr>
               <td>{{ comment.id }}</td>
               <td>{{ comment.comment }}</td>
-              <td>{{ comment.updatedAt|date() }}</td>
-              <td>
+              <td nowrap="nowrap">{{ comment.updatedAt|date() }}</td>
+              <td nowrap="nowrap">
                    <a href="{{ path('_comment_edit', {'comment_id': comment.id} ) }}">Modifier</a>
                    <a href="{{ path('_comment_delete', {'comment_id': comment.id} ) }}">Supprimer</a>
               </td>

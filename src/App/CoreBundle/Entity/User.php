@@ -256,18 +256,25 @@ class User implements UserInterface, \Serializable {
         return $this->posts;
     }
 
-    /*
-     * 
+    /* 
+     *
+     * @return $salt 
      */
 
     public function getSalt() {
         return mb_substr(md5($this->getUsername()), 3, 3);
     }
 
+    /**
+     * @return credentials
+     */
     public function eraseCredentials() {
         return true;
     }
 
+    /**
+     * @return boolean
+     */
     public function equals(UserInterface $user) {
         if ($this->getUsername() != $user->getUsername()) {
             return false;
@@ -276,6 +283,9 @@ class User implements UserInterface, \Serializable {
         return true;
     }
 
+    /**
+     * @return $roles
+     */
     public function getRoles() {
         $roles = array();
         foreach ($this->getTeam() as $team)
@@ -283,7 +293,11 @@ class User implements UserInterface, \Serializable {
 
         return $roles;
     }
-
+    
+    /**
+     * Serialize user
+     * @return string
+     */
     public function serialize() {
         return serialize(
                 array(
@@ -292,6 +306,9 @@ class User implements UserInterface, \Serializable {
         );
     }
 
+    /**
+     * Unserialize user
+     */
     public function unserialize($serialized) {
 
         $arr = unserialize($serialized);

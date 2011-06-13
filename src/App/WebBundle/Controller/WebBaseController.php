@@ -13,7 +13,7 @@ class WebBaseController extends BaseController
         $this->menu();
         $this->meta();
     
-	return parent::renderTpl($action, $params, $common);
+        return parent::renderTpl($action, $params, $common);
     }
 
     protected function renderNavigation() {

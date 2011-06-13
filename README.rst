@@ -33,7 +33,7 @@ Run the following commands to generate database tables
 
     - php app/console doctirne:database:create
     - php app/console doctrine:schema:create
-    - php app/console doctrine:fixtures:load
+    - php app/console doctrine:fixtures:load --append
 
 Enjoy!
 

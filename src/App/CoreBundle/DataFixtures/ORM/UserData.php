@@ -19,7 +19,13 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface {
         $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
 
         $user->setPassword($password);
-        $user->addTeam($manager->merge($this->getReference('team')));
+
+        $team = $manager->merge($this->getReference('team'));
+
+        $team->addUser($user);
+        $user->addTeam($team);
+
+        $manager->persist($team);
         $manager->persist($user);
         $manager->flush();
 
