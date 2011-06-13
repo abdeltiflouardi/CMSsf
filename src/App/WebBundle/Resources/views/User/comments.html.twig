@@ -4,5 +4,24 @@
 
 {% block body %}
 <div class="login widget">
+     <table>
+          <tr>
+               <th>Id</th>
+               <th>Commentaire</th>
+               <th>Date</th>
+               <th>Actions</th>
+          </tr>
+          {% for comment in comments %}
+          <tr>
+              <td>{{ comment.id }}</td>
+              <td>{{ comment.comment }}</td>
+              <td>{{ comment.updatedAt|date() }}</td>
+              <td>
+                   <a href="{{ path('_comment_edit', {'comment_id': comment.id} ) }}">Modifier</a>
+                   <a href="{{ path('_comment_delete', {'comment_id': comment.id} ) }}">Supprimer</a>
+              </td>
+          </tr>
+          {% endfor %}
+     </table>
 </div>
 {% endblock %}

@@ -48,6 +48,14 @@ _comments:
   pattern: /comments
   defaults: { _controller: AppWebBundle:User:comments }
 
+_comment_edit:
+  pattern: /comment/e/{comment_id}
+  defaults: { _controller: AppWebBundle:User:commentEdit }
+
+_comment_delete:
+  pattern: /comment/d/{comment_id}
+  defaults: { _controller: AppWebBundle:User:commentDelete }
+
 _posts:
   pattern: /posts
   defaults: { _controller: AppWebBundle:User:posts }

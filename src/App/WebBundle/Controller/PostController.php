@@ -6,13 +6,6 @@ class PostController extends WebBaseController {
 
     public function indexAction() {
         /**
-         * Menu & Navigation
-         */
-        $this->menu();
-        $this->rendernavigation();
-	$this->meta();
-
-        /**
          * Select posts
          */
         $params = array();
@@ -52,13 +45,6 @@ class PostController extends WebBaseController {
         }
 
         $form_comment = $form_comment->createView();
-        
-        /**
-         * Menu & Navigation
-         */
-        $this->menu();
-        $this->renderNavigation();
-        $this->meta();
 
         $posts = array($post);
 

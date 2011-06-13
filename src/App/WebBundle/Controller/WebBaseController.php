@@ -8,6 +8,14 @@ class WebBaseController extends BaseController
 {
     protected $_namespace = 'AppWebBundle:';
 
+    public function renderTpl($action, $params = array(), $common = false) {
+        $this->renderNavigation();
+        $this->menu();
+        $this->meta();
+    
+	return parent::renderTpl($action, $params, $common);
+    }
+
     protected function renderNavigation() {
         // Home
         $navigation = array(

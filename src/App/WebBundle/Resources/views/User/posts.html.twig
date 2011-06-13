@@ -4,5 +4,24 @@
 
 {% block body %}
 <div class="login widget">
+     <table>
+          <tr>
+               <th>Id</th>
+               <th>Titre</th>
+               <th>Date</th>
+               <th>Actions</th>
+          </tr>
+          {% for post in posts %}
+          <tr>
+              <td>{{ post.id }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.updatedAt|date() }}</td>
+              <td>
+                   <a href="{{ post.id }}">Modifier</a>
+                   <a href="{{ post.id }}">Supprimer</a>
+              </td>
+          </tr>
+          {% endfor %}
+     </table>
 </div>
 {% endblock %}

@@ -227,6 +227,20 @@ ul.header-menu li.active a:HOVER {
 	float: left;
 }
 
+.login a {
+        color: #bb0000;
+}
+
+.login table {
+        border: 1px solid #ccc;
+        width: 100%;
+}
+
+.login table tr td, .login table tr th {
+       padding: 5px;
+       border: 1px solid #ccc;
+}
+
 .comments {
 	width: 720px;
 	float: left;

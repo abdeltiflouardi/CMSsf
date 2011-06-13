@@ -71,10 +71,18 @@ class User implements UserInterface, \Serializable {
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     private $comments;
+
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
+     */
+    private $posts;
     
     public function __construct()
     {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();        
     }
     
 
@@ -228,6 +236,26 @@ class User implements UserInterface, \Serializable {
         return $this->comments;
     }
     
+    /**
+     * Add posts
+     *
+     * @param App\CoreBundle\Entity\Post $posts
+     */
+    public function addPosts(\App\CoreBundle\Entity\Post $posts)
+    {
+        $this->posts[] = $posts;
+    }
+
+    /**
+     * Get posts
+     *
+     * @return Doctrine\Common\Collections\Collection $posts
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
     /*
      * 
      */

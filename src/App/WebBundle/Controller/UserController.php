@@ -7,10 +7,6 @@ class UserController extends WebBaseController {
     protected $_name = 'User';
 
     public function signinAction() {
-        $this->menu();
-        $this->renderNavigation();
-        $this->meta();
-
         $form_signin = $this->getForm('Signin')->createView();
         $form_signup = $this->getForm('Signup')->createView(); 
  
@@ -49,10 +45,6 @@ class UserController extends WebBaseController {
     }
 
     public function profileAction() {
-        $this->menu();
-        $this->renderNavigation();
-        $this->meta();
-
         $user = $this->getUser();
 
 	$form = $this->getForm('Signup', $user);
@@ -76,19 +68,23 @@ class UserController extends WebBaseController {
         return $this->renderTpl($this->_name . ':profile', compact('form'));
     }
     public function commentsAction() {
-        $this->menu();
-        $this->renderNavigation();
-        $this->meta();
+        $comments = $this->getUser()->getComments();
 
-        return $this->renderTpl($this->_name . ':comments');
+        return $this->renderTpl($this->_name . ':comments', compact('comments'));
     }
-    public function postsAction() {
-        $this->menu();
-        
-        $this->renderNavigation();
-        $this->meta();
 
-        return $this->renderTpl($this->_name . ':posts');
+    public function commentEditAction($comment_id) {
+	return $this->renderTpl($this->_name . ':comment_edit');
+    }
+
+    public function commentDeleteAction($comment_id) {
+	return $this->renderTpl($this->_name . 'comment_delete');
+    }
+
+    public function postsAction() {
+        $posts = $this->getUser()->getPosts();
+
+        return $this->renderTpl($this->_name . ':posts', compact('posts'));
     }
 
 }
