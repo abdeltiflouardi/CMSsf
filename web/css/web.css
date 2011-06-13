@@ -227,7 +227,7 @@ ul.header-menu li.active a:HOVER {
 	margin-top: 10px;
 }
 
-.login, .error {
+.login, .error, .body {
 	width: 718px;
 	float: left;
 }

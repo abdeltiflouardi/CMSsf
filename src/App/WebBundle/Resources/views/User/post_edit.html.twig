@@ -1,5 +1,17 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
 {% block body %}
-<div></div>
+<div class="body widget">
+        <form action="#" method="post"}}>
+                <fieldset>
+                        <legend>Modifier cet article</legend>
+                        {{ form_widget(form) }}
+                        
+                        {{ form_rest(form) }}
+                        <div class="input submit">
+                                <input type="submit" value="Envoyer" class="button" />
+                        </div>
+                </fieldset>
+        </form>
+</div>
 {% endblock %}

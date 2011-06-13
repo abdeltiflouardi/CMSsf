@@ -1,5 +1,14 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
 {% block body %}
-<div></div>
+<div class="body widget">
+    <h2>Confirmation : Voulez-vous vraiment supprimer cet article?</h2>
+    <p>{{ post.title }}</p>    
+    <p>{{ post.body }}</p>
+    <br />
+    <p>
+        <a href="?confirm=1" class="button">Oui! Je veux supprimer cet article</a>
+        <a href="{{ path('_posts') }}" class="button">Non</a>
+    </p>
+</div>
 {% endblock %}

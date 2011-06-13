@@ -95,7 +95,7 @@ class Post
     /**
      * @var Comment
      * 
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
      * @ORM\OrderBy({"updatedAt" = "DESC"})
      */
     private $comments;

@@ -107,6 +107,7 @@ class UserController extends WebBaseController {
             $em = $this->getEm();
             $em->remove($comment);
             $em->flush();
+
             $this->flash('Commentaire supprimé');
             return $this->myRedirect('_comments');
         }
@@ -121,11 +122,49 @@ class UserController extends WebBaseController {
     }
 
     public function postEditAction($post_id) {
-        return $this->renderTpl($this->_name . ':post_edit');
+        // @TODO ACL just owner & moderator can edit
+        $post = $this->findOne('Post', $post_id);
+
+        if (!$post)
+            return $this->notFound('Article non trouvé', false);
+
+        $form = $this->getForm('Post', $post);
+        $form->remove('user');
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                 $em = $this->getEm();
+                 $em->persist($post);
+                 $em->flush();
+                 $this->get('tags')->editTags($post_id);
+
+                 $this->flash('Article modifié');
+                 return $this->myRedirect('_posts');
+            }
+        }
+
+        $form = $form->createView();
+
+        return $this->renderTpl($this->_name . ':post_edit', compact('form'));
     }
 
     public function postDeleteAction($post_id) {
-        return $this->renderTpl($this->_name . ':post_delete');
+        // @TODO Acl juste owner & admin can delete article
+        $post = $this->findOne('Post', $post_id);       
+        if ($confirm = $this->get('request')->query->get('confirm')) {
+
+            $em = $this->getEm();
+            $em->remove($post);
+            $em->flush();
+
+            $this->flash('Article supprimé');
+            return $this->myRedirect('_posts');
+        }
+
+        return $this->renderTpl($this->_name . ':post_delete', compact('post'));
+
     }
 
 }
