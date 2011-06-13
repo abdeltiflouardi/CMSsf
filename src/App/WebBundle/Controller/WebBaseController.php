@@ -20,7 +20,7 @@ class WebBaseController extends BaseController
         // Home
         $navigation = array(
             array(
-                'label' => 'Accuiel',
+                'label' => 'Accueil',
                 'url' => $this->generateUrl('_home')
             )
         );
