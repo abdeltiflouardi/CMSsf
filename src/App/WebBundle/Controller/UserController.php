@@ -74,11 +74,44 @@ class UserController extends WebBaseController {
     }
 
     public function commentEditAction($comment_id) {
-	return $this->renderTpl($this->_name . ':comment_edit');
+        // @TODO ACL just owner & moderator can edit
+        $comment = $this->findOne('Comment', $comment_id);
+
+        if (!$comment)
+            return $this->notFound('Commentaire non trouvé', false);
+
+        $form = $this->getForm('Comment', $comment);
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                 $em = $this->getEm();
+                 $em->persist($comment);
+                 $em->flush();
+
+                 $this->flash('Commentaire modifié');
+                 return $this->myRedirect('_comments');
+            }
+        }
+
+        $form = $form->createView();
+
+        return $this->renderTpl($this->_name . ':comment_edit', compact('form'));
     }
 
     public function commentDeleteAction($comment_id) {
-        return $this->renderTpl($this->_name . ':comment_delete');
+        // @TODO Acl juste owner & admin can delete comment
+        $comment = $this->findOne('Comment', $comment_id);       
+        if ($confirm = $this->get('request')->query->get('confirm')) {
+            $em = $this->getEm();
+            $em->remove($comment);
+            $em->flush();
+            $this->flash('Commentaire supprimé');
+            return $this->myRedirect('_comments');
+        }
+
+        return $this->renderTpl($this->_name . ':comment_delete', compact('comment'));
     }
 
     public function postsAction() {

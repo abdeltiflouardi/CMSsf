@@ -1,6 +1,20 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
 {% block body %}
-<div>
+<div class="comments widget">
+	<form action="#" method="post"}}>
+		<fieldset>
+			<legend>Modifier le commentaire</legend>
+
+			<div class="input textarea">
+				{{ form_widget(form.comment) }}	
+			</div>
+
+                        {{ form_rest(form) }}
+			<div class="input submit">
+				<input type="submit" value="Envoyer" class="button" />
+			</div>
+		</fieldset>
+	</form>
 </div>
 {% endblock %}

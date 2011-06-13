@@ -224,7 +224,7 @@ class BaseController extends Controller {
         return $token->getUser();
     }
     
-    public function notFound($message = null) {
-        return $this->renderTpl ('Error:error', ErrorController::error (404, $message), true);        
+    public function notFound($message = null, $common = true) {
+        return $this->renderTpl ('Error:error', ErrorController::error (404, $message), $common);        
     }
 }

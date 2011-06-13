@@ -1,6 +1,13 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
 {% block body %}
-<div>
+<div class="comments widget">
+    <h2>Confirmation : Voulez-vous vraiment supprimer ce commentaire?</h2>
+    <p>{{ comment.comment }}</p>    
+    <br />
+    <p>
+        <a href="?confirm=1" class="button">Oui! Je veux supprimer le commentaire</a>
+        <a href="{{ path('_comments') }}" class="button">Non</a>
+    </p>
 </div>
 {% endblock %}

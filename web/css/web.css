@@ -4,6 +4,11 @@ body {
 	margin: auto;
 }
 
+h2 {
+        color: #bb0000;
+        text-shadow: 0 0 0px #000;
+}
+
 /**
  *  * 	Header	 
  *   * 	 **/
@@ -222,7 +227,7 @@ ul.header-menu li.active a:HOVER {
 	margin-top: 10px;
 }
 
-.login {
+.login, .error {
 	width: 718px;
 	float: left;
 }
