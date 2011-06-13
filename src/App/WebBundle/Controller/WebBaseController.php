@@ -2,7 +2,8 @@
 
 namespace App\WebBundle\Controller;
 
-use App\CoreBundle\Controller\BaseController;
+use App\CoreBundle\Controller\BaseController,
+    App\CoreBundle\Twig\OutputExtension as Output;
 
 class WebBaseController extends BaseController
 {
@@ -36,13 +37,25 @@ class WebBaseController extends BaseController
 
             $navigation[] = array(
                 'label' => $category->getName(),
-                'url' => $this->generateUrl('_category', array('category_id' => $category->getId(), 'slug' => $category->getName()))
+                'url' => $this->generateUrl(
+                                    '_category', 
+                                    array(
+                                         'category_id' => $category->getId(), 
+                                         'slug' => Output::slug($category->getName())
+                                    )
+                                )
             );
 
             if (isset($subcategory)) {
                 $navigation[] = array(
                     'label' => $subcategory->getName(),
-                    'url' => $this->generateUrl('_category', array('category_id' => $subcategory->getId(), 'slug' => $subcategory->getName()))
+                    'url' => $this->generateUrl(
+                                        '_category', 
+                                        array(
+                                             'category_id' => $subcategory->getId(), 
+                                             'slug' => Output::slug($subcategory->getName())
+                                        )
+                                     )
                 );
             }
         }

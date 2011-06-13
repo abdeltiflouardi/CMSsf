@@ -4,7 +4,7 @@
                     <li{% if selected_menu == "" %} class="active"{% endif %}><a href="{{ path("_home") }}">{{ "Home"|trans }}</a></li>
                     {% for category in categories %}
                     <li{% if selected_menu == category.name %} class="active"{% endif %}>
-                        <a href="{{ path('_category', {'category_id': category.id, 'slug': category.name}) }}">
+                        <a href="{{ path('_category', {'category_id': category.id, 'slug': slug(category.name)}) }}">
                             {{ category.name }}</a>
                     </li>
                     {% endfor %}

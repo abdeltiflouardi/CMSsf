@@ -20,6 +20,7 @@ class OutputExtension extends \Twig_Extension {
         return array(
             'tags' => new \Twig_Function_Method($this, 'getTags'),
             'count' => new \Twig_Function_Method($this, 'getCount'),
+            'slug' => new \Twig_Function_Method($this, 'slug'),
         );
     }
 
@@ -49,6 +50,19 @@ class OutputExtension extends \Twig_Extension {
     public function getCount($items)
     {
 	return count($items);
+    }
+
+    /**
+     * Create a slug from text
+     */
+    public static function slug($url) {
+        $url = preg_replace("`\[.*\]`U","",$url);
+        $url = preg_replace('`&(amp;)?#?[a-z0-9]+;`i','-',$url);
+        $url = htmlentities($url, ENT_NOQUOTES, 'UTF-8');
+        $url = preg_replace( "`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i","\\1", $url );
+        $url = preg_replace( array("`[^a-z0-9]`i","`[-]+`") , "-", $url);
+        $url = ( $url == "" ) ? $type : strtolower(trim($url, '-'));
+        return $url;
     }
 
     /**

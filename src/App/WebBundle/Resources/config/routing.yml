@@ -25,11 +25,7 @@ _forgotten_password:
   defaults: { _controller: AppWebBundle:User:forgotten_password }
 
 _category:
-  pattern: /{category_id}-{slug}
-  defaults: { _controller: AppWebBundle:Post:index }
-
-_subcategory:
-  pattern: /{category_id}-{slug}
+  pattern: /{slug}/{category_id}
   defaults: { _controller: AppWebBundle:Post:index }
 
 _tag:
