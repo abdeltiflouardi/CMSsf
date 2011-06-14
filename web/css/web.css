@@ -320,3 +320,11 @@ ul.header-menu li.active a:HOVER {
         margin: 5px;
         padding: 5px;
 }
+
+.fb-like {
+        width: 700px;
+        float: left;
+
+        margin-top: -10px;
+        margin-bottom: 5px;
+}
