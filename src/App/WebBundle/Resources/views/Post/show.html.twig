@@ -1,8 +1,20 @@
 {% extends 'AppWebBundle::layout.html.twig' %}
 
-{% block pagination %}{% endblock %}
-
 {% block body %}
+{# Next & Previous #}
+<div class="post-next-previous">
+    {% if previous_post %}
+    <label class="previous">
+        <a href="{{ path('_post', {'post_id': previous_post.id, 'slug': slug(previous_post.title)}) }}">Précédent</a>
+    </label>
+    {% endif %}
+
+    {% if next_post %}
+    <label class="next">
+        <a href="{{ path('_post', {'post_id': next_post.id, 'slug': slug(next_post.title)}) }}">Suivant</a>
+    </label>
+    {% endif %}
+</div>
 <div class="content">
 	<article class="widget">
 		<header><h1>{{ post.title }}</h1></header>

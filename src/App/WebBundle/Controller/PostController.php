@@ -45,11 +45,35 @@ class PostController extends WebBaseController {
         }
 
         $form_comment = $form_comment->createView();
+        
+        // Next & Previous
+        $next_post = $this->getNextPost($post);
+        $previous_post = $this->getPreviousPost($post);
 
-        $posts = array($post);
-
-        $this->renderData(compact('post', 'posts', 'form_comment'));
+        $this->renderData(compact('post', 'form_comment', 'next_post', 'previous_post'));
         return $this->renderTpl('Post:show');
+    }
+
+    private function getNextPost($post) {
+        $id = $post->getId();
+        $query = $this->getRepo('Post')->createQueryBuilder('p')
+                      ->where('p.id > :post_id')
+                      ->setParameter('post_id', $id)
+                      ->orderBy('p.id', 'ASC')
+                      ->setMaxResults(1)
+                      ->getQuery();
+        return current($query->getResult());
+    }
+
+    private function getPreviousPost($post) {
+        $id = $post->getId();
+        $query = $this->getRepo('Post')->createQueryBuilder('p')
+                      ->where('p.id < :post_id')
+                      ->setParameter('post_id', $id)
+                      ->orderBy('p.id', 'DESC')
+                      ->setMaxResults(1)
+                      ->getQuery();
+        return current($query->getResult());        
     }
 
     private function searchByWord(&$params) {

@@ -178,6 +178,34 @@ ul.header-menu li.active a:HOVER {
 	color: #fff;
 }
 
+.post-next-previous {
+        width: 740px;
+        overflow: auto;
+
+        float: left;
+
+        margin-top: -10px;
+        margin-bottom: 5px;
+}
+
+.post-next-previous a {
+        color: #bb0000;
+}
+
+.post-next-previous label {
+        width: 200px;
+        display: block;
+}
+
+.post-next-previous label.previous {
+        float: left;
+}
+
+.post-next-previous label.next {
+        float: right; 
+        text-align: right;
+}
+
 .content {
 	width: 740px;
 	float: left;

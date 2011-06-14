@@ -22,8 +22,8 @@ class AppKernel extends Kernel {
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             //My Bundle
             new App\CoreBundle\AppCoreBundle(),
-            new App\WebBundle\AppWebBundle(),
             new App\AdminBundle\AppAdminBundle(),
+            new App\WebBundle\AppWebBundle(),
             new Knplabs\Bundle\PaginatorBundle\KnplabsPaginatorBundle(),
         );
 

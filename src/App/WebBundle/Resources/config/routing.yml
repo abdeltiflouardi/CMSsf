@@ -31,6 +31,8 @@ _tag:
 _category:
   pattern: /{slug}/{category_id}
   defaults: { _controller: AppWebBundle:Post:index }
+  requirements:
+      category_id: \d+
 
 _post:
   pattern: /article/{slug}/{post_id}
