@@ -46,11 +46,12 @@ class PostController extends WebBaseController {
 
         $form_comment = $form_comment->createView();
         
-        // Next & Previous
+        // Related, Next & Previous
         $next_post = $this->getNextPost($post);
         $previous_post = $this->getPreviousPost($post);
+        $related_posts = $this->getRelatedPost($post);
 
-        $this->renderData(compact('post', 'form_comment', 'next_post', 'previous_post'));
+        $this->renderData(compact('post', 'form_comment', 'next_post', 'previous_post', 'related_posts'));
         return $this->renderTpl('Post:show');
     }
 
@@ -74,6 +75,25 @@ class PostController extends WebBaseController {
                       ->setMaxResults(1)
                       ->getQuery();
         return current($query->getResult());        
+    }
+
+    private function getRelatedPost($post) {
+        $posts = array();
+        foreach ($post->getTag() as $tag) {
+            foreach ($tag->getPost() as $tag_post) {
+                if ($post != $tag_post)
+                    $posts[$tag_post->getId()] = $tag_post;
+
+                if (count($posts) >= $this->container->getParameter('count.related.post'))
+                    break;
+            }
+
+            if (count($posts) >= $this->container->getParameter('count.related.post'))
+                break;
+
+        }
+        
+        return $posts;
     }
 
     private function searchByWord(&$params) {

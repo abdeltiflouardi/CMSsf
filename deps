@@ -1,6 +1,6 @@
 assetic               /                       http://github.com/kriswallsmith/assetic.git
 symfony               /                       http://github.com/symfony/symfony.git
-doctrine              /                       http://github.com/doctrine/doctrine2.git@2.0.5
+doctrine              /                       http://github.com/doctrine/doctrine2.git@origin/2.0.x
 doctrine-dbal         /                       http://github.com/doctrine/dbal.git@2.0.5
 doctrine-common       /                       http://github.com/doctrine/common.git@origin/3.0.x
 swiftmailer           /                       http://github.com/swiftmailer/swiftmailer.git@origin/4.1
@@ -12,6 +12,7 @@ doctrine-fixtures     /                       http://github.com/doctrine/data-fi
 FrameworkExtraBundle  /bundles/Sensio/Bundle  http://github.com/sensio/SensioFrameworkExtraBundle.git
 SecurityExtraBundle   /bundles/JMS            http://github.com/schmittjoh/SecurityExtraBundle.git
 WebConfiguratorBundle /bundles/Symfony/Bundle http://github.com/symfony/WebConfiguratorBundle.git
+AsseticBundle         /bundles/Symfony/Bundle http://github.com/symfony/AsseticBundle.git
 DoctrineFixturesBundle /bundles/Symfony/Bundle http://github.com/symfony/DoctrineFixturesBundle.git
 PaginatorBundle /bundles/Knplabs/Bundle http://github.com/knplabs/PaginatorBundle.git
 zend                  /                       http://github.com/zendframework/zf2.git

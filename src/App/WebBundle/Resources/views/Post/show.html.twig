@@ -23,12 +23,13 @@
 		<p class="author">Par: {{ post.user.username }}</p>		
 	</article>
 </div>
-
+{% if 'dev' not in app.request.baseUrl %}
 <div class="fb-like">
     <div id="fb-root"></div>
     <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
     <fb:like href="{{ path('_post', {'post_id': post.id, 'slug': slug(post.title)}) }}" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
 </div>
+{% endif %}
 
 <div class="comments widget">
 	<h3>Commentaires</h3>
@@ -58,4 +59,14 @@
         <a href="{{ path('_signin') }}" class="button">Se connecter pour ajouter un commentaire</a>
         {% endif %}
 </div>
+
+<div class="body widget">
+    <h3>Articles proposés</h3>
+    <ul class="post-related">
+        {% for related_post in related_posts %}
+            <li><a href="{{ path('_post', {'post_id': related_post.id, 'slug': slug(related_post.title)}) }}">{{ related_post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
+
