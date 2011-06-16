@@ -49,7 +49,7 @@ class PostController extends WebBaseController {
         // Related, Next & Previous
         $next_post = $this->getNextPost($post);
         $previous_post = $this->getPreviousPost($post);
-        $related_posts = $this->getRelatedPost($post);
+        $related_posts = $this->getRelatedPosts($post);
 
         $this->renderData(compact('post', 'form_comment', 'next_post', 'previous_post', 'related_posts'));
         return $this->renderTpl('Post:show');
@@ -77,7 +77,7 @@ class PostController extends WebBaseController {
         return current($query->getResult());        
     }
 
-    private function getRelatedPost($post) {
+    private function getRelatedPosts($post) {
         $posts = array();
         foreach ($post->getTag() as $tag) {
             foreach ($tag->getPost() as $tag_post) {

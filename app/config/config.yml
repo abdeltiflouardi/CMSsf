@@ -68,5 +68,10 @@ services:
 knplabs_paginator: 
     templating: ~
 
-app_core: ~
+app_core:
+    adsense:
+        client_id: 1000
+        height: 300
+        width: 200
+        colors: "#ffffff|#ccc"
 
