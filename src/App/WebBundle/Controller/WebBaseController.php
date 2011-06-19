@@ -91,8 +91,13 @@ class WebBaseController extends BaseController
         $selected_menu = "";
         $sub_categories = array();
         $category_id = $this->get('request')->get('category_id');
-        if (!empty($category_id)) {
+
+        if (!empty($category_id))
             $category = $this->findOne('Category', $category_id);
+        elseif ($post_id = $this->get('request')->get('post_id'))
+            $category = $this->findOne('Post', $post_id)->getCategory();
+        
+        if (isset($category)) {
             if ($category->getParent() != null) {
                 $parent = $category->getParent();
                 $sub_categories = $parent->getSubCategories();
@@ -100,10 +105,12 @@ class WebBaseController extends BaseController
                 $selected_menu = $parent->getName();
             } else {
                 $sub_categories = $category->getSubCategories();
-
                 $selected_menu = $category->getName();
             }
         }
+		
+        if (in_array($this->get("request")->get('_route'), array('_signin')))
+            $selected_menu = 'Connexion';
 
         // Return datas to template
         $this->template = $this->get('twig');
