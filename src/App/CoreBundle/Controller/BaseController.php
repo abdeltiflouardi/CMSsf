@@ -73,12 +73,12 @@ class BaseController extends Controller {
     }
 
     public function renderData(array $data = array()) {
-	$this->_data += $data;
-	return $this;
+        $this->_data += $data;
+        return $this;
     }
 
     public function getData() {
-	return $this->_data;
+        return $this->_data;
     }
 
     public function renderTpl($action, $params = array(), $common = false) {
@@ -87,7 +87,7 @@ class BaseController extends Controller {
         else
             $ns = $this->_commonNamespace;
         
-	$this->renderData($params);
+        $this->renderData($params);
 
         return $this->render($ns . $action . $this->getTplEngine(), $this->getData());
     }
@@ -127,8 +127,8 @@ class BaseController extends Controller {
                 $em->persist($$entity);
                 $em->flush();
 
-		//Insert Tags
-		$this->get('tags')->addTags($$entity->getId());
+                //Insert Tags
+                $this->get('tags')->addTags($$entity->getId());
 		
 		// Session flash
 		$this->flash(strtolower($entity) . ' added');
@@ -224,11 +224,11 @@ class BaseController extends Controller {
     }
 
     public function trans($text) {
-	return $this->get('translator')->trans($text);
+        return $this->get('translator')->trans($text);
     }
 
     public function flash($message, $type = "message") {
-	$this->get('session')->setFlash($type, $this->trans($message));
+        $this->get('session')->setFlash($type, $this->trans($message));
     }
 
     public function myRedirect($router) {
