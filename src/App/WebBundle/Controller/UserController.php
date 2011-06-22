@@ -133,11 +133,14 @@ class UserController extends WebBaseController {
     }
 
     public function postEditAction($post_id) {
-        // @TODO ACL just owner & moderator can edit
         $post = $this->findOne('Post', $post_id);
 
         if (!$post)
             return $this->notFound('Article non trouvé', false);
+
+        if (!$this->get('security.context')->isGranted('EDIT', $post) && 
+            !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+            return $this->accessDenied(null, false);
 
         $form = $this->getForm('Post', $post);
         $form->remove('user');
@@ -162,8 +165,15 @@ class UserController extends WebBaseController {
     }
 
     public function postDeleteAction($post_id) {
-        // @TODO Acl juste owner & admin can delete article
         $post = $this->findOne('Post', $post_id);       
+
+        if (!$post)
+            return $this->notFound(sprintf('Article #%s non trouvé', $post_id), false);        
+
+        if (!$this->get('security.context')->isGranted('DELETE', $post) && 
+            !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+            return $this->accessDenied(null, false);
+
         if ($confirm = $this->get('request')->query->get('confirm')) {
 
             $em = $this->getEm();
