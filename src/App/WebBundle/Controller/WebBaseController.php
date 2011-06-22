@@ -109,7 +109,7 @@ class WebBaseController extends BaseController
             }
         }
 		
-        if (in_array($this->get("request")->get('_route'), array('_signin', '_forgotten_password')))
+        if (in_array($this->get("request")->get('_route'), array('_signin', '_forgotten_password', '_activate')))
             $selected_menu = 'Connexion';
 
         // Return datas to template
