@@ -13,7 +13,7 @@ _logout:
   pattern: /logout
 
 _activate:
-  pattern: /activate
+  pattern: /activate/{token}
   defaults: { _controller: AppWebBundle:User:activate }
 
 _signin:
@@ -22,7 +22,7 @@ _signin:
   
 _forgotten_password:
   pattern: /forgotten-password
-  defaults: { _controller: AppWebBundle:User:forgotten_password }
+  defaults: { _controller: AppWebBundle:User:forgottenPassword }
 
 _tag:
   pattern: /tag/{tag_id}-{tag}

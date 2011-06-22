@@ -44,6 +44,14 @@ class UserController extends WebBaseController {
         return $this->renderTpl($this->_name . ':signup', compact('form'));
     }
 
+    public function forgottenPasswordAction() {
+        return $this->renderTpl($this->_name . ':forgotten_password');
+    }
+
+    public function activateAction($token) {
+        return $this->renderTpl($this->_name . ':activate');
+    }
+
     public function profileAction() {
         $user = $this->getUser();
 
