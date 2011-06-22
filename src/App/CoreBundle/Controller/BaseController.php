@@ -2,7 +2,10 @@
 
 namespace App\CoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Component\Security\Acl\Permission\MaskBuilder,
+    Symfony\Component\Security\Acl\Domain\ObjectIdentity,
+    Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 class BaseController extends Controller {
 
@@ -206,6 +209,20 @@ class BaseController extends Controller {
         return $encoder->encodePassword($user->getPassword(), $user->getSalt());
     }
 
+    public function makeAcl($entity, $mask = MaskBuilder::MASK_OWNER) {
+        // creating the ACL
+        $aclProvider = $this->get('security.acl.provider');
+        $objectIdentity = ObjectIdentity::fromDomainObject($entity);
+        $acl = $aclProvider->createAcl($objectIdentity);
+
+        // retrieving the security identity of the currently logged-in user
+        $securityIdentity = UserSecurityIdentity::fromAccount($this->getUser());
+
+        // grant owner access
+        $acl->insertObjectAce($securityIdentity, $mask);
+        $aclProvider->updateAcl($acl);
+    }
+
     public function trans($text) {
 	return $this->get('translator')->trans($text);
     }
@@ -227,4 +244,9 @@ class BaseController extends Controller {
     public function notFound($message = null, $common = true) {
         return $this->renderTpl ('Error:error', ErrorController::error (404, $message), $common);        
     }
+
+    public function AccessDenied($message = null, $common = true) {
+        return $this->renderTpl ('Error:error', ErrorController::error (405, $message), $common);
+    }
+
 }

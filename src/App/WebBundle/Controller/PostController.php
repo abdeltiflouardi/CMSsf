@@ -39,6 +39,8 @@ class PostController extends WebBaseController {
                 $em = $this->getEm();
                 $em->persist($comment);
                 $em->flush();
+
+                $this->makeAcl($comment);
                 
                 return $this->redirect($this->generateUrl('_post', compact('post_id', 'slug')));
             }

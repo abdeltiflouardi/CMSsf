@@ -11,7 +11,10 @@
                     
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="header-menu-right">
-                         <a href="{{ path('_logout') }}">Se déconncter</a>
+                         <a href="{{ path('_logout') }}">
+                             Se déconncter
+                             <small>({{ app.user.username }})</small>
+                         </a>
                     </li>
                     {% else %}
                     <li class="{% if selected_menu == 'Connexion' %}active {% endif %}header-menu-right">

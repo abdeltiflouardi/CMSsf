@@ -101,8 +101,16 @@ class UserController extends WebBaseController {
     }
 
     public function commentDeleteAction($comment_id) {
-        // @TODO Acl juste owner & admin can delete comment
+
         $comment = $this->findOne('Comment', $comment_id);       
+
+        if (!$comment)
+            return $this->notFound(sprintf('Comment #%s non trouvé', $comment_id), false);
+
+        if (!$this->get('security.context')->isGranted('EDIT', $comment) && 
+            !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+            return $this->accessDenied(null, false);
+
         if ($confirm = $this->get('request')->query->get('confirm')) {
             $em = $this->getEm();
             $em->remove($comment);

@@ -6,6 +6,7 @@ class ErrorController extends BaseController {
 
     static $_errors = array(
         404 => 'Item not found!',
+        405 => 'Action not allowed',
         900 => 'An error occured!',
     );
     

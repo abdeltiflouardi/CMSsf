@@ -75,3 +75,5 @@ app_core:
         width: 200
         colors: "#ffffff|#ccc"
 
+swiftmailer:
+    transport:  smtp
