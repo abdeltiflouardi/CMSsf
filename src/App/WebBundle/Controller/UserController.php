@@ -74,11 +74,14 @@ class UserController extends WebBaseController {
     }
 
     public function commentEditAction($comment_id) {
-        // @TODO ACL just owner & moderator can edit
         $comment = $this->findOne('Comment', $comment_id);
 
         if (!$comment)
             return $this->notFound('Commentaire non trouvé', false);
+
+        if (!$this->get('security.context')->isGranted('EDIT', $comment) &&
+            !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+            return $this->accessDenied(null, false);        
 
         $form = $this->getForm('Comment', $comment);
 
@@ -107,7 +110,7 @@ class UserController extends WebBaseController {
         if (!$comment)
             return $this->notFound(sprintf('Comment #%s non trouvé', $comment_id), false);
 
-        if (!$this->get('security.context')->isGranted('EDIT', $comment) && 
+        if (!$this->get('security.context')->isGranted('DELETE', $comment) && 
             !$this->get('security.context')->isGranted('ROLE_MODERATE'))
             return $this->accessDenied(null, false);
 
