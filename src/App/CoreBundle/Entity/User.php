@@ -39,6 +39,13 @@ class User implements UserInterface, \Serializable {
     private $password;
 
     /**
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
+     */
+    private $email;
+
+    /**
      * @var boolean $enabled
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
@@ -134,6 +141,26 @@ class User implements UserInterface, \Serializable {
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**

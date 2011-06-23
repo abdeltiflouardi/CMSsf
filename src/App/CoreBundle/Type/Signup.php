@@ -9,7 +9,8 @@ class Signup extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('username', 'text');
+        $builder->add('email');
+        $builder->add('username');
         $builder->add('password', 'repeated',
                 array('type' => 'password', 'first_name' => 'Password', 'second_name' => 'Again'));
     }

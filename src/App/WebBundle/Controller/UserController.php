@@ -36,6 +36,18 @@ class UserController extends WebBaseController {
                 $em->persist($team);
                 $em->persist($user);
                 $em->flush();
+
+                $token = $user->getEmail();
+
+                $message = \Swift_Message::newInstance()
+                   ->setContentType("text/html")
+                   ->setSubject('Activation de votre compte')
+                   ->setFrom('ouardisoft@localhost')
+                   ->setTo($user->getEmail())
+                   ->setBody($this->renderView('AppWebBundle:Mail:activate.html.twig', array('token' => $token)))
+                ;
+                $this->get('mailer')->send($message);                
+
                 return $this->redirect($this->generateUrl('_home'));
             }
         }
@@ -49,6 +61,13 @@ class UserController extends WebBaseController {
     }
 
     public function activateAction($token) {
+        $user = $this->getRepo('User')->findOneByEmail($token);        
+        $user->setEnabled(1);
+
+        $em = $this->getEm();
+        $em->persist($user);
+        $em->flush();
+
         return $this->renderTpl($this->_name . ':activate');
     }
 
