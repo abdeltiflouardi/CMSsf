@@ -199,7 +199,7 @@ class BaseController extends Controller {
     }
 
     public function getForm($entity, $param = null) {
-        return $this->get('form.factory')->create($this->getType($entity), $param);
+        return $this->createForm($this->getType($entity), $param);
     }
 
     public function getEncodePassword($user = null) {

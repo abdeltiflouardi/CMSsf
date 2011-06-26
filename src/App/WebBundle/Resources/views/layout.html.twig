@@ -24,6 +24,10 @@
                     {% include 'AppWebBundle:Partials:navigation.html.twig' %}
                 {% endblock%}
                 
+                {% if app.session.hasFlash('message') %}
+                <p class="flash-message body">{{ app.session.flash('message') }}</p>
+                {% endif %}
+
                 {% block sidebar %}
                     {% include 'AppWebBundle:Partials:sidebar.html.twig' %}                
                 {% endblock%}	

@@ -24,6 +24,10 @@ _forgotten_password:
   pattern: /forgotten-password
   defaults: { _controller: AppWebBundle:User:forgottenPassword }
 
+_init_password:
+  pattern: /init-password/{token}
+  defaults: { _controller: AppWebBundle:User:initPassword }
+
 _tag:
   pattern: /tag/{tag_id}-{tag}
   defaults: { _controller: AppWebBundle:Post:index }

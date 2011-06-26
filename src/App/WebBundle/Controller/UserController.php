@@ -2,6 +2,9 @@
 
 namespace App\WebBundle\Controller;
 
+use App\CoreBundle\Request\ForgottenPassword;
+use App\CoreBundle\Request\InitPassword;
+
 class UserController extends WebBaseController {
 
     protected $_name = 'User';
@@ -57,7 +60,68 @@ class UserController extends WebBaseController {
     }
 
     public function forgottenPasswordAction() {
-        return $this->renderTpl($this->_name . ':forgotten_password');
+        $fp = new ForgottenPassword();
+        $form = $this->getForm('ForgottenPassword', $fp);
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                $user = $this->getRepo('User')->findOneByEmail($fp->getEmail());
+                if (!$user)
+                    $this->flash('Email not found');
+                else {
+                    $token = $user->getEmail();
+
+                    $message = \Swift_Message::newInstance()
+                       ->setContentType("text/html")
+                       ->setSubject('Forgotten password')
+                       ->setFrom('ouardisoft@server.lan')
+                       ->setTo($user->getEmail())
+                       ->setBody($this->renderView('AppWebBundle:Mail:forgotten_password.html.twig', array('token' => $token)))
+                    ;
+
+                    $this->get('mailer')->send($message);
+                }
+            }
+        }
+
+        $form = $form->createView();
+        return $this->renderTpl($this->_name . ':forgotten_password', compact('form'));
+    }
+
+    public function initPasswordAction($token) {
+
+        $user = $this->getRepo('User')->findOneByEmail($token);
+        if (!$user)
+            $this->flash('User not found');
+
+        $init_password = new InitPassword();
+        $form = $this->getForm('InitPassword', $init_password);
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+               $password = $user->getPassword();
+               $user->setPassword($init_password->getOldPassword());
+               $old_password = $this->getEncodePassword($user);
+
+               if ($password != $old_password) {
+                   $this->flash('Old password not valid');
+               } else {
+                   $user->setPassword($init_password->getNewPassword());
+                   $new_password = $this->getEncodePassword($user);
+                   $user->setPassword($new_password);
+                   $em = $this->getEm();
+                   $em->persist($user);
+                   $em->flush();
+               }
+            }
+        }
+
+        $form = $form->createView();
+        return $this->renderTpl($this->_name . ':init_password', compact('form'));
     }
 
     public function activateAction($token) {
