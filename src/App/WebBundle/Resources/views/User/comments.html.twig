@@ -5,7 +5,7 @@
      <table>
           <tr>
                <th>Id</th>
-               <th>Commentaire</th>
+               <th>Comment</th>
                <th>Date</th>
                <th>Actions</th>
           </tr>
@@ -15,8 +15,8 @@
               <td>{{ comment.comment }}</td>
               <td nowrap="nowrap">{{ comment.updatedAt|date() }}</td>
               <td nowrap="nowrap">
-                   <a href="{{ path('_comment_edit', {'comment_id': comment.id} ) }}">Modifier</a>
-                   <a href="{{ path('_comment_delete', {'comment_id': comment.id} ) }}">Supprimer</a>
+                   <a href="{{ path('_comment_edit', {'comment_id': comment.id} ) }}">Edit</a>
+                   <a href="{{ path('_comment_delete', {'comment_id': comment.id} ) }}">Delete</a>
               </td>
           </tr>
           {% endfor %}

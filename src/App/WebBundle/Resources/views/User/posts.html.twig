@@ -5,7 +5,7 @@
      <table>
           <tr>
                <th>Id</th>
-               <th>Titre</th>
+               <th>Title</th>
                <th>Date</th>
                <th>Actions</th>
           </tr>
@@ -15,8 +15,8 @@
               <td>{{ post.title }}</td>
               <td nowrap="nowrap">{{ post.updatedAt|date() }}</td>
               <td nowrap="nowrap">
-                   <a href="{{ path('_post_edit', {'post_id': post.id} )}}">Modifier</a>
-                   <a href="{{ path('_post_delete', {'post_id': post.id} ) }}">Supprimer</a>
+                   <a href="{{ path('_post_edit', {'post_id': post.id} )}}">Edit</a>
+                   <a href="{{ path('_post_delete', {'post_id': post.id} ) }}">Delete</a>
               </td>
           </tr>
           {% endfor %}

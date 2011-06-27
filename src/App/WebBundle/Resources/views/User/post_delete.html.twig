@@ -2,13 +2,13 @@
 
 {% block body %}
 <div class="body widget">
-    <h2>Confirmation : Voulez-vous vraiment supprimer cet article?</h2>
+    <h2>Confirmation : you want to delete this post?</h2>
     <p>{{ post.title }}</p>    
     <p>{{ post.body }}</p>
     <br />
     <p>
-        <a href="?confirm=1" class="button">Oui! Je veux supprimer cet article</a>
-        <a href="{{ path('_posts') }}" class="button">Non</a>
+        <a href="?confirm=1" class="button">Yes! I want to delete this post</a>
+        <a href="{{ path('_posts') }}" class="button">No</a>
     </p>
 </div>
 {% endblock %}

@@ -5,13 +5,13 @@
 <div class="post-next-previous">
     {% if previous_post %}
     <label class="previous">
-        <a href="{{ path('_post', {'post_id': previous_post.id, 'slug': slug(previous_post.title)}) }}">Précédent</a>
+        <a href="{{ path('_post', {'post_id': previous_post.id, 'slug': slug(previous_post.title)}) }}">Previous</a>
     </label>
     {% endif %}
 
     {% if next_post %}
     <label class="next">
-        <a href="{{ path('_post', {'post_id': next_post.id, 'slug': slug(next_post.title)}) }}">Suivant</a>
+        <a href="{{ path('_post', {'post_id': next_post.id, 'slug': slug(next_post.title)}) }}">Next</a>
     </label>
     {% endif %}
 </div>
@@ -51,7 +51,7 @@
 
                         {{ form_rest(form_comment) }}
 			<div class="input submit">
-				<input type="submit" value="Envoyer" class="button" />
+				<input type="submit" value="Send" class="button" />
 			</div>
 		</fieldset>
 	</form>
@@ -61,7 +61,7 @@
 </div>
 
 <div class="body widget">
-    <h3>Articles proposés</h3>
+    <h3>Related posts</h3>
     <ul class="post-related">
         {% for related_post in related_posts %}
             <li><a href="{{ path('_post', {'post_id': related_post.id, 'slug': slug(related_post.title)}) }}">{{ related_post.title }}</a></li>
