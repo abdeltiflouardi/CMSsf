@@ -1,0 +1,25 @@
+{% extends 'AppWebBundle::layout.html.twig' %}
+
+{% block body %}
+<div class="body widget">
+    <h3>Users's comments</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Post</th>
+            <th>Comment</th>
+            <th>Date</th>
+        </tr>
+        {% for comment in comments %}
+        <tr>
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.user.username }}</td>
+            <td>{{ comment.post.title }}</td>
+            <td>{{ comment.comment }}</td>
+            <td>{{ comment.updatedAt|date() }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

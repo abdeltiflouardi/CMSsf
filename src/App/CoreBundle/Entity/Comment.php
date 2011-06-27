@@ -30,6 +30,13 @@ class Comment
     private $comment;
 
     /**
+     * @var boolean $viewed
+     *
+     * @ORM\Column(name="viewed", type="boolean", nullable=false)
+     */
+    private $viewed;
+
+    /**
      * @var datetime $createdAt
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -46,7 +53,7 @@ class Comment
     /**
      * @var Post
      *
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      * })
@@ -63,7 +70,9 @@ class Comment
      */
     private $user;
 
-
+    public function __construct() {
+        $this->viewed = 0;
+    }
 
     /**
      * Get id
@@ -93,6 +102,26 @@ class Comment
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set viewed
+     *
+     * @param boolean $viewed
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+    }
+
+    /**
+     * Get viewed
+     *
+     * @return boolean $viewed
+     */
+    public function getViewed()
+    {
+        return $this->viewed;
     }
 
     /**

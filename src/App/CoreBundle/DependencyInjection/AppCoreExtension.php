@@ -19,7 +19,7 @@ class AppCoreExtension extends Extension {
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        foreach (array('hook', 'twig', 'twig_extensions') as $basename) {
+        foreach (array('listener', 'twig', 'twig_extensions') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         } 
 

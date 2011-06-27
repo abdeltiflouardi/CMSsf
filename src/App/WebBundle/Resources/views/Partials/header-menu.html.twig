@@ -12,7 +12,7 @@
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="header-menu-right">
                          <a href="{{ path('_logout') }}">
-                             Se déconncter
+                             Logout
                              <small>({{ app.user.username }})</small>
                          </a>
                     </li>

@@ -5,7 +5,7 @@ namespace App\CoreBundle\EventListener;
 use  Symfony\Component\HttpKernel\Event\FilterResponseEvent,
      Symfony\Bundle\TwigBundle\TwigEngine;
 
-class HookListener {
+class AdsenseHookListener {
 
     protected $templating;
     protected $height;
@@ -49,7 +49,7 @@ class HookListener {
         $content = $response->getContent();
 
         if (false !== $pos = $posrFunction($content, '<!-- HOOK SIDEBAR -->')) {
-            $sidebar = $this->templating->render('AppCoreBundle:Hook:block.html.twig', array('vars' => $this));
+            $sidebar = $this->templating->render('AppCoreBundle:Hook:adsense.html.twig', array('vars' => $this));
             $content = preg_replace('/<!-- HOOK SIDEBAR -->/', $sidebar, $content); 
             $response->setContent($content);
         }

@@ -164,6 +164,22 @@ class UserController extends WebBaseController {
         return $this->renderTpl($this->_name . ':comments', compact('comments'));
     }
 
+    public function usersCommentsAction() {
+        $user = $this->getUser();
+
+        $query = $this->getEM()
+                      ->createQuery('
+                                     SELECT c, p 
+                                     FROM AppCoreBundle:Comment c JOIN c.post p
+                                     WHERE p.user = :user
+                                    ')
+                      ->setParameter('user', $user);
+
+        $comments = $query->getResult();
+
+        return $this->renderTpl($this->_name . ':users_comments', compact('comments'));
+    }
+
     public function commentEditAction($comment_id) {
         $comment = $this->findOne('Comment', $comment_id);
 

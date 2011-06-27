@@ -96,6 +96,17 @@ ul.header-menu li.active a:HOVER {
 /**
  *  * 	Content
  *   * 	 **/
+
+table {
+        border: 1px solid #ccc;
+        width: 100%;
+}
+
+table tr td, table tr th {
+       padding: 5px;
+       border: 1px solid #ccc;
+}
+
 .content-wrapper {
 	padding: 10px;
 	background-color: #fff;
@@ -272,16 +283,6 @@ ul.header-menu li.active a:HOVER {
         color: #bb0000;
 }
 
-.login table {
-        border: 1px solid #ccc;
-        width: 100%;
-}
-
-.login table tr td, .login table tr th {
-       padding: 5px;
-       border: 1px solid #ccc;
-}
-
 .comments {
 	width: 720px;
 	float: left;
@@ -317,6 +318,17 @@ ul.header-menu li.active a:HOVER {
 
 .comments .submit {
         margin-top: 10px;
+}
+
+.comment-notifier {
+        display: block;
+        color: #fff;
+        background-color: #bb0000;
+        width: 20px;
+        text-align: center;
+        padding: 1px;
+        float: right;
+        -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
 }
 
 .flash-message {
