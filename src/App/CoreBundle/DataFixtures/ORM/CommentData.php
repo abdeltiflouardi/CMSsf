@@ -11,7 +11,9 @@ class CommentData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load($manager) {
         $comment = new Comment();
-        $comment->setComment('programmes en ligne de commande. PHP est un langage impératif disposant depuis la version 5 de fonctionnalités de modèle objet complètes');
+        $comment->setComment('Removed items: \'register_globals\', \'safe_mode\', \'allow_call_time_pass_reference\', session_register(), session_unregister() and session_is_registered() functions
+
+New features: traits, array dereferencing, closure $this support, JsonSerializable interface, "<?=" no longer requires \'short_open_tag\' set to ON');
         $comment->setPost($manager->merge($this->getReference('post_php')));
         $comment->setUser($manager->merge($this->getReference('user')));
         

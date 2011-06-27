@@ -10,7 +10,7 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load($manager) {
         $category_prog = new Category();
-        $category_prog->setName('Programmation');
+        $category_prog->setName('Programming');
 	$category_prog->setPosition(1);
 
         $category_web = new Category();
@@ -18,11 +18,11 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
 	$category_web->setPosition(2);
 
 	$category_soft = new Category();
-	$category_soft->setName('Logiciels');
+	$category_soft->setName('Software');
 	$category_soft->setPosition(3);
 
 	$category_hard = new Category();
-	$category_hard->setName('Matériels');
+	$category_hard->setName('Hardware');
 	$category_hard->setPosition(4);
 
         $manager->persist($category_prog);
@@ -65,7 +65,7 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
             $manager->flush();
         }        
 
-        foreach (array('Développement', 'Anti-virus', 'Multimedia', 'Jeux', 'Autres') as $id => $name) {
+        foreach (array('Developpement', 'Security', 'Audio/Video', 'Games', 'Others') as $id => $name) {
             $category = new Category();
             $category->setParent($category_soft);
             $category->setName($name);
@@ -75,7 +75,7 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
             $manager->flush();
         }
 
-        foreach (array('Drivers', 'Carte mère', 'Ordinateur portable', 'Serveurs', 'Carte graphique', 'Autres') as $id => $name) {
+        foreach (array('Drivers', 'Motherboard', 'Servers', 'graphic cards', 'Others') as $id => $name) {
             $category = new Category();
             $category->setParent($category_hard);
             $category->setName($name);

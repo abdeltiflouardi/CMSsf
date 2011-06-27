@@ -13,14 +13,16 @@ class PostData extends AbstractFixture implements OrderedFixtureInterface {
         $post_php->setUser($manager->merge($this->getReference('user')));
         $post_php->setCategory($manager->merge($this->getReference('category_php')));
         $post_php->setTitle('PHP - Introduction');
-        $post_php->setBody('PHP (sigle de PHP: Hypertext Preprocessor3) est un langage de scripts libre4 principalement utilisé pour produire des pages Web dynamiques via un serveur HTTP3, mais pouvant également fonctionner comme n\'importe quel langage interprété de façon locale, en exécutant les programmes en ligne de commande. PHP est un langage impératif disposant depuis la version 5 de fonctionnalités de modèle objet complètes5. En raison de la richesse de sa bibliothèque, on désigne parfois PHP comme une plate-forme plus qu\'un simple langage.');
+        $post_php->setBody('PHP is a general-purpose scripting language originally designed for web development to produce dynamic web pages. For this purpose, PHP code is embedded into the HTML source document and interpreted by a web server with a PHP processor module, which generates the web page document. It also has evolved to include a command-line interface capability and can be used in standalone graphical applications.[2] PHP can be deployed on most web servers and as a standalone interpreter, on almost every operating system and platform free of charge.[3] A competitor to Microsoft\'s Active Server Pages (ASP) server-side script engine[4] and similar languages, PHP is installed on more than 20 million websites and 1 million web servers.[5]');
         $post_php->addTag($manager->merge($this->getReference('tag_php')));
 
         $post_symfony = new Post();
         $post_symfony->setUser($manager->merge($this->getReference('user')));
         $post_symfony->setCategory($manager->merge($this->getReference('category_symfony')));
         $post_symfony->setTitle('Symfony - Introduction');
-        $post_symfony->setBody('Symfony est un framework MVC libre écrit en PHP 5. En tant que framework, il facilite et accélère le développement de sites et d\'applications Internet et Intranet.');
+        $post_symfony->setBody('Symfony is a web application framework written in PHP which follows the model-view-controller (MVC) paradigm. Released under the MIT license, Symfony is free software. The symfony-project.com website launched on October 18, 2005.[1]
+
+Symfony should not be confused with Symphony CMS, the Open Source XML/XSLT content management system.');
         $post_symfony->addTag($manager->merge($this->getReference('tag_php')));
         $post_symfony->addTag($manager->merge($this->getReference('tag_symfony')));
 

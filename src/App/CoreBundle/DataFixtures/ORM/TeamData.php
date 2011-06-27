@@ -10,15 +10,15 @@ class TeamData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load($manager) {
         $team = new Team();
-        $team->setName('Administrateurs');
+        $team->setName('Administrators');
         $team->setRole('ROLE_ADMIN');
 
         $team_moderate = new Team();
-        $team_moderate->setName('Moderateurs');
+        $team_moderate->setName('Moderators');
         $team_moderate->setRole('ROLE_MODERATE');
 
         $team_user = new Team();
-        $team_user->setName('Utilisateurs');
+        $team_user->setName('Users');
         $team_user->setRole('ROLE_USER');
 
         $manager->persist($team);
