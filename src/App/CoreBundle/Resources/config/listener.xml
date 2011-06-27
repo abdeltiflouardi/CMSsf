@@ -12,14 +12,14 @@
     <services>
 
         <service id="comment.notifier" class="%comment.notifier.class%">
-            <tag name="kernel.listener" event="core.response" method="onCoreResponse" priority="-128" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="-128" />
             <argument type="service" id="templating.engine.twig" />
             <argument type="service" id="doctrine" />
             <argument type="service" id="security.context" />
         </service>
 
         <service id="hook.adsense" class="%hook.class%">
-            <tag name="kernel.listener" event="core.response" method="onCoreResponse" priority="-128" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="-128" />
             <argument type="service" id="templating.engine.twig" />
             <argument>%adsense.client_id%</argument>
             <argument>%adsense.height%</argument>
