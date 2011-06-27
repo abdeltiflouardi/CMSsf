@@ -175,7 +175,7 @@ class UserController extends WebBaseController {
                                     ')
                       ->setParameter('user', $user);
 
-        $comments = $query->getResult();
+        $comments = $this->paginator($query, array('itemPerPage' => 1));
 
         return $this->renderTpl($this->_name . ':users_comments', compact('comments'));
     }

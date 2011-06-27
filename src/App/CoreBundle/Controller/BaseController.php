@@ -40,25 +40,29 @@ class BaseController extends Controller {
     }
 
     public function paginator($entity, $options = array()) {
-        
-	$entity = isset($options['entity']) ? $options['entity'] : $entity;
 
-        $_default_options = array(
-          'itemPerPage' => 5,
-          'pageRange' => 5
-        );
-        
-        $options = array_merge($_default_options, $options);     
+         $_default_options = array(
+             'itemPerPage' => 5,
+             'pageRange' => 5
+         );
+
+        $options = array_merge($_default_options, $options);
+       
+        if ($entity instanceof \Doctrine\ORM\Query) {
+            $query = $entity;
+        } else {
+            $entity = isset($options['entity']) ? $options['entity'] : $entity;
  
-        $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
+            $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
         
-        if (isset($options['where']))
-            $dql .= ' WHERE ' . $options['where'];
+            if (isset($options['where']))
+                $dql .= ' WHERE ' . $options['where'];
 
-        if (isset($options['order']))
-            $dql .= ' ORDER BY ' . $options['order'];
+            if (isset($options['order']))
+                $dql .= ' ORDER BY ' . $options['order'];
         
-        $query = $this->getEm()->createQuery($dql);
+            $query = $this->getEm()->createQuery($dql);
+        }
 
         $adapter = $this->get('knplabs_paginator.adapter');
         $adapter->setQuery($query);

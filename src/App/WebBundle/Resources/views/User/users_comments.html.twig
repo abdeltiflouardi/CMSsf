@@ -22,4 +22,7 @@
         {% endfor %}
     </table>
 </div>
+
+{% include 'AppWebBundle:Partials:pagination.html.twig' with {'posts': comments} %}
+
 {% endblock %}
