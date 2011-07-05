@@ -21,9 +21,11 @@ $loader->registerPrefixes(array(
     'Twig_'                             => __DIR__ . '/../vendor/twig/lib',
 ));
 
-$loader->registerPrefixFallbacks(array(
-    __DIR__ . '/../vendor/symfony/src/Symfony/Component/Locale/Resources/stubs',
-));
+if (!function_exists('intl_get_error_code')) {
+    require_once __DIR__.'/../vendor/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
+
+    $loader->registerPrefixFallbacks(array(__DIR__.'/../vendor/symfony/src/Symfony/Component/Locale/Resources/stubs'));
+}
 
 // My namespaces
 $loader->registerNamespaceFallbacks(array(
