@@ -2,18 +2,26 @@
 
 namespace App\WebBundle\Controller;
 
-use App\CoreBundle\Request\ForgottenPassword;
-use App\CoreBundle\Request\InitPassword;
+use Symfony\Component\Security\Core\SecurityContext,
+    App\CoreBundle\Request\ForgottenPassword,
+    App\CoreBundle\Request\InitPassword;
 
 class UserController extends WebBaseController {
 
     protected $_name = 'User';
 
     public function signinAction() {
-        $form_signin = $this->getForm('Signin')->createView();
+        if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+        }        
+        $last_name = $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME);        
+        
+        $form_signin = $this->getForm('Signin')->setData(array('login' => $last_name))->createView();
         $form_signup = $this->getForm('Signup')->createView(); 
- 
-        $this->renderData(compact('form_signin', 'form_signup'));
+        
+        $this->renderData(compact('form_signin', 'form_signup', 'error', 'last_name'));
         return $this->renderTpl('User:signin');
     }
 

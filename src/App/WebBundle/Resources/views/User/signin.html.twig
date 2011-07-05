@@ -5,7 +5,9 @@
      <form action="{{ path('_check') }}" method="post">
           <fieldset>
                 <legend>Signin</legend>
-
+                {% if error %}
+                    <div>{{ error.message }}</div>
+                {% endif %}
                 {{ form_widget(form_signin) }}
                 <div class="submit"><input type="submit" value="Signin" class="button" /></div>
                 
