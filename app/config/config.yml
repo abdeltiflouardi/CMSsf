@@ -65,7 +65,7 @@ services:
     arguments: ["@request", "@doctrine.orm.entity_manager"]
     scope: request
 
-knplabs_paginator: 
+knp_paginator: 
     templating: ~
 
 app_core:

@@ -64,7 +64,7 @@ class BaseController extends Controller {
             $query = $this->getEm()->createQuery($dql);
         }
 
-        $adapter = $this->get('knplabs_paginator.adapter');
+        $adapter = $this->get('knp_paginator.adapter');
         $adapter->setQuery($query);
         $adapter->setDistinct(true);
 
