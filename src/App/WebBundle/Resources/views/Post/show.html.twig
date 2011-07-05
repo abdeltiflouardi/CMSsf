@@ -45,12 +45,9 @@
 	<form action="#" method="post" {{ form_enctype(form_comment) }}>
 		<fieldset>
 			<legend>New comment</legend>
-			<div class="input textarea">
-				{{ form_widget(form_comment.comment) }}	
-			</div>
-
-                        {{ form_rest(form_comment) }}
-			<div class="input submit">
+		        {{ form_widget(form_comment) }}
+                        
+			<div class="submit">
 				<input type="submit" value="Send" class="button" />
 			</div>
 		</fieldset>

@@ -8,13 +8,15 @@
     </div>
 {% endif %}
 <form action="#" method="post" {{ form_enctype(form) }}>
-     {{ form_widget(form) }}
-     
-     
-     {{ form_rest(form) }}
-     <div class="input submit">
-          <input type="submit" value="Send" class="button" />
-     </div>
+    <fieldset>
+         {{ form_widget(form) }}
+
+
+         {{ form_rest(form) }}
+         <div class="input submit">
+              <input type="submit" value="Send" class="button" />
+         </div>
+    </fieldset>
 </form>
 </div>
 {% endblock %}

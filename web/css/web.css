@@ -348,3 +348,48 @@ table tr td, table tr th {
         margin-top: -10px;
         margin-bottom: 5px;
 }
+
+/**
+ * Forms
+ */
+ fieldset legend {
+     font-size: 15px;
+     font-weight: bold;
+ }
+ 
+fieldset label {
+    display: block;
+    font-weight: bold;
+    float: left;
+    width: 150px;
+    padding: 5px;
+    text-align: right;
+}
+
+fieldset input[type="text"],
+fieldset input[type="password"],
+fieldset textarea {
+    width: 250px; 
+    padding: 5px;
+}
+
+fieldset textarea {
+    height: 120px;
+}
+
+fieldset select {
+    width: 264px;
+}
+
+fieldset .submit {
+    width: 420px;
+    text-align: right;
+}
+
+fieldset div {
+    margin: 10px 0;
+}
+
+fieldset .forgotten-password {
+    margin-left: 310px;
+}
