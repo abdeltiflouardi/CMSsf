@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
 
 parameters:
-    count.related.post: 5 
+    count.related.post: 5
 
 framework:
     translator: { fallback: %locale% }
