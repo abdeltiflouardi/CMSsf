@@ -29,6 +29,23 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/php/5');
         $link = $crawler->filter('a[href="/tag/1-php"]')->eq(1)->link();
         $crawler = $client->click($link);
-        $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);        
+        $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
+        
+        // Search
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->selectButton('Search')->form();
+        $crawler = $client->submit($form, array('q' => 'php'));        
+        $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
+        
+        /**
+         *  @TODO lsit
+         *     - Signin/Signup/Sign out
+         *     - ForgottenPass
+         *     - Validate
+         *     - InitPassword
+         *     - Profile
+         *     - My Posts +(Edit/Delete)
+         *     - My Comments +(Edit/Delete)
+         */
     }
 }
