@@ -1,0 +1,21 @@
+{% block field_row %}
+{% spaceless %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}        
+    </div>
+{% endspaceless %}
+{% endblock field_row %}
+
+{% block repeated_row %}
+{% spaceless %}
+    {% for field in form %}
+    <div>
+        {{ form_label(field) }}
+        {{ form_widget(field) }}
+        {% if loop.index is odd %}{{ form_errors(form) }}{% endif %}
+    </div>
+    {% endfor %}
+{% endspaceless %}
+{% endblock repeated_row %}
