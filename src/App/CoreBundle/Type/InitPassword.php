@@ -9,8 +9,8 @@ class InitPassword extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('oldPassword', 'password');
-        $builder->add('newPassword', 'repeated', array('type' => 'password'));
+        $builder->add('oldPassword', 'password', array('label' => 'Old password'));
+        $builder->add('newPassword', 'repeated', array('type' => 'password', 'first_name' => 'New password', 'second_name' => 'Confirm'));
     }
 
     public function getDefaultOptions(array $options)

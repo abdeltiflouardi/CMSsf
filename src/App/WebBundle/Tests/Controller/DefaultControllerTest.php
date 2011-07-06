@@ -82,10 +82,18 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/activate/test@test.tld');     
         $this->assertTrue($crawler->filter('div:contains("Account not exists")')->count() > 0);         
         
-        // 13 - Activate account (valid email)
-        $crawler = $client->request('GET', '/activate/user@dom.tld');     
-        $this->assertTrue($crawler->filter('div:contains("Profile activated")')->count() > 0);        
-
+        // 14 - Activate account (valid email)
+        $crawler = $client->request('GET', '/activate/user@dom.tld'); 
+        $this->assertTrue($crawler->filter('div:contains("Profile activated")')->count() > 0);          
+        
+        // 15 - InitPassword (valid email)
+        $crawler = $client->request('GET', '/init-password/user@dom.tld');     
+        $this->assertTrue($crawler->filter('label:contains("Old password")')->count() > 0);        
+        
+        // 16 - InitPassword (invalid email)
+        $crawler = $client->request('GET', '/init-password/test@test.tld');     
+        $this->assertTrue($crawler->filter('div:contains("User not found")')->count() > 0);
+        
         /**
          *  @TODO list
          *     - InitPassword

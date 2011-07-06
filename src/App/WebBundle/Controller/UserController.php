@@ -102,8 +102,9 @@ class UserController extends WebBaseController {
     public function initPasswordAction($token) {
 
         $user = $this->getRepo('User')->findOneByEmail($token);
+        
         if (!$user)
-            $this->flash('User not found');
+            return $this->notFound('User not found', false);
 
         $init_password = new InitPassword();
         $form = $this->getForm('InitPassword', $init_password);
