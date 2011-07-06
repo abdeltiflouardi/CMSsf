@@ -57,9 +57,19 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);     
         
+        // 9 - Forgotten Password (page)
+        $crawler = $client->request('GET', '/signin');
+        $link = $crawler->selectLink('forgotten password')->link();
+        $crawler = $client->click($link);
+        $this->assertTrue($crawler->filter('label:contains("Email")')->count() > 0);
+        
+        // 10 - Forgotten Password (submit)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form);
+        $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);        
+        
         /**
          *  @TODO list
-         *     - ForgottenPass
          *     - Validate
          *     - InitPassword
          *     - Profile
