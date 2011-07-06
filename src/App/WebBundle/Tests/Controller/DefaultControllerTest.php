@@ -117,12 +117,32 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/init-password/test@test.tld');     
         $this->assertTrue($crawler->filter('div:contains("User not found")')->count() > 0);
         
-        /**
-         *  @TODO list
-         *     - Profile
-         *     - My Posts +(Edit/Delete)
-         *     - My Comments +(Edit/Delete)
-         *     - Sign out
-         */
+        // 20 - Profile
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->selectButton('Signin')->form();
+        $crawler = $client->submit($form, array('signin[login]' => 'admin', 'signin[password]' => 'administrator'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($crawler->filter('small:contains("(admin)")')->count() > 0);
+        
+        // 21 - Edit profile
+        $link = $crawler->selectLink('Edit profile')->link();
+        $crawler = $client->click($link);
+        $this->assertTrue($crawler->filter('label:contains("Email")')->count() > 0);        
+        
+        // 22 - My comments
+        $link = $crawler->selectLink('My comments')->link();
+        $crawler = $client->click($link);
+        $this->assertTrue($crawler->filter('th:contains("Id")')->count() > 0); 
+        
+        // 23 - My posts
+        $link = $crawler->selectLink('My posts')->link();
+        $crawler = $client->click($link);
+        $this->assertTrue($crawler->filter('th:contains("Id")')->count() > 0);         
+        
+        // 24 - Logout
+        $link = $crawler->filter('a[href="/logout"]')->eq(0)->link();   
+        $crawler = $client->click($link);
+        $crawler = $client->followRedirect();
+        $this->assertTrue($crawler->filter('a:contains("Connexion")')->count() > 0);
     }
 }
