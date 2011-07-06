@@ -12,7 +12,7 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface {
     public function load($manager) {
         $user = new User();
         $user->setUsername('admin');
-        $user->setPassword('admin');
+        $user->setPassword('administrator');
         $user->setEnabled(1);
         $user->setEmail('user@dom.tld');
         $encoder = new MessageDigestPasswordEncoder('md5');

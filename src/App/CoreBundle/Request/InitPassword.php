@@ -10,6 +10,7 @@ class InitPassword {
      * @var string $oldPassword
      *
      * @Assert\NotBlank()
+     * @Assert\MinLength(6)
      */
      private $oldPassword;
 
@@ -17,6 +18,7 @@ class InitPassword {
      * @var string $newPassword
      *
      * @Assert\NotBlank()
+     * @Assert\MinLength(6)
      */
      private $newPassword;    
 

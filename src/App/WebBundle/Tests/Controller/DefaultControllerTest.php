@@ -90,13 +90,35 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/init-password/user@dom.tld');     
         $this->assertTrue($crawler->filter('label:contains("Old password")')->count() > 0);        
         
-        // 16 - InitPassword (invalid email)
+        // 16 - InitPassword (Sumbit empty data)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form);        
+        $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);
+        
+        // 17 - InitPassword (Submit old password error)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form, array(
+                                                'initpassword[oldPassword]' => 'testtest',
+                                                'initpassword[newPassword][New password]' => 'testtest',
+                                                'initpassword[newPassword][Confirm]' => 'testtest',
+                                               ));
+        $this->assertTrue($crawler->filter('div:contains("Old password not valid")')->count() > 0);
+        
+        // 18 - InitPassword (Submit short password)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form, array(
+                                                'initpassword[oldPassword]' => 'test',
+                                                'initpassword[newPassword][New password]' => 'test',
+                                                'initpassword[newPassword][Confirm]' => 'test',
+                                               ));
+        $this->assertTrue($crawler->filter('li:contains("This value is too short.")')->count() > 0);        
+        
+        // 19 - InitPassword (invalid email)
         $crawler = $client->request('GET', '/init-password/test@test.tld');     
         $this->assertTrue($crawler->filter('div:contains("User not found")')->count() > 0);
         
         /**
          *  @TODO list
-         *     - InitPassword
          *     - Profile
          *     - My Posts +(Edit/Delete)
          *     - My Comments +(Edit/Delete)

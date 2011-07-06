@@ -108,11 +108,14 @@ class UserController extends WebBaseController {
 
         $init_password = new InitPassword();
         $form = $this->getForm('InitPassword', $init_password);
-
+        
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
             if ($form->isValid()) {
+               $request_initpassword = $request->get('initpassword');
+               $new_password = current($request_initpassword['newPassword']);                
+                
                $password = $user->getPassword();
                $user->setPassword($init_password->getOldPassword());
                $old_password = $this->getEncodePassword($user);
@@ -126,6 +129,9 @@ class UserController extends WebBaseController {
                    $em = $this->getEm();
                    $em->persist($user);
                    $em->flush();
+                   
+                   $this->flash('Password updated');
+                   return $this->redirect($this->generateUrl('_init_password', array('token' => $token)));
                }
             }
         }
