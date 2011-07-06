@@ -134,13 +134,18 @@ class UserController extends WebBaseController {
     }
 
     public function activateAction($token) {
-        $user = $this->getRepo('User')->findOneByEmail($token);        
+        $user = $this->getRepo('User')->findOneByEmail($token);
+        
+        if (!$user)
+            return $this->notFound('Account not exists', false);
+        
         $user->setEnabled(1);
 
         $em = $this->getEm();
         $em->persist($user);
         $em->flush();
-
+        
+        $this->flash('Profile activated');
         return $this->renderTpl($this->_name . ':activate');
     }
 
@@ -159,7 +164,7 @@ class UserController extends WebBaseController {
                   $em->persist($user);              
                   $em->flush();
 
-                  $this->flash('Profile modifié');
+                  $this->flash('Profile edited');
                   return $this->redirect($this->generateUrl('_profile'));
              }
         }
@@ -193,7 +198,7 @@ class UserController extends WebBaseController {
         $comment = $this->findOne('Comment', $comment_id);
 
         if (!$comment)
-            return $this->notFound('Commentaire non trouvé', false);
+            return $this->notFound('Comment not found', false);
 
         if (!$this->get('security.context')->isGranted('EDIT', $comment) &&
             !$this->get('security.context')->isGranted('ROLE_MODERATE'))
@@ -209,7 +214,7 @@ class UserController extends WebBaseController {
                  $em->persist($comment);
                  $em->flush();
 
-                 $this->flash('Commentaire modifié');
+                 $this->flash('Comment edited');
                  return $this->myRedirect('_comments');
             }
         }
@@ -224,7 +229,7 @@ class UserController extends WebBaseController {
         $comment = $this->findOne('Comment', $comment_id);       
 
         if (!$comment)
-            return $this->notFound(sprintf('Comment #%s non trouvé', $comment_id), false);
+            return $this->notFound(sprintf('Comment #%s not found', $comment_id), false);
 
         if (!$this->get('security.context')->isGranted('DELETE', $comment) && 
             !$this->get('security.context')->isGranted('ROLE_MODERATE'))
@@ -235,7 +240,7 @@ class UserController extends WebBaseController {
             $em->remove($comment);
             $em->flush();
 
-            $this->flash('Commentaire supprimé');
+            $this->flash('Commentaire deleted');
             return $this->myRedirect('_comments');
         }
 
@@ -252,7 +257,7 @@ class UserController extends WebBaseController {
         $post = $this->findOne('Post', $post_id);
 
         if (!$post)
-            return $this->notFound('Article non trouvé', false);
+            return $this->notFound('Post not found', false);
 
         if (!$this->get('security.context')->isGranted('EDIT', $post) && 
             !$this->get('security.context')->isGranted('ROLE_MODERATE'))
@@ -270,7 +275,7 @@ class UserController extends WebBaseController {
                  $em->flush();
                  $this->get('tags')->editTags($post_id);
 
-                 $this->flash('Article modifié');
+                 $this->flash('Post edited');
                  return $this->myRedirect('_posts');
             }
         }
@@ -284,7 +289,7 @@ class UserController extends WebBaseController {
         $post = $this->findOne('Post', $post_id);       
 
         if (!$post)
-            return $this->notFound(sprintf('Article #%s non trouvé', $post_id), false);        
+            return $this->notFound(sprintf('Article #%s not found', $post_id), false);        
 
         if (!$this->get('security.context')->isGranted('DELETE', $post) && 
             !$this->get('security.context')->isGranted('ROLE_MODERATE'))
@@ -296,7 +301,7 @@ class UserController extends WebBaseController {
             $em->remove($post);
             $em->flush();
 
-            $this->flash('Article supprimé');
+            $this->flash('Post deleted');
             return $this->myRedirect('_posts');
         }
 

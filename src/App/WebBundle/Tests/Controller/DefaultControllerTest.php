@@ -57,20 +57,37 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);     
         
-        // 9 - Forgotten Password (page)
+        // 9 - Forgotten Password (validate page)
         $crawler = $client->request('GET', '/signin');
         $link = $crawler->selectLink('forgotten password')->link();
         $crawler = $client->click($link);
         $this->assertTrue($crawler->filter('label:contains("Email")')->count() > 0);
         
-        // 10 - Forgotten Password (submit)
+        // 10 - Forgotten Password (submit empty data)
         $form = $crawler->selectButton('Send')->form();
         $crawler = $client->submit($form);
         $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);        
         
+        // 11 - Forgotten Password (submit invalidate email)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form, array('forgottenpassword[email]' => 'test'));
+        $this->assertTrue($crawler->filter('li:contains("This value is not a valid email address")')->count() > 0);         
+        
+        // 12 - Forgotten Password (submit invalidate email)
+        $form = $crawler->selectButton('Send')->form();
+        $crawler = $client->submit($form, array('forgottenpassword[email]' => 'test@test.tld'));
+        $this->assertTrue($crawler->filter('div:contains("Email not found")')->count() > 0);         
+        
+        // 13 - Activate account (invalid email)
+        $crawler = $client->request('GET', '/activate/test@test.tld');     
+        $this->assertTrue($crawler->filter('div:contains("Account not exists")')->count() > 0);         
+        
+        // 13 - Activate account (valid email)
+        $crawler = $client->request('GET', '/activate/user@dom.tld');     
+        $this->assertTrue($crawler->filter('div:contains("Profile activated")')->count() > 0);        
+
         /**
          *  @TODO list
-         *     - Validate
          *     - InitPassword
          *     - Profile
          *     - My Posts +(Edit/Delete)
