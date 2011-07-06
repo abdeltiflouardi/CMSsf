@@ -393,3 +393,16 @@ fieldset div {
 fieldset .forgotten-password {
     margin-left: 310px;
 }
+
+fieldset ul {
+    width: 410px;
+    overflow: auto;
+}
+
+fieldset ul li {
+    display: block;
+    width: 260px;
+    color: red;
+    float: right;
+    margin-bottom: 5px;
+}

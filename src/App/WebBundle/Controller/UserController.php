@@ -11,35 +11,23 @@ class UserController extends WebBaseController {
     protected $_name = 'User';
 
     public function signinAction() {
-        if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-        }        
-        $last_name = $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME);        
-        
-        $form_signin = $this->getForm('Signin')->setData(array('login' => $last_name))->createView();
-        $form_signup = $this->getForm('Signup')->createView(); 
-        
-        $this->renderData(compact('form_signin', 'form_signup', 'error', 'last_name'));
-        return $this->renderTpl('User:signin');
-    }
-
-    public function signupAction() {
-        $form = $this->getForm('Signup');
+        /**
+         * Signup
+         */
+        $form_signup = $this->getForm('Signup');
 
         $user = $this->getEntity($this->_name);
-        $form->setData($user);
+        $form_signup->setData($user);
 
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+            $form_signup->bindRequest($request);
 
             $team = $this->findOne('Team', 3);
             $user->addTeam($team);
             $team->addUser($user);
 
-            if ($form->isValid()) {
+            if ($form_signup->isValid()) {
                 //Encode password
                 $user->setPassword($this->getEncodePassword($user));
                 
@@ -62,9 +50,22 @@ class UserController extends WebBaseController {
                 return $this->redirect($this->generateUrl('_home'));
             }
         }
-
-        $form = $form->createView();
-        return $this->renderTpl($this->_name . ':signup', compact('form'));
+        $form_signup = $form_signup->createView();        
+        
+        /**
+         * Signin
+         */
+        if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+        $last_name = $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME);        
+        
+        $form_signin = $this->getForm('Signin')->setData(array('login' => $last_name))->createView();
+        
+        $this->renderData(compact('form_signin', 'form_signup', 'error', 'last_name'));
+        return $this->renderTpl('User:signin');
     }
 
     public function forgottenPasswordAction() {
