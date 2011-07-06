@@ -9,43 +9,63 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        // Home
+        // 1 - Home
         $crawler = $client->request('GET', '/');
         $this->assertTrue($client->getResponse()->isSuccessful());
         
-        // Category
+        // 2 - Category
         $crawler = $client->request('GET', '/web/2');
         $link = $crawler->filter('a:contains("Web")')->eq(1)->link();
         $crawler = $client->click($link);
         $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
         
-        // Sub-category
+        // 3 - Sub-category
         $crawler = $client->request('GET', '/web/2');
         $link = $crawler->filter('a:contains("PHP")')->eq(1)->link();
         $crawler = $client->click($link);
         $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
         
-        // Slug
+        // 4 - Slug
         $crawler = $client->request('GET', '/php/5');
         $link = $crawler->filter('a[href="/tag/1-php"]')->eq(1)->link();
         $crawler = $client->click($link);
         $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
         
-        // Search
+        // 5 - Search
         $crawler = $client->request('GET', '/');
         $form = $crawler->selectButton('Search')->form();
-        $crawler = $client->submit($form, array('q' => 'php'));        
+        $crawler = $client->submit($form, array('q' => 'php'));
         $this->assertTrue($crawler->filter('div:contains("Created by")')->count() > 0);
         
+        // 6 - Signin
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->selectButton('Signin')->form();
+        $crawler = $client->submit($form, array('signin[login]' => 'admin'));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($crawler->filter('div:contains("The presented password cannot be empty.")')->count() > 0);
+        
+        // 7 - Signin
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->selectButton('Signin')->form();
+        $crawler = $client->submit($form, array('signin[login]' => ''));
+        $crawler = $client->followRedirect();
+        $this->assertTrue($crawler->filter('div:contains("Bad credentials")')->count() > 0);        
+        
+        // 8 - Signup
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->selectButton('Signup')->form();
+        $crawler = $client->submit($form);
+        $this->assertTrue($crawler->filter('li:contains("This value should not be blank")')->count() > 0);     
+        
         /**
-         *  @TODO lsit
-         *     - Signin/Signup/Sign out
+         *  @TODO list
          *     - ForgottenPass
          *     - Validate
          *     - InitPassword
          *     - Profile
          *     - My Posts +(Edit/Delete)
          *     - My Comments +(Edit/Delete)
+         *     - Sign out
          */
     }
 }
