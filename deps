@@ -7,6 +7,7 @@
 
 [monolog]
     git=http://github.com/Seldaek/monolog.git
+    version=1.0.0
 
 [doctrine-common]
     git=http://github.com/doctrine/common.git
@@ -26,12 +27,14 @@
 
 [assetic]
     git=http://github.com/kriswallsmith/assetic.git
+    version=v1.0.0
 
 [twig-extensions]
     git=http://github.com/fabpot/Twig-extensions.git
 
 [metadata]
     git=http://github.com/schmittjoh/metadata.git
+    version=1.0.0
 
 [SensioFrameworkExtraBundle]
     git=http://github.com/sensio/SensioFrameworkExtraBundle.git
@@ -52,6 +55,7 @@
 [AsseticBundle]
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
+    version=v1.0.0RC1
 
 [PaginatorBundle]
     git=http://github.com/knplabs/KnpPaginatorBundle.git

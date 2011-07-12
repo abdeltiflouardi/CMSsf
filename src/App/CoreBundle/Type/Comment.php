@@ -19,4 +19,9 @@ class Comment extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Comment',
         );
     }
+
+    public function getName()
+    {
+        return 'comment';
+    }
 }

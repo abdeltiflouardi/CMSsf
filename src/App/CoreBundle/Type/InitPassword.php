@@ -17,4 +17,9 @@ class InitPassword extends AbstractType
     {
         return array('required' => false);
     }
+
+    public function getName()
+    {
+        return 'initpassword';
+    }
 }

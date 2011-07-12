@@ -16,4 +16,9 @@ class ForgottenPassword extends AbstractType
     {
         return array('required' => false);
     }
+
+    public function getName()
+    {
+        return 'forgottenpassword';
+    }
 }
