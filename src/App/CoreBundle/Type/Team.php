@@ -19,4 +19,8 @@ class Team extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Team',
         );
     }
+    
+    public function getName() {
+        return 'team';
+    }    
 }

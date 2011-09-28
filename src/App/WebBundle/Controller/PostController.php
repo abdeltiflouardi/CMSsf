@@ -13,7 +13,6 @@ class PostController extends WebBaseController {
         $this->searchByCategory($params);
         $this->searchByTag($params);
 
-        $params['itemPerPage'] = 1;
         $params['order'] = 'a.updatedAt DESC';
         $posts = $this->paginator('Post', $params);
         return $this->renderTpl('Post:index', compact('posts'));

@@ -20,7 +20,7 @@
 		<p class="post-comments">
                      {% set count = count(post.comments) %}
                      {% transchoice count %}
-                          [0,1] %count% commentaire|]1,Inf] %count% commentaires
+                          [0,1] %count% comment|]1,Inf] %count% comments
                      {% endtranschoice %}	
 		</p>
                 <p class="actions">

@@ -20,4 +20,8 @@ class Category extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Category',
         );
     }
+    
+    public function getName() {
+        return 'category';
+    }
 }

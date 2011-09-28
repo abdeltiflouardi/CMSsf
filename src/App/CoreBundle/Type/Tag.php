@@ -18,4 +18,8 @@ class Tag extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Tag',
         );
     }
+    
+    public function getName() {
+        return 'tag';
+    }    
 }
