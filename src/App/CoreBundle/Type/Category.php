@@ -9,7 +9,7 @@ class Category extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('parent', null, array('property' => 'name'));
+        $builder->add('parent', null, array('property' => 'name', 'required' => false));
         $builder->add('name');
         $builder->add('position', 'choice', array('choices' => range(0, 99)));
     }
