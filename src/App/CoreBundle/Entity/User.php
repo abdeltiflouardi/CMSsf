@@ -332,6 +332,7 @@ class User implements UserInterface, \Serializable {
     public function serialize() {
         return serialize(
                 array(
+                    $this->getId(),
                     $this->getUsername()
                 )
         );
@@ -342,8 +343,7 @@ class User implements UserInterface, \Serializable {
      */
     public function unserialize($serialized) {
 
-        $arr = unserialize($serialized);
-        $this->setUsername($arr[0]);
+        list($this->id, $this->username) = unserialize($serialized);
     }
 
     /**
