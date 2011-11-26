@@ -7,4 +7,3 @@ app/config/parameters.ini
 build/
 web/bundles/
 *~
-vendor/
