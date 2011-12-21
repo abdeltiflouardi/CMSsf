@@ -18,7 +18,7 @@
 <div class="content">
 	<article class="widget">
 		<header><h1>{{ post.title }}</h1></header>
-		<p>{{ post.body }}</p>
+		{{ post.body | markdown }}
 		<p class="date">Le: {{ post.updatedAt|date('d/m/Y') }}
 		<p class="author">Par: {{ post.user.username }}</p>		
 	</article>

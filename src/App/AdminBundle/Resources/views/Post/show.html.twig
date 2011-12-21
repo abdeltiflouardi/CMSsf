@@ -2,7 +2,7 @@
 
 {% block body %}
 	<h2>{{ post.title }}</h2>
-	<p>{{ post.body }}</p>
+	<p>{{ post.body | markdown }}</p>
 
 	<form action="{{ path('_admin_post_tag_add', {'post_id': post.id}) }}" method="post">
 	    {{ form_widget(tag_form) }}
