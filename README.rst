@@ -28,7 +28,7 @@ Configure the distribution by editing app/config/parameters.ini You shoud add yo
 
 Run the following commands to generate database tables
 
-        - php app/console doctirne:database:create
+        - php app/console doctrine:database:create
         - php app/console doctrine:schema:create
         - php app/console doctrine:fixtures:load
         - php app/console init:acl
