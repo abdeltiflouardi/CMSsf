@@ -15,6 +15,8 @@ $loader->registerNamespaces(array(
     'Monolog'                           => __DIR__ . '/../vendor/monolog/src',
     'Assetic'                           => __DIR__ . '/../vendor/assetic/src',
     'Metadata'                          => __DIR__ . '/../vendor/metadata/src',
+    'Knp\\Component'                    => __DIR__ . '/../vendor/knp-components/src',
+    'Knp\\Bundle'                       => __DIR__ . '/../vendor/bundles',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_'                  => __DIR__ . '/../vendor/twig-extensions/lib',
@@ -29,9 +31,7 @@ if (!function_exists('intl_get_error_code')) {
 
 // My namespaces
 $loader->registerNamespaceFallbacks(array(
-   __DIR__ . '/../vendor/bundles', 
-   __DIR__ . '/../src',
-   __DIR__ . '/../vendor/zend/library')
+   __DIR__ . '/../src',)
 );
 
 $loader->register();

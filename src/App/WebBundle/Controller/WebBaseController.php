@@ -28,7 +28,7 @@ class WebBaseController extends BaseController
 
         // Category & subcategory
         $category_id = $this->get('request')->get('category_id');
-        if ($category_id) {
+        if (is_numeric($category_id)) {
             $category = $this->findOne('Category', $category_id);
             if ($category->getParent() != null) {
                 $subcategory = $category;

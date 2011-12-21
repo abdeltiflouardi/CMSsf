@@ -61,9 +61,12 @@
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
 
-[PaginatorBundle]
-    git=http://github.com/knplabs/KnpPaginatorBundle.git
-    target=/bundles/Knp/Bundle/PaginatorBundle
+[knp-components]
+    git=http://github.com/KnpLabs/knp-components.git
+
+[KnpPaginatorBundle]
+    git=http://github.com/KnpLabs/KnpPaginatorBundle.git
+    target=bundles/Knp/Bundle/PaginatorBundle
 
 [zend]
     git=http://github.com/zendframework/zf2.git

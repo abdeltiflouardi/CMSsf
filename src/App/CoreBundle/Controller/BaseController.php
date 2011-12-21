@@ -64,16 +64,14 @@ class BaseController extends Controller {
             $query = $this->getEm()->createQuery($dql);
         }
 
-        $adapter = $this->get('knp_paginator.adapter');
-        $adapter->setQuery($query);
-        $adapter->setDistinct(true);
-
-        $paginator = new \Zend\Paginator\Paginator($adapter);
-        $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
-        $paginator->setPageRange($options['pageRange']);
-        $paginator->setItemCountPerPage($options['itemPerPage']);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            $options['itemPerPage']/*limit per page*/
+        );
        
-        return $paginator;
+        return $pagination;
     }
 
     public function renderData(array $data = array()) {

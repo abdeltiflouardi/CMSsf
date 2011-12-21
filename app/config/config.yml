@@ -69,9 +69,6 @@ services:
     arguments: ["@request", "@doctrine.orm.entity_manager"]
     scope: request
 
-knp_paginator: 
-    templating: ~
-
 app_core:
     adsense:
         client_id: 1000

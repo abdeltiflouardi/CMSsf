@@ -3,11 +3,11 @@
 {% block body %}
     <table border="1">
         <tr>
-            <th>{{ comments|sortable('Id', 'a.id')|raw }}</th>
+            <th>{{ comments.sortable('Id', 'a.id')|raw }}</th>
             <th>User</th>
             <th>Article</th>
-            <th>{{ comments|sortable('Comment', 'a.comment')|raw }}</th>
-            <th>{{ comments|sortable('CreatedAt', 'a.createdAt')|raw }}</th>
+            <th>{{ comments.sortable('Comment', 'a.comment')|raw }}</th>
+            <th>{{ comments.sortable('CreatedAt', 'a.createdAt')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
@@ -25,5 +25,5 @@
 	</tr>	
 	{% endfor %}
     </table>
-    {{ comments|paginate }}
+    {{ comments.render()|raw }}
 {% endblock %}

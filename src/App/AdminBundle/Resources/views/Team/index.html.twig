@@ -4,9 +4,9 @@
     <div class="button-new"><a href="{{ path('_admin_team_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>{{ teams|sortable('Id', 'a.id')|raw }}</th>
-            <th>{{ teams|sortable('Name', 'a.name')|raw }}</th>
-            <th>{{ teams|sortable('Role', 'a.role')|raw }}</th>
+            <th>{{ teams.sortable('Id', 'a.id')|raw }}</th>
+            <th>{{ teams.sortable('Name', 'a.name')|raw }}</th>
+            <th>{{ teams.sortable('Role', 'a.role')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
@@ -22,5 +22,5 @@
 	</tr>	
 	{% endfor %}
     </table>
-    {{ teams|paginate }}
+    {{ teams.render()|raw }}
 {% endblock %}
