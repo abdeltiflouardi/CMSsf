@@ -6,7 +6,7 @@ Download archive from here https://github.com/ouardisoft/CMSsf/archives/master
 Unpack it somewhere under your web server root directory and run the following command.
 
         - cd CMSsf
-        - php bin/vendors install --reinstall
+        - php bin/vendors install
 
 Installation from Git
 ----------------------------
@@ -15,9 +15,9 @@ We highly recommend you that you download the packaged version of this distribut
 
 Run the following commands:
 
-        - git clone https://github.com/ouardisoft/CMSsf
+        - git clone git://github.com/ouardisoft/CMSsf.git
         - cd CMSsf
-        - php bin/vendors install --reinstall
+        - php bin/vendors install
 
 Configuration
 ----------------------------
@@ -28,7 +28,7 @@ Configure the distribution by editing app/config/parameters.ini You shoud add yo
 
 Run the following commands to generate database tables
 
-        - php app/console doctirne:database:create
+        - php app/console doctrine:database:create
         - php app/console doctrine:schema:create
         - php app/console doctrine:fixtures:load
         - php app/console init:acl
