@@ -68,8 +68,9 @@
     git=http://github.com/KnpLabs/KnpPaginatorBundle.git
     target=bundles/Knp/Bundle/PaginatorBundle
 
-[zend]
-    git=http://github.com/zendframework/zf2.git
+[OSRssBundle]
+    git=http://github.com/ouardisoft/RssBundle.git
+    target=bundles/OS/RssBundle
 
 [doctrine-fixtures]
     git=http://github.com/doctrine/data-fixtures.git
