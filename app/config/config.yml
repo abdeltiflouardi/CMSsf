@@ -76,3 +76,16 @@ app_core:
         width: 200
         colors: "#ffffff|#ccc"
 
+os_rss:
+  title: PHPhub - php coding,
+  description: The lastest articles
+  language: en
+  webMaster: contact@phphub.net
+  link: www.phphub.net
+  item:
+    entity: AppCoreBundle:Post
+    title: title
+    description: body
+    pubDate: updatedAt
+    guid: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}
+    link: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}

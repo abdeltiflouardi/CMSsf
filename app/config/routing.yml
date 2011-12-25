@@ -1,3 +1,8 @@
+OSRssBundle:
+    resource: "@OSRssBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 _default_web:
     resource: "@AppWebBundle/Resources/config/routing.yml"
     

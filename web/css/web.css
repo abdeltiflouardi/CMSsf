@@ -230,7 +230,7 @@ table tr td, table tr th {
 	float: left;
 }
 
-.content article h1 {
+.content article h1 a, .content article h1 {
   	color: #BB0000;
   	text-shadow: 0 0 0px #000;	
 	text-transform: uppercase;
@@ -405,4 +405,13 @@ fieldset ul li {
     color: red;
     float: right;
     margin-bottom: 5px;
+}
+
+code {
+    background-color: #EEEEEE !important;
+    border: 1px solid #DDDDDD;
+    display: block;
+    font-size: 12px !important;
+    margin: 5px 0;
+    padding: 10px !important;
 }

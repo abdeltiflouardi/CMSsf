@@ -23,6 +23,7 @@ class AppKernel extends Kernel {
             new App\WebBundle\AppWebBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new OS\RssBundle\OSRssBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
