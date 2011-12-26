@@ -3,12 +3,11 @@
     <head>
 	<meta charset="utf-8" />
         <title>{{ meta_title }}</title>
-        
-	<meta name="description" content="{{ meta_description }}" />
-	<meta name="keywords" content="{{ meta_keywords }}" />
-
+	{# <meta name="description" content="{{ meta_description }}" /> #}
+	{# <meta name="keywords" content="{{ meta_keywords }}" /> #}
 	<link rel="stylesheet" href="{{ asset('css/common.css') }}" />
 	<link rel="stylesheet" href="{{ asset('css/web.css') }}" />
+        <link rel="alternate" type="application/rss+xml" title="Articles" href="{{ url('flux_rss') }}" />
     </head>
 
     <body>
