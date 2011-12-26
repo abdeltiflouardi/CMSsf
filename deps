@@ -72,6 +72,10 @@
     git=http://github.com/ouardisoft/RssBundle.git
     target=bundles/OS/RssBundle
 
+[OSSitemapBundle]
+    git=http://github.com/ouardisoft/SitemapBundle.git
+    target=bundles/OS/SitemapBundle
+
 [doctrine-fixtures]
     git=http://github.com/doctrine/data-fixtures.git
 

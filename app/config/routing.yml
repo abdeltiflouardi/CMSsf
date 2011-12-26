@@ -1,3 +1,8 @@
+OSSitemapBundle:
+    resource: "@OSSitemapBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 OSRssBundle:
     resource: "@OSRssBundle/Controller/"
     type:     annotation

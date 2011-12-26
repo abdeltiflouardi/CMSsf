@@ -89,3 +89,10 @@ os_rss:
     pubDate: updatedAt
     guid: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}
     link: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}
+
+os_sitemap:
+  path: "%kernel.root_dir%/../web/sitemap.xml"
+  entity: AppCoreBundle:Post
+  loc: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}  
+  lastmod: updatedAt
+  priority: 0.5

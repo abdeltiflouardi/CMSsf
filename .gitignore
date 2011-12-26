@@ -7,3 +7,5 @@ app/config/parameters.ini
 build/
 web/bundles/
 *~
+web/sitemap.xml
+web/flux.rss
