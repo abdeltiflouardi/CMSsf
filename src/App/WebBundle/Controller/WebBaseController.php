@@ -119,13 +119,32 @@ class WebBaseController extends BaseController
         $this->template->addGlobal('sub_categories', $sub_categories);
     }
 
-    protected function meta() {
-        $this->template = $this->get('twig');
-        $title = $this->get('request')->get('slug', 'PHP Symfony Zend CakePHP');
-        $title = $this->get('request')->get('tag', $title);
-	$title = ucwords(strtolower($title));
-        $this->template->addGlobal('meta_title', $title);
-        $this->template->addGlobal('meta_keywords', 'symfony, web');
-        $this->template->addGlobal('meta_description', 'symfony ....');
-    }   
+     protected function meta() {
+         $this->template = $this->get('twig');
+         $output = new Output();
+ 
+         if (!array_key_exists('post', $this->_data)) {
+             $title = $this->get('request')->get('slug', 'PHP Symfony Zend CakePHP');
+             $title = $this->get('request')->get('tag', $title);
+             $title = ucwords(strtolower($title));
+             $description = '';
+             $keywords = '';
+         } else {
+             $post = $this->_data['post'];
+             $title = $post->getTitle();
+             $description = $post->getBody();
+             
+             $item = array($post);
+             foreach ($output->getTags($item) as $tag)
+                 $keywords .= $tag->getName() . ', ';
+ 
+             $keywords = rtrim(trim($keywords), ',');
+         }
+ 
+         $description = substr(preg_replace('/[ ]+/', ' ', preg_replace('/[^A-Za-z0-9]/', ' ',$description)), 0, 150);
+ 
+         $this->template->addGlobal('meta_title', $title);
+         $this->template->addGlobal('meta_keywords', $keywords);
+         $this->template->addGlobal('meta_description', $description);
+     }
 }
