@@ -4,11 +4,12 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Tag;
 
 class TagData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $tag_php = new Tag();
         $tag_php->setName('php');
 

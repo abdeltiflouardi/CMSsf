@@ -4,12 +4,13 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use App\CoreBundle\Entity\Comment;
 
 class CommentData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $comment = new Comment();
         $comment->setComment('Removed items: \'register_globals\', \'safe_mode\', \'allow_call_time_pass_reference\', session_register(), session_unregister() and session_is_registered() functions
 

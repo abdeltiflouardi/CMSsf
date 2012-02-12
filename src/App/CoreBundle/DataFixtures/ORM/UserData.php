@@ -4,12 +4,13 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use App\CoreBundle\Entity\User;
 
 class UserData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $user = new User();
         $user->setUsername('admin');
         $user->setPassword('administrator');

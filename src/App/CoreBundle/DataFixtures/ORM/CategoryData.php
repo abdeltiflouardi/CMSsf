@@ -4,11 +4,12 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Category;
 
 class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $category_prog = new Category();
         $category_prog->setName('Programming');
 	$category_prog->setPosition(1);

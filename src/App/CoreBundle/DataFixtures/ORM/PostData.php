@@ -4,11 +4,12 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Post;
 
 class PostData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $post_php = new Post();
         $post_php->setUser($manager->merge($this->getReference('user')));
         $post_php->setCategory($manager->merge($this->getReference('category_php')));

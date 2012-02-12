@@ -4,11 +4,12 @@ namespace App\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Team;
 
 class TeamData extends AbstractFixture implements OrderedFixtureInterface {
 
-    public function load($manager) {
+    public function load(ObjectManager $manager) {
         $team = new Team();
         $team->setName('Administrators');
         $team->setRole('ROLE_ADMIN');
