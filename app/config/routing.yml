@@ -17,3 +17,8 @@ _default_admin:
 _error403:
     pattern: /error403
     defaults: { _controller: AppCoreBundle:Error:error403 }
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

@@ -122,6 +122,8 @@ class WebBaseController extends BaseController
      protected function meta() {
          $this->template = $this->get('twig');
          $output = new Output();
+         
+         $keywords = '';
  
          if (!array_key_exists('post', $this->_data)) {
              $title = $this->get('request')->get('slug', 'PHP Symfony Zend CakePHP');

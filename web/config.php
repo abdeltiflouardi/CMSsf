@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_SERVER['HTTP_HOST'])) {
-    die('This script cannot be run from the CLI. Run it from a browser.');
+    exit('This script cannot be run from the CLI. Run it from a browser.');
 }
 
 if (!in_array(@$_SERVER['REMOTE_ADDR'], array(
@@ -9,7 +9,7 @@ if (!in_array(@$_SERVER['REMOTE_ADDR'], array(
     '::1',
 ))) {
     header('HTTP/1.0 403 Forbidden');
-    die('This script is only accessible from localhost.');
+    exit('This script is only accessible from localhost.');
 }
 
 $majorProblems = array();
@@ -41,12 +41,12 @@ if (!class_exists('DomDocument')) {
     $minorProblems[] = 'Install and enable the <strong>php-xml</strong> module.';
 }
 
-if (!defined('LIBXML_COMPACT')) {
-    $minorProblems[] = 'Upgrade your <strong>php-xml</strong> extension with a newer libxml.';
-}
-
 if (!((function_exists('apc_store') && ini_get('apc.enabled')) || function_exists('eaccelerator_put') && ini_get('eaccelerator.enable') || function_exists('xcache_set'))) {
     $minorProblems[] = 'Install and enable a <strong>PHP accelerator</strong> like APC (highly recommended).';
+}
+
+if (!(!(function_exists('apc_store') && ini_get('apc.enabled')) || version_compare(phpversion('apc'), '3.0.17', '>='))) {
+    $majorProblems[] = 'Upgrade your <strong>APC</strong> extension (3.0.17+)';
 }
 
 if (!function_exists('token_get_all')) {
@@ -100,6 +100,18 @@ if (!function_exists('json_encode')) {
     $majorProblems[] = 'Install and enable the <strong>json</strong> extension.';
 }
 
+if (!function_exists('session_start')) {
+    $majorProblems[] = 'Install and enable the <strong>session</strong> extension.';
+}
+
+if (!function_exists('ctype_alpha')) {
+    $majorProblems[] = 'Install and enable the <strong>ctype</strong> extension.';
+}
+
+if (!function_exists('token_get_all')) {
+    $majorProblems[] = 'Install and enable the <strong>Tokenizer</strong> extension.';
+}
+
 // php.ini
 if (!ini_get('date.timezone')) {
     $phpini = true;
@@ -129,8 +141,8 @@ if (ini_get('session.auto_start')) {
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <link href="bundles/sensiodistribution/webconfigurator/css/install.css" rel="stylesheet" type="text/css" media="all" />
+        <meta charset="UTF-8" />
+        <link href="bundles/sensiodistribution/webconfigurator/css/install.css" rel="stylesheet" media="all" />
         <title>Symfony Configuration</title>
     </head>
     <body>
@@ -176,14 +188,13 @@ if (ini_get('session.auto_start')) {
 
                     <?php if ($phpini): ?>
                             <a id="phpini"></a>
-                                <p>*
-                                    <?php if (get_cfg_var('cfg_file_path')): ?>
-                                        Changes to the <strong>php.ini</strong> file must be done in "<strong><?php echo get_cfg_var('cfg_file_path') ?></strong>".
-                                    <?php else: ?>
-                                        To change settings, create a "<strong>php.ini</strong>".
-                                    <?php endif; ?>
-                                </p>
-                            </div>
+                            <p>*
+                                <?php if (get_cfg_var('cfg_file_path')): ?>
+                                    Changes to the <strong>php.ini</strong> file must be done in "<strong><?php echo get_cfg_var('cfg_file_path') ?></strong>".
+                                <?php else: ?>
+                                    To change settings, create a "<strong>php.ini</strong>".
+                                <?php endif; ?>
+                            </p>
                     <?php endif; ?>
 
                     <ul class="symfony-install-continue">

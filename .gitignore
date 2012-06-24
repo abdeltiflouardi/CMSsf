@@ -1,7 +1,7 @@
 app/logs/*
 app/cache/*
 app/bootstrap*
-nbproject/private/
+nbproject/
 .project
 app/config/parameters.ini
 build/
