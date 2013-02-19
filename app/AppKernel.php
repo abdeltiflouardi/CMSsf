@@ -13,18 +13,19 @@ class AppKernel extends Kernel {
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-            //new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            //My Bundle
-            new App\CoreBundle\AppCoreBundle(),
-            new App\AdminBundle\AppAdminBundle(),
-            new App\WebBundle\AppWebBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new OS\RssBundle\OSRssBundle(),
             new OS\SitemapBundle\OSSitemapBundle(),
+
+            //My Bundle
+            new App\CoreBundle\AppCoreBundle(),
+            new App\AdminBundle\AppAdminBundle(),
+            new App\WebBundle\AppWebBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
