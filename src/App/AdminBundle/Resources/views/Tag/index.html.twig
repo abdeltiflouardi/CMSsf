@@ -4,8 +4,8 @@
     <div class="button-new"><a href="{{ path('_admin_tag_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>{{ tags.sortable('Id', 'a.id')|raw }}</th>
-            <th>{{ tags.sortable('Name', 'a.name')|raw }}</th>
+            <th>{{ knp_pagination_sortable(tags, 'Id', 'a.id')|raw }}</th>
+            <th>{{ knp_pagination_sortable(tags, 'Name', 'a.name')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
@@ -20,5 +20,5 @@
 	</tr>	
 	{% endfor %}
     </table>	
-    {{ tags.render()|raw }}    
+    {{ knp_pagination_render(tags) }}    
 {% endblock %}

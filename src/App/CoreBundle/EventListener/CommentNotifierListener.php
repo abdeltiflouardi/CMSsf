@@ -3,7 +3,7 @@
 namespace App\CoreBundle\EventListener;
 
 use  Symfony\Component\HttpKernel\Event\FilterResponseEvent,
-     Symfony\Bundle\DoctrineBundle\Registry as Doctrine,
+     Doctrine\Bundle\DoctrineBundle\Registry as Doctrine,
      Symfony\Bundle\TwigBundle\TwigEngine;
 
 class CommentNotifierListener {

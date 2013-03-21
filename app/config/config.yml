@@ -1,20 +1,21 @@
 imports:
-    - { resource: parameters.ini }
+    - { resource: parameters.yml }
     - { resource: security.yml }
 
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
     secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    default_locale: "%locale%"
+    trust_proxy_headers: false
+    router:          
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: "%kernel.debug%"
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    session:
-        default_locale: %locale%
-        auto_start:     true
+    session: ~
 
 # Twig Configuration
 twig:
@@ -28,6 +29,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
+    bundles: []
     # java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -57,10 +59,11 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
+    spool: { type: memory }
 
 jms_security_extra:
-    secure_controllers:  true
     secure_all_services: false
+    expressions: true
 
 services:
   tags:
@@ -95,3 +98,14 @@ os_sitemap:
   loc: {route: _post, params: {post_id: id, slug: {field: title, class: App\CoreBundle\Twig\OutputExtension, method: slug}}}  
   lastmod: updatedAt
   priority: 0.5
+
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

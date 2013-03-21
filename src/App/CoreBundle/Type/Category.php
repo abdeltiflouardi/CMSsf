@@ -3,7 +3,7 @@
 namespace App\CoreBundle\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Category extends AbstractType
 {

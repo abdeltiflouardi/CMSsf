@@ -348,7 +348,7 @@ class User implements UserInterface, \Serializable {
 
     /**
      *
-     * @ORM\prePersist
+     * @ORM\PrePersist
      */
     public function setCreatedValue() 
     {
@@ -358,7 +358,7 @@ class User implements UserInterface, \Serializable {
 
     /**
      *
-     * @ORM\preUpdate
+     * @ORM\PreUpdate
      */
     public function setUpdatedValue()
     {

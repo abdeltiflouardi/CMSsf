@@ -4,11 +4,11 @@
     <div class="button-new"><a href="{{ path('_admin_user_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>{{ users.sortable('Id', 'a.id')|raw }}</th>
+            <th>{{ knp_pagination_sortable(users, 'Id', 'a.id')|raw }}</th>
             <th>Team{# { users|sortable('Team', 'a.team')|raw } #}</th>            
-            <th>{{ users.sortable('Username', 'a.username')|raw }}</th>
-            <th>{{ users.sortable('CreatedAt', 'a.createdAt')|raw }}</th>
-            <th>{{ users.sortable('UpdatedAt', 'a.updatedAt')|raw }}</th>            
+            <th>{{ knp_pagination_sortable(users, 'Username', 'a.username')|raw }}</th>
+            <th>{{ knp_pagination_sortable(users, 'CreatedAt', 'a.createdAt')|raw }}</th>
+            <th>{{ knp_pagination_sortable(users, 'UpdatedAt', 'a.updatedAt')|raw }}</th>            
             <th>Actions</th>
 	</tr>
 
@@ -28,5 +28,5 @@
 	</tr>	
 	{% endfor %}
     </table>	
-    {{ users.render()|raw }}    
+    {{ knp_pagination_render(users) }}    
 {% endblock %}

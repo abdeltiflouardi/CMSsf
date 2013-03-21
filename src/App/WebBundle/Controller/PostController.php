@@ -2,9 +2,11 @@
 
 namespace App\WebBundle\Controller;
 
-class PostController extends WebBaseController {
+class PostController extends WebBaseController
+{
 
-    public function indexAction() {
+    public function indexAction()
+    {
         /**
          * Select posts
          */
@@ -14,41 +16,44 @@ class PostController extends WebBaseController {
         $this->searchByTag($params);
 
         $params['order'] = 'a.updatedAt DESC';
-        $posts = $this->paginator('Post', $params);
+        $posts           = $this->paginator('Post', $params);
+
         return $this->renderTpl('Post:index', compact('posts'));
     }
 
-    public function showAction($post_id, $slug = null) {
-        
+    public function showAction($post_id, $slug = null)
+    {
+
         $post = $this->findOne('Post', $post_id);
-        if (!$post)
+        if (!$post) {
             return $this->notFound();
-        
-        $comment = new \App\CoreBundle\Entity\Comment();
+        }
+
+        $comment      = new \App\CoreBundle\Entity\Comment();
         $form_comment = $this->getForm('Comment', $comment);
 
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form_comment->bindRequest($request);
-            
+
             $comment->setPost($post);
             $comment->setUser($this->getUser());
-            
+
             if ($form_comment->isValid()) {
                 $em = $this->getEm();
                 $em->persist($comment);
                 $em->flush();
 
                 $this->makeAcl($comment);
-                
+
                 return $this->redirect($this->generateUrl('_post', compact('post_id', 'slug')));
             }
         }
 
         $form_comment = $form_comment->createView();
-        
+
         // Related, Next & Previous
-        $next_post = $this->getNextPost($post);
+        $next_post     = $this->getNextPost($post);
         $previous_post = $this->getPreviousPost($post);
         $related_posts = $this->getRelatedPosts($post);
 
@@ -56,29 +61,32 @@ class PostController extends WebBaseController {
         return $this->renderTpl('Post:show');
     }
 
-    private function getNextPost($post) {
-        $id = $post->getId();
+    private function getNextPost($post)
+    {
+        $id    = $post->getId();
         $query = $this->getRepo('Post')->createQueryBuilder('p')
-                      ->where('p.id > :post_id')
-                      ->setParameter('post_id', $id)
-                      ->orderBy('p.id', 'ASC')
-                      ->setMaxResults(1)
-                      ->getQuery();
+                ->where('p.id > :post_id')
+                ->setParameter('post_id', $id)
+                ->orderBy('p.id', 'ASC')
+                ->setMaxResults(1)
+                ->getQuery();
         return current($query->getResult());
     }
 
-    private function getPreviousPost($post) {
-        $id = $post->getId();
+    private function getPreviousPost($post)
+    {
+        $id    = $post->getId();
         $query = $this->getRepo('Post')->createQueryBuilder('p')
-                      ->where('p.id < :post_id')
-                      ->setParameter('post_id', $id)
-                      ->orderBy('p.id', 'DESC')
-                      ->setMaxResults(1)
-                      ->getQuery();
-        return current($query->getResult());        
+                ->where('p.id < :post_id')
+                ->setParameter('post_id', $id)
+                ->orderBy('p.id', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery();
+        return current($query->getResult());
     }
 
-    private function getRelatedPosts($post) {
+    private function getRelatedPosts($post)
+    {
         $posts = array();
         foreach ($post->getTag() as $tag) {
             foreach ($tag->getPost() as $tag_post) {
@@ -91,22 +99,23 @@ class PostController extends WebBaseController {
 
             if (count($posts) >= $this->container->getParameter('count.related.post'))
                 break;
-
         }
-        
+
         return $posts;
     }
 
-    private function searchByWord(&$params) {
+    private function searchByWord(&$params)
+    {
         $query_get = $this->get('request')->query;
-        $q = $query_get->get('q');
+        $q         = $query_get->get('q');
         if (!empty($q)) {
-            $q = strtolower($q);
+            $q               = strtolower($q);
             $params['where'] = "LOWER(a.title) like '%$q%'";
         }
     }
 
-    private function searchByCategory(&$params) {
+    private function searchByCategory(&$params)
+    {
         $category_id = $this->get('request')->get('category_id');
         if (!empty($category_id)) {
             $categories = $this->getRepo('Category')->findBy(array('parent' => $category_id));
@@ -117,23 +126,27 @@ class PostController extends WebBaseController {
                 }
 
                 if (!empty($ids)) {
-                    $ids = implode(',', $ids);
+                    $ids             = implode(',', $ids);
                     $params['where'] = "a.category IN ($ids)";
                 }
-            }else
+            } else {
                 $params['where'] = "a.category = $category_id";
+            }
         }
     }
 
-    private function searchByTag(&$params) {
+    private function searchByTag(&$params)
+    {
         $tag_id = $this->get('request')->get('tag_id');
-        $tag = $this->get('request')->get('tag');
+        $tag    = $this->get('request')->get('tag');
         if (!empty($tag_id)) {
-            $tag = $this->findOne("Tag", $tag_id);
-            foreach ($tag->getPost() as $post)
-                $in[] = $post->getId();
-            $in = implode(',', $in);
+            $tag             = $this->findOne("Tag", $tag_id);
+            foreach ($tag->getPost() as $post) {
+                $in[]            = $post->getId();
+            }
+            $in              = implode(',', $in);
             $params['where'] = "a.id IN ($in)";
         }
     }
+
 }

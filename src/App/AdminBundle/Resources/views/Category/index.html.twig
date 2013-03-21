@@ -4,8 +4,8 @@
     <div class="button-new"><a href="{{ path('_admin_category_add') }}" class="button-green">Add</a></div>
     <table border="1">
         <tr>
-            <th>{{ categories.sortable('Id', 'a.id')|raw }}</th>
-            <th>{{ categories.sortable('Name', 'a.name')|raw }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Id', 'a.id')|raw }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Name', 'a.name')|raw }}</th>
             <th>Actions</th>
 	</tr>
 
@@ -20,5 +20,5 @@
 	</tr>	
 	{% endfor %}
     </table>	    
-        {{ categories.render()|raw }}
+        {{ knp_pagination_render(categories) }}
 {% endblock %}
