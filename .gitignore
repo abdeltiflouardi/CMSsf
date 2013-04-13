@@ -10,3 +10,4 @@ web/bundles/
 web/sitemap.xml
 web/flux.rss
 composer.phar
+*.properties

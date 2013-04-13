@@ -8,10 +8,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use App\CoreBundle\Entity\User;
 
-class UserData extends AbstractFixture implements OrderedFixtureInterface {
+class UserData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
-        $user = new User();
+    public function load(ObjectManager $manager)
+    {
+        $user    = new User();
         $user->setUsername('admin');
         $user->setPassword('administrator');
         $user->setEnabled(1);
@@ -34,8 +36,8 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('user', $user);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 3; // the order in which fixtures will be loaded
     }
-
 }

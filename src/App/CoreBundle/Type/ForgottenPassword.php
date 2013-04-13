@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class ForgottenPassword extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('email');

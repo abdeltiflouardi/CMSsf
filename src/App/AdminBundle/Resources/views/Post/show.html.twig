@@ -1,14 +1,14 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-	<h2>{{ post.title }}</h2>
-	<p>{{ post.body | markdown }}</p>
+<h2>{{ post.title }}</h2>
+<p>{{ post.body | markdown }}</p>
 
-	<form action="{{ path('_admin_post_tag_add', {'post_id': post.id}) }}" method="post">
+<form action="{{ path('_admin_post_tag_add', {'post_id': post.id}) }}" method="post">
 	    {{ form_widget(tag_form) }}
 
-	    <input type="submit" />
-	</form>	
+        <input type="submit" />
+    </form>	
 
 	{% include 'AppAdminBundle:Post:tag.html.twig' %}
 

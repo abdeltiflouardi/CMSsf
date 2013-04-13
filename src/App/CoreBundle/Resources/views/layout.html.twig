@@ -7,7 +7,7 @@
         <link href="{{ asset('bundles/appadmin/css/admin.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        
+
         <div class="header widget">
             <ul class="menu">
                 <li><a href="{{ path('_admin_home') }}">{{ 'Home'|trans }}</a></li>
@@ -17,16 +17,16 @@
                     {% else %}
                         <a href="{{ path('_signup') }}">{{ 'Signup'|trans }}</a>
                     {% endif %}
-                </li>
-            </ul>
-        </div>
-        
-        <div class="content widget">
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content widget">
             {% block body %}{% endblock %}
-        </div>
-        
-        <div class="footer widget">
-        </div>
-        
-    </body>
-</html>
+                </div>
+
+                <div class="footer widget">
+                </div>
+
+            </body>
+        </html>

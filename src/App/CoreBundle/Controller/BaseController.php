@@ -2,114 +2,132 @@
 
 namespace App\CoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller,
-    Symfony\Component\Security\Acl\Permission\MaskBuilder,
-    Symfony\Component\Security\Acl\Domain\ObjectIdentity,
-    Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
-class BaseController extends Controller {
+class BaseController extends Controller
+{
 
-    protected $_namespace = 'AppCoreBundle:';
-    protected $_commonNamespace = 'AppCoreBundle:';
-    protected $_commonNamespacePath = 'App\CoreBundle';
-    protected $_tplEngine = '.html.twig';
-    protected $_data = array();
+    protected $namespace           = 'AppCoreBundle:';
+    protected $commonNamespace     = 'AppCoreBundle:';
+    protected $commonNamespacePath = 'App\CoreBundle';
+    protected $tplEngine           = '.html.twig';
+    protected $data                = array();
 
-    public function setNamespace($namespace) {
-        $this->_namespace = $namespace;
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
     }
 
-    public function getNamespace() {
-        return $this->_namespace;
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 
-    public function setTplEngine($tplEngine) {
-        $this->_tplEngine = $tplEngine;
+    public function setTplEngine($tplEngine)
+    {
+        $this->tplEngine = $tplEngine;
     }
 
-    public function getTplEngine() {
-        return $this->_tplEngine;
+    public function getTplEngine()
+    {
+        return $this->tplEngine;
     }
 
-    public function getEm() {
+    public function getEm()
+    {
         return $this->get('doctrine')->getEntityManager();
     }
 
-    public function getRepo($entity) {
-        return $this->getEm()->getRepository($this->_commonNamespace . $entity);
+    public function getRepo($entity)
+    {
+        return $this->getEm()->getRepository($this->commonNamespace . $entity);
     }
 
-    public function paginator($entity, $options = array()) {
+    public function paginator($entity, $options = array())
+    {
 
-         $_default_options = array(
-             'itemPerPage' => 5,
-             'pageRange' => 5
-         );
+        $_default_options = array(
+            'itemPerPage' => 5,
+            'pageRange'   => 5
+        );
 
         $options = array_merge($_default_options, $options);
-       
+
         if ($entity instanceof \Doctrine\ORM\Query) {
             $query = $entity;
         } else {
             $entity = isset($options['entity']) ? $options['entity'] : $entity;
- 
-            $dql = "SELECT a FROM " . $this->_commonNamespace . $entity . " a";        
-        
-            if (isset($options['where']))
-                $dql .= ' WHERE ' . $options['where'];
 
-            if (isset($options['order']))
+            $dql = "SELECT a FROM " . $this->commonNamespace . $entity . " a";
+
+            if (isset($options['where'])) {
+                $dql .= ' WHERE ' . $options['where'];
+            }
+
+            if (isset($options['order'])) {
                 $dql .= ' ORDER BY ' . $options['order'];
-        
+            }
+
             $query = $this->getEm()->createQuery($dql);
         }
 
-        $paginator = $this->get('knp_paginator');
+        $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
-            $this->get('request')->query->get('page', 1)/*page number*/,
-            $options['itemPerPage']/*limit per page*/
+            $this->get('request')->query->get('page', 1)/* page number */,
+            $options['itemPerPage']/* limit per page */
         );
-       
+
         return $pagination;
     }
 
-    public function renderData(array $data = array()) {
-        $this->_data += $data;
+    public function renderData(array $data = array())
+    {
+        $this->data += $data;
         return $this;
     }
 
-    public function getData() {
-        return $this->_data;
+    public function getData()
+    {
+        return $this->data;
     }
 
-    public function renderTpl($action, $params = array(), $common = false) {
-        if ($common === false)
-            $ns = $this->getNamespace();
-        else
-            $ns = $this->_commonNamespace;
-        
+    public function renderTpl($action, $params = array(), $common = false)
+    {
+        if ($common === false) {
+            $nsp = $this->getNamespace();
+        } else {
+            $nsp = $this->commonNamespace;
+        }
+
         $this->renderData($params);
 
-        return $this->render($ns . $action . $this->getTplEngine(), $this->getData());
+        return $this->render($nsp . $action . $this->getTplEngine(), $this->getData());
     }
 
-    public function getAll($entity) {
+    public function getAll($entity)
+    {
         return $this->getRepo($entity)->findAll();
     }
 
-    public function findOne($entity, $id) {
-        return $this->getEm()->find($this->_commonNamespace . $entity, $id);
+    public function findOne($entity, $entityId)
+    {
+        return $this->getEm()->find($this->commonNamespace . $entity, $entityId);
     }
 
-    public function removeOne($entity, $id) {
-        $item = $this->findOne($entity, $id);
-        $em = $this->getEm();
-        $em->remove($item);
-        $em->flush();
+    public function removeOne($entity, $entityId)
+    {
+        $item = $this->findOne($entity, $entityId);
+
+        $this->getEm()->remove($item);
+        $this->getEm()->flush();
     }
 
-    public function addItem($entity, array $options = array()) {
+    public function addItem($entity, array $options = array())
+    {
         $form = $this->get('form.factory')->create($this->getType($entity));
 
         $$entity = $this->getEntity($entity);
@@ -121,21 +139,22 @@ class BaseController extends Controller {
 
             if ($form->isValid()) {
 
-                if (isset($options['afterValid']))
-                    foreach ($options['afterValid'] as $method => $value)
-                        	$$entity->$method($value);
-		
-                $em = $this->getEm();
-                $em->persist($$entity);
-                $em->flush();
+                if (isset($options['afterValid'])) {
+                    foreach ($options['afterValid'] as $method => $value) {
+                        $$entity->$method($value);
+                    }
+                }
+
+                $this->getEm()->persist($$entity);
+                $this->getEm()->flush();
 
                 //Insert Tags
                 $this->get('tags')->addTags($$entity->getId());
-		
-		// Session flash
-		$this->flash(strtolower($entity) . ' added');
-		
-		//Redirect
+
+                // Session flash
+                $this->flash(strtolower($entity) . ' added');
+
+                //Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
             }
         }
@@ -144,13 +163,15 @@ class BaseController extends Controller {
         return $this->renderTpl($entity . ':add', compact('form'));
     }
 
-    public function editItem($entity, $id, array $options = array()) {
+    public function editItem($entity, $entityId, array $options = array())
+    {
         $form = $this->get('form.factory')->create($this->getType($entity));
 
-        $$entity = $this->findOne($entity, $id);
-        
-	if (!$$entity)
-		return $this->renderTpl ('Error:error', ErrorController::error (404), true);
+        $$entity = $this->findOne($entity, $entityId);
+
+        if (!$$entity) {
+            return $this->renderTpl('Error:error', ErrorController::error(404), true);
+        }
 
         $form->setData($$entity);
 
@@ -160,21 +181,22 @@ class BaseController extends Controller {
 
             if ($form->isValid()) {
 
-                if (isset($options['afterValid']))
-                    foreach ($options['afterValid'] as $method => $value)
+                if (isset($options['afterValid'])) {
+                    foreach ($options['afterValid'] as $method => $value) {
                         $$entity->$method($value);
+                    }
+                }
 
-                $em = $this->getEm();
-                $em->persist($$entity);
-                $em->flush();
-		
-		//Edit Tags
-		$this->get('tags')->editTags($$entity->getId());
+                $this->getEm()->persist($$entity);
+                $this->getEm()->flush();
 
-		// Session flash
-		$this->flash(strtolower($entity) . ' edited');
+                //Edit Tags
+                $this->get('tags')->editTags($$entity->getId());
 
-		//Redirect
+                // Session flash
+                $this->flash(strtolower($entity) . ' edited');
+
+                //Redirect
                 return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
             }
         }
@@ -183,39 +205,45 @@ class BaseController extends Controller {
         return $this->renderTpl($entity . ':edit', compact('form'));
     }
 
-    public function removeItem($entity, $id) {
-        $this->removeOne($entity, $id);
+    public function removeItem($entity, $entityId)
+    {
+        $this->removeOne($entity, $entityId);
 
-	// Redirect
+        // Redirect
         return $this->redirect($this->generateUrl('_admin_' . strtolower($entity) . '_index'));
     }
 
-    public function getType($entity) {
-        $type = $this->_commonNamespacePath . '\Type\\' . $entity;
+    public function getType($entity)
+    {
+        $type = $this->commonNamespacePath . '\Type\\' . $entity;
         return new $type;
     }
 
-    public function getEntity($entity) {
-        $type = $this->_commonNamespacePath . '\Entity\\' . $entity;
+    public function getEntity($entity)
+    {
+        $type = $this->commonNamespacePath . '\Entity\\' . $entity;
         return new $type;
     }
 
-    public function getForm($entity, $param = null) {
+    public function getForm($entity, $param = null)
+    {
         return $this->createForm($this->getType($entity), $param);
     }
 
-    public function getEncodePassword($user = null) {
+    public function getEncodePassword($user = null)
+    {
         $encoders = $this->get('security.encoder_factory');
-        $encoder = $encoders->getEncoder($user);
+        $encoder  = $encoders->getEncoder($user);
 
         return $encoder->encodePassword($user->getPassword(), $user->getSalt());
     }
 
-    public function makeAcl($entity, $mask = MaskBuilder::MASK_OWNER) {
+    public function makeAcl($entity, $mask = MaskBuilder::MASK_OWNER)
+    {
         // creating the ACL
-        $aclProvider = $this->get('security.acl.provider');
+        $aclProvider    = $this->get('security.acl.provider');
         $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-        $acl = $aclProvider->createAcl($objectIdentity);
+        $acl            = $aclProvider->createAcl($objectIdentity);
 
         // retrieving the security identity of the currently logged-in user
         $securityIdentity = UserSecurityIdentity::fromAccount($this->getUser());
@@ -225,30 +253,35 @@ class BaseController extends Controller {
         $aclProvider->updateAcl($acl);
     }
 
-    public function trans($text) {
+    public function trans($text)
+    {
         return $this->get('translator')->trans($text);
     }
 
-    public function flash($message, $type = "message") {
+    public function flash($message, $type = "message")
+    {
         $this->get('session')->setFlash($type, $this->trans($message));
     }
 
-    public function myRedirect($router) {
-	return $this->redirect($this->generateUrl($router));
+    public function myRedirect($router)
+    {
+        return $this->redirect($this->generateUrl($router));
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         $token = $this->get('security.context')->getToken();
-        
+
         return $token->getUser();
     }
-    
-    public function notFound($message = null, $common = true) {
-        return $this->renderTpl ('Error:error', ErrorController::error (404, $message), $common);        
+
+    public function notFound($message = null, $common = true)
+    {
+        return $this->renderTpl('Error:error', ErrorController::error(404, $message), $common);
     }
 
-    public function AccessDenied($message = null, $common = true) {
-        return $this->renderTpl ('Error:error', ErrorController::error (405, $message), $common);
+    public function accessDenied($message = null, $common = true)
+    {
+        return $this->renderTpl('Error:error', ErrorController::error(405, $message), $common);
     }
-
 }

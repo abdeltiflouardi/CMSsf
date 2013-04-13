@@ -1,17 +1,17 @@
 <footer class="footer">
     {% for category in categories %}
         <nav>
-                <p>{{ category.name }}</p>
-                <ul>
+            <p>{{ category.name }}</p>
+            <ul>
                     {% for subcategory in category.subCategories %}
-                        <li>
-                                <a href="{{ path('_category', {'slug': slug(subcategory.name), 'category_id': subcategory.id}) }}">
+                    <li>
+                        <a href="{{ path('_category', {'slug': slug(subcategory.name), 'category_id': subcategory.id}) }}">
                                      {{ subcategory.name }}
-                                </a>
+                            </a>
                         </li>
                     {% endfor %}
-                </ul>
-        </nav>
+                    </ul>
+                </nav>
     {% endfor %}
-    <div class="copyright">Created by: LOUARDI Abdeltif</div>
-</footer>
+                <div class="copyright">Created by: LOUARDI Abdeltif</div>
+            </footer>

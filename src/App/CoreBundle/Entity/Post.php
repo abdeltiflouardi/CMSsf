@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
+
     /**
      * @var integer $id
      *
@@ -99,6 +100,7 @@ class Post
      * @ORM\OrderBy({"updatedAt" = "DESC"})
      */
     private $comments;
+
     /**
      * Words tags
      */
@@ -106,10 +108,9 @@ class Post
 
     public function __construct()
     {
-        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tag      = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id
@@ -304,28 +305,31 @@ class Post
     /**
      * set $words
      */
-    public function setWords($words) {
+    public function setWords($words)
+    {
         $this->words = $words;
     }
 
     /**
      * get words
      */
-    public function getWords() {
-        $tags = array();
-        foreach ($this->getTag() as $tag)
+    public function getWords()
+    {
+        $tags   = array();
+        foreach ($this->getTag() as $tag) {
             $tags[] = $tag->getName();
+        }
         return implode(',', $tags);
-    }    
+    }
 
     /**
      *
      * @ORM\prePersist
      */
-    public function setCreatedValue() 
+    public function setCreatedValue()
     {
-         $this->setCreatedAt(new \DateTime());
-         $this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -334,6 +338,6 @@ class Post
      */
     public function setUpdatedValue()
     {
-         $this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 }

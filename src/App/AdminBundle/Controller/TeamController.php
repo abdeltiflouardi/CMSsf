@@ -2,14 +2,15 @@
 
 namespace App\AdminBundle\Controller;
 
-class TeamController extends AdminBaseController {
+class TeamController extends AdminBaseController
+{
 
-    protected $_name = 'Team';
+    protected $name = 'Team';
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $teams = $this->paginator($this->_name);
+
         return $this->renderTpl($this->_name . ':index', compact('teams'));
     }
-
 }
-

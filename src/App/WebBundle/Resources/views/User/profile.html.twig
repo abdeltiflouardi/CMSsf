@@ -3,20 +3,20 @@
 {% block body %}
 <div class="login widget">
 {% if app.session.hasFlash('message') %}
-    <div class="flash-message">
+        <div class="flash-message">
         {{ app.session.flash('message') }}
-    </div>
+            </div>
 {% endif %}
-<form action="#" method="post" {{ form_enctype(form) }}>
-    <fieldset>
+            <form action="#" method="post" {{ form_enctype(form) }}>
+                <fieldset>
          {{ form_widget(form) }}
 
 
          {{ form_rest(form) }}
-         <div class="input submit">
-              <input type="submit" value="Send" class="button" />
-         </div>
-    </fieldset>
-</form>
-</div>
+                        <div class="input submit">
+                            <input type="submit" value="Send" class="button" />
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
 {% endblock %}

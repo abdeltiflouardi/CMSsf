@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="utf-8" />
+        <meta charset="utf-8" />
         <title>{{ meta_title }}</title>
         {% if meta_description is not empty %}
         <meta name="description" content="{{ meta_description }}" />
         <meta name="keywords" content="{{ meta_keywords }}" />
         {% endif %}
-	<link rel="stylesheet" href="{{ asset('css/common.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/web.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/web.css') }}" />
         <link rel="alternate" type="application/rss+xml" title="Articles" href="{{ url('flux_rss') }}" />
     </head>
 
@@ -16,31 +16,31 @@
         {% block header_menu %}
             {% include 'AppWebBundle:Partials:header-menu.html.twig' %}
         {% endblock%}
-        
-	<div class="line"></div>
 
-	<div class="content-wrapper">
+            <div class="line"></div>
+
+            <div class="content-wrapper">
                 {% block navigation %}
                     {% include 'AppWebBundle:Partials:navigation.html.twig' %}
                 {% endblock%}
-                
+
                 {% if app.session.hasFlash('message') %}
-                <p class="flash-message body">{{ app.session.flash('message') }}</p>
+                    <p class="flash-message body">{{ app.session.flash('message') }}</p>
                 {% endif %}
 
                 {% block sidebar %}
                     {% include 'AppWebBundle:Partials:sidebar.html.twig' %}                
                 {% endblock%}	
-                
+
                 {% block body %}
                     {% include 'AppWebBundle:Partials:post.html.twig' %}                
                 {% endblock %}
-	</div>
+                </div>
 
-	<div class="line"></div>
+                <div class="line"></div>
 
         {% block footer %}
             {% include 'AppWebBundle:Partials:footer.html.twig' %}
         {% endblock %}
-    </body>
-</html>
+            </body>
+        </html>

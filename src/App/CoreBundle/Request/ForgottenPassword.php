@@ -4,7 +4,8 @@ namespace App\CoreBundle\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ForgottenPassword {
+class ForgottenPassword
+{
 
     /**
      * @var string $email
@@ -12,7 +13,7 @@ class ForgottenPassword {
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-     private $email;
+    private $email;
 
     /**
      * Set email
@@ -32,6 +33,5 @@ class ForgottenPassword {
     public function getEmail()
     {
         return $this->email;
-    }     
-
+    }
 }

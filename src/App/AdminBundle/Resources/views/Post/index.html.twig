@@ -1,31 +1,31 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="button-new"><a href="{{ path('_admin_post_add') }}" class="button-green">Add</a></div>
-    <table  border="1">
-        <tr>
-            <th>{{ knp_pagination_sortable(posts, 'Id', 'a.id')|raw }}</th>
-            <th>Category{# { paginator_sort('Title', 'a.title')|raw } #}</th>
-            <th>{{ knp_pagination_sortable(posts, 'Title', 'a.title')|raw }}</th>
-            <th>{{ knp_pagination_sortable(posts, 'CreatedAt', 'a.createdAt')|raw }}</th>          
-            <th>{{ knp_pagination_sortable(posts, 'UpdatedAt', 'a.updatedAt')|raw }}</th>            
-            <th>Actions</th>
-	</tr>
+<div class="button-new"><a href="{{ path('_admin_post_add') }}" class="button-green">Add</a></div>
+<table  border="1">
+    <tr>
+        <th>{{ knp_pagination_sortable(posts, 'Id', 'a.id')|raw }}</th>
+        <th>Category{# { paginator_sort('Title', 'a.title')|raw } #}</th>
+        <th>{{ knp_pagination_sortable(posts, 'Title', 'a.title')|raw }}</th>
+        <th>{{ knp_pagination_sortable(posts, 'CreatedAt', 'a.createdAt')|raw }}</th>          
+        <th>{{ knp_pagination_sortable(posts, 'UpdatedAt', 'a.updatedAt')|raw }}</th>            
+        <th>Actions</th>
+    </tr>
 
 	{% for post in posts %}
-	<tr>
-            <td>{{ post.id }}</td>
-            <td>{{ post.category.name }}</td>
-            <td>{{ post.title }}</td>
-            <td>{{ post.createdAt|date }}</td>
-            <td>{{ post.updatedAt|date }}</td>            
-            <td>
-                <a href="{{ path('_admin_post_show', {'id': post.id}) }}">{{ 'Show'|trans }}</a>
-                <a href="{{ path('_admin_post_edit', {'id': post.id}) }}">{{ 'Edit'|trans }}</a>
-                <a href="{{ path('_admin_post_delete', {'id': post.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet article?')">{{ 'Delete'|trans }}</a>
-            </td>
-	</tr>	
+    <tr>
+        <td>{{ post.id }}</td>
+        <td>{{ post.category.name }}</td>
+        <td>{{ post.title }}</td>
+        <td>{{ post.createdAt|date }}</td>
+        <td>{{ post.updatedAt|date }}</td>            
+        <td>
+            <a href="{{ path('_admin_post_show', {'id': post.id}) }}">{{ 'Show'|trans }}</a>
+            <a href="{{ path('_admin_post_edit', {'id': post.id}) }}">{{ 'Edit'|trans }}</a>
+            <a href="{{ path('_admin_post_delete', {'id': post.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet article?')">{{ 'Delete'|trans }}</a>
+        </td>
+    </tr>	
 	{% endfor %}
-    </table>	
+</table>	
     {{ knp_pagination_render(posts) }}
 {% endblock %}

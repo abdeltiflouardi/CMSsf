@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Comment extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('comment');
@@ -15,7 +16,7 @@ class Comment extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'required' => false,
+            'required'   => false,
             'data_class' => 'App\CoreBundle\Entity\Comment',
         );
     }

@@ -7,40 +7,40 @@
         <link href="{{ asset('bundles/appadmin/css/admin.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        
+
         <div class="header widget">
             <ul class="menu">
                 <li><a href="{{ path('_admin_home') }}">{{ 'Home'|trans }}</a></li>
                 {% if app.user %}
-                <li><a href="{{ path('_admin_post_index') }}">{{ 'Posts'|trans }}</a></li>
-                <li><a href="{{ path('_admin_comment_index') }}">{{ 'Comments'|trans }}</a></li>
-                <li><a href="{{ path('_admin_category_index') }}">{{ 'Categories'|trans }}</a></li>
-                <li><a href="{{ path('_admin_tag_index') }}">{{ 'Tags'|trans }}</a></li>
-                <li><a href="{{ path('_admin_user_index') }}">{{ 'Users'|trans }}</a></li>
-                <li><a href="{{ path('_admin_team_index') }}">{{ 'Teams'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_post_index') }}">{{ 'Posts'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_comment_index') }}">{{ 'Comments'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_category_index') }}">{{ 'Categories'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_tag_index') }}">{{ 'Tags'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_user_index') }}">{{ 'Users'|trans }}</a></li>
+                    <li><a href="{{ path('_admin_team_index') }}">{{ 'Teams'|trans }}</a></li>
                  {% endif %}
-                <li class="menu-right">
+                        <li class="menu-right">
                     {% if app.user %}
-                        <a href="{{ path('_admin_logout') }}">{{ 'Logout'|trans }}</a>
+                                <a href="{{ path('_admin_logout') }}">{{ 'Logout'|trans }}</a>
                     {% else %}
-                        <a href="{{ path('_signup') }}">{{ 'Signup'|trans }}</a>
+                                <a href="{{ path('_signup') }}">{{ 'Signup'|trans }}</a>
                     {% endif %}
-                </li>
-            </ul>
-        </div>
+                            </li>
+                        </ul>
+                    </div>
 
 	{% if app.session.flash('message') %}
-	<div class="flash-message widget">
+                    <div class="flash-message widget">
 		{{ app.session.flash('message') }}
-	</div>
+                        </div>
 	{% endif %}	
-        
-        <div class="content widget">
+
+                        <div class="content widget">
             {% block body %}{% endblock %}
-        </div>
-        
-        <div class="footer widget">
-        </div>
-        
-    </body>
-</html>
+                            </div>
+
+                            <div class="footer widget">
+                            </div>
+
+                        </body>
+                    </html>

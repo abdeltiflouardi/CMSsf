@@ -1,39 +1,39 @@
 <div class="sidebar">
         {% include 'AppWebBundle:Partials:userinfos.html.twig' %}
         <div class="menu widget">
-                <header>
-                        <h3>Categories</h3>
-                </header>
-                <nav>
-                        <ul>
+            <header>
+                <h3>Categories</h3>
+            </header>
+            <nav>
+                <ul>
                             {% for sub_category in sub_categories %}
-                                <li>
-                                    <a href="{{ path('_category', {'category_id': sub_category.id, 'slug': slug(sub_category.name) }) }}">
+                        <li>
+                            <a href="{{ path('_category', {'category_id': sub_category.id, 'slug': slug(sub_category.name) }) }}">
                                         {{ sub_category.name }}                                    
-                                    </a>
-                                </li>
+                                </a>
+                            </li>
                             {% endfor %}
                         </ul>
-                </nav>
-        </div>
+                    </nav>
+                </div>
 
-	<div class="search widget">
-		<header>
-			<h3>Search</h3>
-		</header>
-		<div>                  
-			<form action="{{ path('_home') }}">
-				<input id="q" name="q" type="text" />
-				<input id="submit" value="Search" type="submit" class="button" />
-			</form>
-		</div>
-	</div>
+                <div class="search widget">
+                    <header>
+                        <h3>Search</h3>
+                    </header>
+                    <div>                  
+                        <form action="{{ path('_home') }}">
+                            <input id="q" name="q" type="text" />
+                            <input id="submit" value="Search" type="submit" class="button" />
+                        </form>
+                    </div>
+                </div>
 
-        <div class="tag widget">
-                <header>
+                <div class="tag widget">
+                    <header>
                         <h3>Tags</h3>
-                </header>
-                <nav>
+                    </header>
+                    <nav>
                     {% if not (posts is defined) %}
                         {% if not (post is defined) %}
                             {% set posts = [] %}
@@ -42,12 +42,12 @@
                         {% endif %}
                     {% endif %}
                     {% for tag in tags(posts) %}
-                             <a href="{{ path('_tag', {'tag_id': tag.id,'tag': tag.name}) }}">
+                            <a href="{{ path('_tag', {'tag_id': tag.id,'tag': tag.name}) }}">
                                  {{ tag.name }}
-                             </a>
+                                </a>
                     {% endfor %}
-                </nav>				
-        </div>
-        
-        <!-- HOOK SIDEBAR -->
-</div>
+                            </nav>				
+                        </div>
+
+                        <!-- HOOK SIDEBAR -->
+                    </div>

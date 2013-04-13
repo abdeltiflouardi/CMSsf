@@ -2,27 +2,27 @@
 
 {% block body %}
 <div class="login widget">
-     <form action="{{ path('_check') }}" method="post">
-          <fieldset>
-                <legend>Signin</legend>
+    <form action="{{ path('_check') }}" method="post">
+        <fieldset>
+            <legend>Signin</legend>
                 {% if error %}
-                    <div>{{ error.message }}</div>
+            <div>{{ error.message }}</div>
                 {% endif %}
                 {{ form_widget(form_signin) }}
-                <div class="submit"><input type="submit" value="Signin" class="button" /></div>
-                
-                <div class="forgotten-password">
-                    <a href="{{ path('_forgotten_password') }}">forgotten password</a>
-                </div>
-          </fieldset>
-     </form>
+            <div class="submit"><input type="submit" value="Signin" class="button" /></div>
 
-     <form action="{{ path('_signin') }}" method="post">
-          <fieldset>
-               <legend>Signup</legend>
+            <div class="forgotten-password">
+                <a href="{{ path('_forgotten_password') }}">forgotten password</a>
+            </div>
+        </fieldset>
+    </form>
+
+    <form action="{{ path('_signin') }}" method="post">
+        <fieldset>
+            <legend>Signup</legend>
                {{ form_widget(form_signup) }}
-               <div class="submit"><input type="submit" value="Signup" class="button" /></div>
-          </fieldset>
-     </form>
+            <div class="submit"><input type="submit" value="Signup" class="button" /></div>
+        </fieldset>
+    </form>
 </div>
 {% endblock %}

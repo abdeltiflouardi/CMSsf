@@ -7,10 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Signin extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('login', 'text');
-        $builder->add('password', 'password');     
+        $builder->add('password', 'password');
     }
 
     public function getDefaultOptions(array $options)
@@ -18,7 +19,8 @@ class Signin extends AbstractType
         return array('required' => false);
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'signin';
     }
 }

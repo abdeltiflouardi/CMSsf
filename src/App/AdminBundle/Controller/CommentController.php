@@ -2,14 +2,15 @@
 
 namespace App\AdminBundle\Controller;
 
-class CommentController extends AdminBaseController {
+class CommentController extends AdminBaseController
+{
 
-    protected $_name = 'Comment';
+    protected $name = 'Comment';
 
-    public function indexAction() {
-        $comments = $this->paginator($this->_name);
-        return $this->renderTpl($this->_name . ':index', compact('comments'));
+    public function indexAction()
+    {
+        $comments = $this->paginator($this->name);
+
+        return $this->renderTpl($this->name . ':index', compact('comments'));
     }
-
 }
-

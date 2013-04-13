@@ -7,44 +7,46 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Category;
 
-class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
+class CategoryData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $category_prog = new Category();
         $category_prog->setName('Programming');
-	$category_prog->setPosition(1);
+        $category_prog->setPosition(1);
 
         $category_web = new Category();
         $category_web->setName('Web');
-	$category_web->setPosition(2);
+        $category_web->setPosition(2);
 
-	$category_soft = new Category();
-	$category_soft->setName('Software');
-	$category_soft->setPosition(3);
+        $category_soft = new Category();
+        $category_soft->setName('Software');
+        $category_soft->setPosition(3);
 
-	$category_hard = new Category();
-	$category_hard->setName('Hardware');
-	$category_hard->setPosition(4);
+        $category_hard = new Category();
+        $category_hard->setName('Hardware');
+        $category_hard->setPosition(4);
 
         $manager->persist($category_prog);
         $manager->persist($category_web);
-	$manager->persist($category_soft);
-	$manager->persist($category_hard);
+        $manager->persist($category_soft);
+        $manager->persist($category_hard);
         $manager->flush();
 
-	$category_php = new Category();
-	$category_php->setParent($category_web);
-	$category_php->setName('PHP');
-	$category_php->setPosition(1);
+        $category_php = new Category();
+        $category_php->setParent($category_web);
+        $category_php->setName('PHP');
+        $category_php->setPosition(1);
 
-	$category_symfony = new Category();
-	$category_symfony->setParent($category_web);
-	$category_symfony->setName('Symfony');
-	$category_symfony->setPosition(2);
+        $category_symfony = new Category();
+        $category_symfony->setParent($category_web);
+        $category_symfony->setName('Symfony');
+        $category_symfony->setPosition(2);
 
-	$manager->persist($category_php);
-	$manager->persist($category_symfony);
-	$manager->flush();
+        $manager->persist($category_php);
+        $manager->persist($category_symfony);
+        $manager->flush();
 
         foreach (array('JAVA', 'C#', 'VB', 'Python') as $id => $name) {
             $category = new Category();
@@ -60,11 +62,11 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
             $category = new Category();
             $category->setParent($category_web);
             $category->setName($name);
-            $category->setPosition($id+2);
+            $category->setPosition($id + 2);
 
             $manager->persist($category);
             $manager->flush();
-        }        
+        }
 
         foreach (array('Developpement', 'Security', 'Audio/Video', 'Games', 'Others') as $id => $name) {
             $category = new Category();
@@ -90,8 +92,8 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('category_symfony', $category_symfony);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 1; // the order in which fixtures will be loaded
     }
-
 }

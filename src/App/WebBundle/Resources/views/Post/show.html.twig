@@ -4,66 +4,66 @@
 {# Next & Previous #}
 <div class="post-next-previous">
     {% if previous_post %}
-    <label class="previous">
-        <a href="{{ path('_post', {'post_id': previous_post.id, 'slug': slug(previous_post.title)}) }}">Previous</a>
-    </label>
+        <label class="previous">
+            <a href="{{ path('_post', {'post_id': previous_post.id, 'slug': slug(previous_post.title)}) }}">Previous</a>
+        </label>
     {% endif %}
 
     {% if next_post %}
-    <label class="next">
-        <a href="{{ path('_post', {'post_id': next_post.id, 'slug': slug(next_post.title)}) }}">Next</a>
-    </label>
+        <label class="next">
+            <a href="{{ path('_post', {'post_id': next_post.id, 'slug': slug(next_post.title)}) }}">Next</a>
+        </label>
     {% endif %}
-</div>
-<div class="content">
-	<article class="widget">
-		<header><h1>{{ post.title }}</h1></header>
+    </div>
+    <div class="content">
+        <article class="widget">
+            <header><h1>{{ post.title }}</h1></header>
 		{{ post.body | markdown }}
-		<p class="date">Le: {{ post.updatedAt|date('d/m/Y') }}
-		<p class="author">Par: {{ post.user.username }}</p>		
-	</article>
-</div>
+                    <p class="date">Le: {{ post.updatedAt|date('d/m/Y') }}
+                    <p class="author">Par: {{ post.user.username }}</p>		
+                </article>
+            </div>
 {% if 'dev' not in app.request.baseUrl %}
-<div class="fb-like">
-    <div id="fb-root"></div>
-    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-    <fb:like href="{{ path('_post', {'post_id': post.id, 'slug': slug(post.title)}) }}" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
-</div>
+            <div class="fb-like">
+                <div id="fb-root"></div>
+                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+                <fb:like href="{{ path('_post', {'post_id': post.id, 'slug': slug(post.title)}) }}" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
+            </div>
 {% endif %}
 
-<div class="comments widget">
-	<h3>Comments</h3>
+            <div class="comments widget">
+                <h3>Comments</h3>
         {% for comment in post.comments %}
-        <div class="comment-items">
-             <p class="comment">{{ comment.comment }}</p>
-             <p class="date">Le: {{ comment.updatedAt|date() }}</p>
-             <p class="author">Par: {{ comment.user.username }}</p>
-        </div>
+                <div class="comment-items">
+                    <p class="comment">{{ comment.comment }}</p>
+                    <p class="date">Le: {{ comment.updatedAt|date() }}</p>
+                    <p class="author">Par: {{ comment.user.username }}</p>
+                </div>
 	{% endfor %}
-        
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-	<form action="#" method="post" {{ form_enctype(form_comment) }}>
-		<fieldset>
-			<legend>New comment</legend>
-		        {{ form_widget(form_comment) }}
-                        
-			<div class="submit">
-				<input type="submit" value="Send" class="button" />
-			</div>
-		</fieldset>
-	</form>
-        {% else %}
-        <a href="{{ path('_signin') }}" class="button">Signin to add comment</a>
-        {% endif %}
-</div>
 
-<div class="body widget">
-    <h3>Related posts</h3>
-    <ul class="post-related">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <form action="#" method="post" {{ form_enctype(form_comment) }}>
+                    <fieldset>
+                        <legend>New comment</legend>
+		        {{ form_widget(form_comment) }}
+
+                        <div class="submit">
+                            <input type="submit" value="Send" class="button" />
+                        </div>
+                    </fieldset>
+                </form>
+        {% else %}
+                <a href="{{ path('_signin') }}" class="button">Signin to add comment</a>
+        {% endif %}
+            </div>
+
+            <div class="body widget">
+                <h3>Related posts</h3>
+                <ul class="post-related">
         {% for related_post in related_posts %}
-            <li><a href="{{ path('_post', {'post_id': related_post.id, 'slug': slug(related_post.title)}) }}">{{ related_post.title }}</a></li>
+                        <li><a href="{{ path('_post', {'post_id': related_post.id, 'slug': slug(related_post.title)}) }}">{{ related_post.title }}</a></li>
         {% endfor %}
-    </ul>
-</div>
+                        </ul>
+                    </div>
 {% endblock %}
 

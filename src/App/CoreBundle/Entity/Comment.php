@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
+
     /**
      * @var integer $id
      *
@@ -70,7 +71,8 @@ class Comment
      */
     private $user;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->viewed = 0;
     }
 
@@ -208,10 +210,10 @@ class Comment
      *
      * @ORM\prePersist
      */
-    public function setCreatedValue() 
+    public function setCreatedValue()
     {
-         $this->setCreatedAt(new \DateTime());
-         $this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -220,7 +222,6 @@ class Comment
      */
     public function setUpdatedValue()
     {
-         $this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
-
 }

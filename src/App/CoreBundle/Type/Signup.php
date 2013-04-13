@@ -7,12 +7,12 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Signup extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('email');
         $builder->add('username');
-        $builder->add('password', 'repeated',
-                array('type' => 'password', 'first_name' => 'Password', 'second_name' => 'Again'));
+        $builder->add('password', 'repeated', array('type'        => 'password', 'first_name'  => 'Password', 'second_name' => 'Again'));
     }
 
     public function getDefaultOptions(array $options)
@@ -20,7 +20,8 @@ class Signup extends AbstractType
         return array('required' => false);
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'signup';
     }
 }

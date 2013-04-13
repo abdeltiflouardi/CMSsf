@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Team
 {
+
     /**
      * @var integer $id
      *
@@ -54,7 +55,6 @@ class Team
     {
         $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id

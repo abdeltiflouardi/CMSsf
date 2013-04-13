@@ -1,29 +1,29 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <table border="1">
-        <tr>
-            <th>{{ knp_pagination_sortable(comments, 'Id', 'a.id')|raw }}</th>
-            <th>User</th>
-            <th>Article</th>
-            <th>{{ knp_pagination_sortable(comments, 'Comment', 'a.comment')|raw }}</th>
-            <th>{{ knp_pagination_sortable(comments, 'CreatedAt', 'a.createdAt')|raw }}</th>
-            <th>Actions</th>
-	</tr>
+<table border="1">
+    <tr>
+        <th>{{ knp_pagination_sortable(comments, 'Id', 'a.id')|raw }}</th>
+        <th>User</th>
+        <th>Article</th>
+        <th>{{ knp_pagination_sortable(comments, 'Comment', 'a.comment')|raw }}</th>
+        <th>{{ knp_pagination_sortable(comments, 'CreatedAt', 'a.createdAt')|raw }}</th>
+        <th>Actions</th>
+    </tr>
 
 	{% for comment in comments %}
-	<tr> 
-            <td>{{ comment.id }}</td>
-            <td>{{ comment.user.username }}</td>
-            <td>{{ comment.post.title }}</td>
-            <td>{{ comment.comment }}</td>
-            <td>{{ comment.createdAt|date() }}</td>
-            <td>
-                <a href="{{ path('_admin_comment_edit', {'id': comment.id}) }}">{{ 'Edit'|trans }}</a>
-		<a href="{{ path('_admin_comment_delete', {'id': comment.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire?')">{{ 'Delete'|trans }}</a>
-            </td>
-	</tr>	
+    <tr> 
+        <td>{{ comment.id }}</td>
+        <td>{{ comment.user.username }}</td>
+        <td>{{ comment.post.title }}</td>
+        <td>{{ comment.comment }}</td>
+        <td>{{ comment.createdAt|date() }}</td>
+        <td>
+            <a href="{{ path('_admin_comment_edit', {'id': comment.id}) }}">{{ 'Edit'|trans }}</a>
+            <a href="{{ path('_admin_comment_delete', {'id': comment.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire?')">{{ 'Delete'|trans }}</a>
+        </td>
+    </tr>	
 	{% endfor %}
-    </table>
+</table>
     {{ knp_pagination_render(comments) }}
 {% endblock %}

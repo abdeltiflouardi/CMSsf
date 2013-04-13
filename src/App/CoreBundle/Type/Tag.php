@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Tag extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
@@ -18,8 +19,9 @@ class Tag extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Tag',
         );
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'tag';
-    }    
+    }
 }

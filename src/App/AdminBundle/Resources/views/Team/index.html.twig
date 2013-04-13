@@ -1,26 +1,26 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="button-new"><a href="{{ path('_admin_team_add') }}" class="button-green">Add</a></div>
-    <table border="1">
-        <tr>
-            <th>{{ knp_pagination_sortable(teams, 'Id', 'a.id')|raw }}</th>
-            <th>{{ knp_pagination_sortable(teams, 'Name', 'a.name')|raw }}</th>
-            <th>{{ knp_pagination_sortable(teams, 'Role', 'a.role')|raw }}</th>
-            <th>Actions</th>
-	</tr>
+<div class="button-new"><a href="{{ path('_admin_team_add') }}" class="button-green">Add</a></div>
+<table border="1">
+    <tr>
+        <th>{{ knp_pagination_sortable(teams, 'Id', 'a.id')|raw }}</th>
+        <th>{{ knp_pagination_sortable(teams, 'Name', 'a.name')|raw }}</th>
+        <th>{{ knp_pagination_sortable(teams, 'Role', 'a.role')|raw }}</th>
+        <th>Actions</th>
+    </tr>
 
 	{% for team in teams %}
-	<tr> 
-            <td>{{ team.id }}</td>
-            <td>{{ team.name }}</td>
-            <td>{{ team.role }}</td>
-            <td>
-                <a href="{{ path('_admin_team_edit', {'id': team.id}) }}">{{ 'Edit'|trans }}</a>
-		<a href="{{ path('_admin_team_delete', {'id': team.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce groupe?')">{{ 'Delete'|trans }}</a>
-            </td>
-	</tr>	
+    <tr> 
+        <td>{{ team.id }}</td>
+        <td>{{ team.name }}</td>
+        <td>{{ team.role }}</td>
+        <td>
+            <a href="{{ path('_admin_team_edit', {'id': team.id}) }}">{{ 'Edit'|trans }}</a>
+            <a href="{{ path('_admin_team_delete', {'id': team.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer ce groupe?')">{{ 'Delete'|trans }}</a>
+        </td>
+    </tr>	
 	{% endfor %}
-    </table>
+</table>
     {{ knp_pagination_render(teams) }}
 {% endblock %}

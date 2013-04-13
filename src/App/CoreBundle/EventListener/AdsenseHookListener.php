@@ -2,10 +2,11 @@
 
 namespace App\CoreBundle\EventListener;
 
-use  Symfony\Component\HttpKernel\Event\FilterResponseEvent,
-     Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
-class AdsenseHookListener {
+class AdsenseHookListener
+{
 
     protected $templating;
     protected $height;
@@ -13,31 +14,37 @@ class AdsenseHookListener {
     protected $clientId;
     protected $colors;
 
-    public function __construct(TwigEngine $templating, $client_id, $height, $width, $colors) {
-        $this->templating  = $templating;
-        $this->clientId    = $client_id;
-        $this->height      = $height;
-        $this->width       = $width;
-        $this->colors      = $colors;
+    public function __construct(TwigEngine $templating, $client_id, $height, $width, $colors)
+    {
+        $this->templating = $templating;
+        $this->clientId   = $client_id;
+        $this->height     = $height;
+        $this->width      = $width;
+        $this->colors     = $colors;
     }
 
-    public function getClientId() { 
-        return $this->clientId; 
+    public function getClientId()
+    {
+        return $this->clientId;
     }
 
-    public function getHeight() {
+    public function getHeight()
+    {
         return $this->height;
     }
 
-    public function getWidth() {
-       return $this->width;
+    public function getWidth()
+    {
+        return $this->width;
     }
 
-    public function getColors() {
-       return $this->colors;
+    public function getColors()
+    {
+        return $this->colors;
     }
 
-    public function onKernelResponse(FilterResponseEvent $event) {
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
         $response = $event->getResponse();
 
         if (function_exists('mb_stripos')) {
@@ -50,9 +57,8 @@ class AdsenseHookListener {
 
         if (false !== $pos = $posrFunction($content, '<!-- HOOK SIDEBAR -->')) {
             $sidebar = $this->templating->render('AppCoreBundle:Hook:adsense.html.twig', array('vars' => $this));
-            $content = preg_replace('/<!-- HOOK SIDEBAR -->/', $sidebar, $content); 
+            $content = preg_replace('/<!-- HOOK SIDEBAR -->/', $sidebar, $content);
             $response->setContent($content);
         }
     }
-
 }

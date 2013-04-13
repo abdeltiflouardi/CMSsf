@@ -4,7 +4,8 @@ namespace App\CoreBundle\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class InitPassword {
+class InitPassword
+{
 
     /**
      * @var string $oldPassword
@@ -12,7 +13,7 @@ class InitPassword {
      * @Assert\NotBlank()
      * @Assert\MinLength(6)
      */
-     private $oldPassword;
+    private $oldPassword;
 
     /**
      * @var string $newPassword
@@ -20,7 +21,7 @@ class InitPassword {
      * @Assert\NotBlank()
      * @Assert\MinLength(6)
      */
-     private $newPassword;    
+    private $newPassword;
 
     /**
      * Set oldPassword
@@ -40,7 +41,7 @@ class InitPassword {
     public function getOldPassword()
     {
         return $this->oldPassword;
-    }     
+    }
 
     /**
      * Set newPassword
@@ -61,6 +62,4 @@ class InitPassword {
     {
         return $this->newPassword;
     }
-
-
 }

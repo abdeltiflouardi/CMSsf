@@ -7,9 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class TagList extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('tag', 'entity', array('class' => 'App\CoreBundle\Entity\Tag', 'property' => 'name'));
+        $builder->add('tag', 'entity', array('class'    => 'App\CoreBundle\Entity\Tag', 'property' => 'name'));
     }
 
     public function getDefaultOptions(array $options)
@@ -18,8 +19,9 @@ class TagList extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Tag',
         );
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'tags';
-    }    
+    }
 }

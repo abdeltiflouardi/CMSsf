@@ -2,13 +2,14 @@
 
 namespace App\CoreBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition,
-    Symfony\Component\Config\Definition\ConfigurationInterface,
-    Symfony\Component\Config\Definition\Builder\NodeBuilder,
-    Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class Configuration implements ConfigurationInterface
 {
+
     /**
      * Generates the configuration tree builder.
      *
@@ -17,28 +18,27 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('app_core');
-        
+        $rootNode    = $treeBuilder->root('app_core');
+
         // Adsense configuation
         $this->addAdsenseSection($rootNode);
-        
+
         return $treeBuilder;
     }
-    
+
     private function addAdsenseSection(ArrayNodeDefinition $rootNode)
     {
         $rootNode
-            ->children()
+                ->children()
                 ->arrayNode('adsense')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('client_id')->defaultFalse()->end()
-                        ->scalarNode('height')->defaultFalse()->end()
-                        ->scalarNode('width')->defaultFalse()->end()
-                        ->scalarNode('colors')->defaultFalse()->end()
-                    ->end()
+                ->addDefaultsIfNotSet()
+                ->children()
+                ->scalarNode('client_id')->defaultFalse()->end()
+                ->scalarNode('height')->defaultFalse()->end()
+                ->scalarNode('width')->defaultFalse()->end()
+                ->scalarNode('colors')->defaultFalse()->end()
                 ->end()
-            ->end()
-        ;    
-    }    
+                ->end()
+                ->end();
+    }
 }

@@ -1,12 +1,12 @@
 <table> 
 	{% for tag in post.getTag %}
         <tr>
-                <th>{{ tag.name }}</th>
-                <td>
-                        <a href="{{ path('_admin_post_tag_delete', {'tag_id': tag.id, 'post_id': post.id}) }}">
+            <th>{{ tag.name }}</th>
+            <td>
+                <a href="{{ path('_admin_post_tag_delete', {'tag_id': tag.id, 'post_id': post.id}) }}">
                                 {{ "Delete"|trans }}
-                        </a>
+                    </a>
                 </td>
-        </tr>
+            </tr>
         {% endfor %}
-</table>
+        </table>

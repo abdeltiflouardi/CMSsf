@@ -7,9 +7,11 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\CoreBundle\Entity\Team;
 
-class TeamData extends AbstractFixture implements OrderedFixtureInterface {
+class TeamData extends AbstractFixture implements OrderedFixtureInterface
+{
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $team = new Team();
         $team->setName('Administrators');
         $team->setRole('ROLE_ADMIN');
@@ -31,8 +33,8 @@ class TeamData extends AbstractFixture implements OrderedFixtureInterface {
         $this->addReference('team', $team);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 2; // the order in which fixtures will be loaded
     }
-
 }

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
     /**
      * @var integer $id
      *
@@ -44,27 +45,27 @@ class Category
      * })
      */
     private $parent;
-    
+
     /**
      * @var Post
      * 
      * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
     private $posts;
-    
+
     /**
      * @var Category
      * 
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     */    
+     */
     private $subCategories;
 
     public function __construct()
     {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts         = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subCategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *

@@ -2,13 +2,13 @@
 
 namespace App\WebBundle\Controller;
 
-use App\CoreBundle\Controller\BaseController,
-    App\CoreBundle\Twig\OutputExtension as Output;
+use App\CoreBundle\Controller\BaseController;
+use App\CoreBundle\Twig\OutputExtension as Output;
 
 class WebBaseController extends BaseController
 {
 
-    protected $_namespace = 'AppWebBundle:';
+    protected $namespace = 'AppWebBundle:';
 
     public function renderTpl($action, $params = array(), $common = false)
     {
@@ -41,10 +41,11 @@ class WebBaseController extends BaseController
             $navigation[] = array(
                 'label' => $category->getName(),
                 'url'   => $this->generateUrl(
-                        '_category', array(
-                    'category_id' => $category->getId(),
-                    'slug'        => Output::slug($category->getName())
-                        )
+                    '_category',
+                    array(
+                        'category_id' => $category->getId(),
+                        'slug'        => Output::slug($category->getName())
+                    )
                 )
             );
 
@@ -52,10 +53,11 @@ class WebBaseController extends BaseController
                 $navigation[] = array(
                     'label' => $subcategory->getName(),
                     'url'   => $this->generateUrl(
-                            '_category', array(
-                        'category_id' => $subcategory->getId(),
-                        'slug'        => Output::slug($subcategory->getName())
-                            )
+                        '_category',
+                        array(
+                            'category_id' => $subcategory->getId(),
+                            'slug'        => Output::slug($subcategory->getName())
+                        )
                     )
                 );
             }
@@ -67,10 +69,12 @@ class WebBaseController extends BaseController
         if ($tag_id) {
             $navigation[] = array(
                 'label' => $tag,
-                'url'   => $this->generateUrl('_tag', array(
-                    'tag_id' => $tag_id,
-                    'tag'    => $tag,
-                        )
+                'url'   => $this->generateUrl(
+                    '_tag',
+                    array(
+                        'tag_id' => $tag_id,
+                        'tag'    => $tag,
+                    )
                 )
             );
         }
@@ -85,7 +89,7 @@ class WebBaseController extends BaseController
         /**
          * Menu
          */
-        $categories = $this->getRepo('Category')->findBy(array('parent' => NULL));
+        $categories = $this->getRepo('Category')->findBy(array('parent' => null));
 
         /**
          * Submenu
@@ -94,10 +98,11 @@ class WebBaseController extends BaseController
         $sub_categories = array();
         $category_id    = $this->get('request')->get('category_id');
 
-        if (!empty($category_id))
+        if (!empty($category_id)) {
             $category = $this->findOne('Category', $category_id);
-        elseif ($post_id  = $this->get('request')->get('post_id'))
+        } elseif ($post_id = $this->get('request')->get('post_id')) {
             $category = $this->findOne('Post', $post_id)->getCategory();
+        }
 
         if (isset($category)) {
             if ($category->getParent() != null) {
@@ -111,8 +116,12 @@ class WebBaseController extends BaseController
             }
         }
 
-        if (in_array($this->get("request")->get('_route'), array('_signin', '_forgotten_password', '_activate')))
+        if (in_array(
+            $this->get("request")->get('_route'),
+            array('_signin', '_forgotten_password', '_activate')
+        )) {
             $selected_menu = 'Connexion';
+        }
 
         // Return datas to template
         $this->template = $this->get('twig');
@@ -128,14 +137,14 @@ class WebBaseController extends BaseController
 
         $keywords = '';
 
-        if (!array_key_exists('post', $this->_data)) {
+        if (!array_key_exists('post', $this->data)) {
             $title       = $this->get('request')->get('slug', 'PHP Symfony Zend CakePHP');
             $title       = $this->get('request')->get('tag', $title);
             $title       = ucwords(strtolower($title));
             $description = '';
             $keywords    = '';
         } else {
-            $post        = $this->_data['post'];
+            $post        = $this->data['post'];
             $title       = $post->getTitle();
             $description = $post->getBody();
 
@@ -153,5 +162,4 @@ class WebBaseController extends BaseController
         $this->template->addGlobal('meta_keywords', $keywords);
         $this->template->addGlobal('meta_description', $description);
     }
-
 }

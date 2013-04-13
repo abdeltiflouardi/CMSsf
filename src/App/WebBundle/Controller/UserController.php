@@ -2,21 +2,21 @@
 
 namespace App\WebBundle\Controller;
 
-use Symfony\Component\Security\Core\SecurityContext,
-    App\CoreBundle\Request\ForgottenPassword,
-    App\CoreBundle\Request\InitPassword;
+use Symfony\Component\Security\Core\SecurityContext;
+use App\CoreBundle\Request\ForgottenPassword;
+use App\CoreBundle\Request\InitPassword;
 
 class UserController extends WebBaseController
 {
 
-    protected $_name = 'User';
+    protected $name = 'User';
 
     public function signinAction()
     {
         /**
          * Signup
          */
-        $user = $this->getEntity($this->_name);
+        $user = $this->getEntity($this->name);
 
         $form_signup = $this->getForm('Signup', $user);
 
@@ -44,8 +44,13 @@ class UserController extends WebBaseController
                         ->setSubject('Activation de votre compte')
                         ->setFrom('ouardisoft@localhost')
                         ->setTo($user->getEmail())
-                        ->setBody($this->renderView('AppWebBundle:Mail:activate.html.twig', array('token' => $token)))
-                ;
+                        ->setBody(
+                            $this->renderView(
+                                'AppWebBundle:Mail:activate.html.twig',
+                                array('token' => $token)
+                            )
+                        );
+
                 $this->get('mailer')->send($message);
 
                 return $this->redirect($this->generateUrl('_home'));
@@ -59,7 +64,7 @@ class UserController extends WebBaseController
         if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
-            $error     = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+            $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
         $last_name = $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME);
 
@@ -79,9 +84,9 @@ class UserController extends WebBaseController
             $form->bindRequest($request);
             if ($form->isValid()) {
                 $user = $this->getRepo('User')->findOneByEmail($fp->getEmail());
-                if (!$user)
+                if (!$user) {
                     $this->flash('Email not found');
-                else {
+                } else {
                     $token = $user->getEmail();
 
                     $message = \Swift_Message::newInstance()
@@ -89,8 +94,12 @@ class UserController extends WebBaseController
                             ->setSubject('Forgotten password')
                             ->setFrom('ouardisoft@server.lan')
                             ->setTo($user->getEmail())
-                            ->setBody($this->renderView('AppWebBundle:Mail:forgotten_password.html.twig', array('token' => $token)))
-                    ;
+                            ->setBody(
+                                $this->renderView(
+                                    'AppWebBundle:Mail:forgotten_password.html.twig',
+                                    array('token' => $token)
+                                )
+                            );
 
                     $this->get('mailer')->send($message);
                 }
@@ -98,7 +107,8 @@ class UserController extends WebBaseController
         }
 
         $form = $form->createView();
-        return $this->renderTpl($this->_name . ':forgotten_password', compact('form'));
+
+        return $this->renderTpl($this->name . ':forgotten_password', compact('form'));
     }
 
     public function initPasswordAction($token)
@@ -106,8 +116,9 @@ class UserController extends WebBaseController
 
         $user = $this->getRepo('User')->findOneByEmail($token);
 
-        if (!$user)
+        if (!$user) {
             return $this->notFound('User not found', false);
+        }
 
         $init_password = new InitPassword();
         $form          = $this->getForm('InitPassword', $init_password);
@@ -140,15 +151,16 @@ class UserController extends WebBaseController
         }
 
         $form = $form->createView();
-        return $this->renderTpl($this->_name . ':init_password', compact('form'));
+        return $this->renderTpl($this->name . ':init_password', compact('form'));
     }
 
     public function activateAction($token)
     {
         $user = $this->getRepo('User')->findOneByEmail($token);
 
-        if (!$user)
+        if (!$user) {
             return $this->notFound('Account not exists', false);
+        }
 
         $user->setEnabled(1);
 
@@ -157,7 +169,7 @@ class UserController extends WebBaseController
         $em->flush();
 
         $this->flash('Profile activated');
-        return $this->renderTpl($this->_name . ':activate');
+        return $this->renderTpl($this->name . ':activate');
     }
 
     public function profileAction()
@@ -182,14 +194,14 @@ class UserController extends WebBaseController
         }
         $form = $form->createView();
 
-        return $this->renderTpl($this->_name . ':profile', compact('form'));
+        return $this->renderTpl($this->name . ':profile', compact('form'));
     }
 
     public function commentsAction()
     {
         $comments = $this->getUser()->getComments();
 
-        return $this->renderTpl($this->_name . ':comments', compact('comments'));
+        return $this->renderTpl($this->name . ':comments', compact('comments'));
     }
 
     public function usersCommentsAction()
@@ -197,28 +209,30 @@ class UserController extends WebBaseController
         $user = $this->getUser();
 
         $query = $this->getEM()
-                ->createQuery('
-                                     SELECT c, p 
-                                     FROM AppCoreBundle:Comment c JOIN c.post p
-                                     WHERE p.user = :user
-                                    ')
+                ->createQuery(
+                    'SELECT c, p
+                             FROM AppCoreBundle:Comment c JOIN c.post p
+                             WHERE p.user = :user'
+                )
                 ->setParameter('user', $user);
 
         $comments = $this->paginator($query, array('itemPerPage' => 1));
 
-        return $this->renderTpl($this->_name . ':users_comments', compact('comments'));
+        return $this->renderTpl($this->name . ':users_comments', compact('comments'));
     }
 
     public function commentEditAction($comment_id)
     {
         $comment = $this->findOne('Comment', $comment_id);
 
-        if (!$comment)
+        if (!$comment) {
             return $this->notFound('Comment not found', false);
+        }
 
         if (!$this->get('security.context')->isGranted('EDIT', $comment) &&
-                !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+                !$this->get('security.context')->isGranted('ROLE_MODERATE')) {
             return $this->accessDenied(null, false);
+        }
 
         $form = $this->getForm('Comment', $comment);
 
@@ -237,7 +251,7 @@ class UserController extends WebBaseController
 
         $form = $form->createView();
 
-        return $this->renderTpl($this->_name . ':comment_edit', compact('form'));
+        return $this->renderTpl($this->name . ':comment_edit', compact('form'));
     }
 
     public function commentDeleteAction($comment_id)
@@ -245,12 +259,14 @@ class UserController extends WebBaseController
 
         $comment = $this->findOne('Comment', $comment_id);
 
-        if (!$comment)
+        if (!$comment) {
             return $this->notFound(sprintf('Comment #%s not found', $comment_id), false);
+        }
 
         if (!$this->get('security.context')->isGranted('DELETE', $comment) &&
-                !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+                !$this->get('security.context')->isGranted('ROLE_MODERATE')) {
             return $this->accessDenied(null, false);
+        }
 
         if ($confirm = $this->get('request')->query->get('confirm')) {
             $em = $this->getEm();
@@ -261,26 +277,28 @@ class UserController extends WebBaseController
             return $this->myRedirect('_comments');
         }
 
-        return $this->renderTpl($this->_name . ':comment_delete', compact('comment'));
+        return $this->renderTpl($this->name . ':comment_delete', compact('comment'));
     }
 
     public function postsAction()
     {
         $posts = $this->getUser()->getPosts();
 
-        return $this->renderTpl($this->_name . ':posts', compact('posts'));
+        return $this->renderTpl($this->name . ':posts', compact('posts'));
     }
 
     public function postEditAction($post_id)
     {
         $post = $this->findOne('Post', $post_id);
 
-        if (!$post)
+        if (!$post) {
             return $this->notFound('Post not found', false);
+        }
 
         if (!$this->get('security.context')->isGranted('EDIT', $post) &&
-                !$this->get('security.context')->isGranted('ROLE_MODERATE'))
+                !$this->get('security.context')->isGranted('ROLE_MODERATE')) {
             return $this->accessDenied(null, false);
+        }
 
         $form = $this->getForm('Post', $post);
         $form->remove('user');
@@ -301,7 +319,7 @@ class UserController extends WebBaseController
 
         $form = $form->createView();
 
-        return $this->renderTpl($this->_name . ':post_edit', compact('form'));
+        return $this->renderTpl($this->name . ':post_edit', compact('form'));
     }
 
     public function postDeleteAction($post_id)
@@ -315,7 +333,7 @@ class UserController extends WebBaseController
         if (!$this->get('security.context')->isGranted('DELETE', $post) &&
                 !$this->get('security.context')->isGranted('ROLE_MODERATE')) {
             return $this->accessDenied(null, false);
-                }
+        }
 
         if ($confirm = $this->get('request')->query->get('confirm')) {
 
@@ -328,7 +346,6 @@ class UserController extends WebBaseController
             return $this->myRedirect('_posts');
         }
 
-        return $this->renderTpl($this->_name . ':post_delete', compact('post'));
+        return $this->renderTpl($this->name . ':post_delete', compact('post'));
     }
-
 }

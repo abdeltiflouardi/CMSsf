@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tag
 {
+
     /**
      * @var integer $id
      *
@@ -39,7 +40,6 @@ class Tag
     {
         $this->post = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id

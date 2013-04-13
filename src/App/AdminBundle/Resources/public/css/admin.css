@@ -165,14 +165,14 @@ td, th {
     padding: 10px;
     border: 1px solid #d7d7d7;
     background-color: #fff;
-    
+
     -webkit-border-radius: 3px;
     -moz-border-radius:    3px;
-    border-radius:         3px;    
-    
+    border-radius:         3px;
+
     -moz-box-shadow: 2px 2px 5px #888;
     -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;    
+    box-shadow: 2px 2px 5px #888;
 }
 
 .header {

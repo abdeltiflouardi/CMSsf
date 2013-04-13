@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Category extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('parent', null, array('property' => 'name', 'required' => false));
@@ -20,8 +21,9 @@ class Category extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Category',
         );
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'category';
     }
 }

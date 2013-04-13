@@ -2,10 +2,10 @@
 
 namespace App\CoreBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface,
-    Symfony\Component\Validator\Constraints as Assert,
-    Symfony\Component\Security\Core\Role\Role,
-    Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Role\Role;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * App\CoreBundle\Entity\User
@@ -14,7 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface,
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface, \Serializable {
+class User implements UserInterface, \Serializable
+{
 
     /**
      * @var integer $id
@@ -88,14 +89,13 @@ class User implements UserInterface, \Serializable {
      * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
      */
     private $posts;
-    
+
     public function __construct()
     {
-        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->team     = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();        
+        $this->posts    = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id
@@ -266,7 +266,7 @@ class User implements UserInterface, \Serializable {
     {
         return $this->comments;
     }
-    
+
     /**
      * Add posts
      *
@@ -287,26 +287,29 @@ class User implements UserInterface, \Serializable {
         return $this->posts;
     }
 
-    /* 
+    /*
      *
      * @return $salt 
      */
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return mb_substr(md5($this->getUsername()), 3, 3);
     }
 
     /**
      * @return credentials
      */
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
         return true;
     }
 
     /**
      * @return boolean
      */
-    public function equals(UserInterface $user) {
+    public function equals(UserInterface $user)
+    {
         if ($this->getUsername() != $user->getUsername()) {
             return false;
         }
@@ -317,31 +320,35 @@ class User implements UserInterface, \Serializable {
     /**
      * @return $roles
      */
-    public function getRoles() {
-        $roles = array();
-        foreach ($this->getTeam() as $team)
+    public function getRoles()
+    {
+        $roles   = array();
+        foreach ($this->getTeam() as $team) {
             $roles[] = new Role($team->getRole());
+        }
 
         return $roles;
     }
-    
+
     /**
      * Serialize user
      * @return string
      */
-    public function serialize() {
+    public function serialize()
+    {
         return serialize(
-                array(
-                    $this->getId(),
-                    $this->getUsername()
-                )
+            array(
+                $this->getId(),
+                $this->getUsername()
+            )
         );
     }
 
     /**
      * Unserialize user
      */
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
 
         list($this->id, $this->username) = unserialize($serialized);
     }
@@ -350,10 +357,10 @@ class User implements UserInterface, \Serializable {
      *
      * @ORM\PrePersist
      */
-    public function setCreatedValue() 
+    public function setCreatedValue()
     {
-         $this->setCreatedAt(new \DateTime());
-         $this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -362,7 +369,6 @@ class User implements UserInterface, \Serializable {
      */
     public function setUpdatedValue()
     {
-         $this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
-
 }

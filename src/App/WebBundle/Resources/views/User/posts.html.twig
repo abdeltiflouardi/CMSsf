@@ -2,24 +2,24 @@
 
 {% block body %}
 <div class="login widget">
-     <table>
-          <tr>
-               <th>Id</th>
-               <th>Title</th>
-               <th>Date</th>
-               <th>Actions</th>
-          </tr>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
           {% for post in posts %}
-          <tr>
-              <td>{{ post.id }}</td>
-              <td>{{ post.title }}</td>
-              <td nowrap="nowrap">{{ post.updatedAt|date() }}</td>
-              <td nowrap="nowrap">
-                   <a href="{{ path('_post_edit', {'post_id': post.id} )}}">Edit</a>
-                   <a href="{{ path('_post_delete', {'post_id': post.id} ) }}">Delete</a>
-              </td>
-          </tr>
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td nowrap="nowrap">{{ post.updatedAt|date() }}</td>
+            <td nowrap="nowrap">
+                <a href="{{ path('_post_edit', {'post_id': post.id} )}}">Edit</a>
+                <a href="{{ path('_post_delete', {'post_id': post.id} ) }}">Delete</a>
+            </td>
+        </tr>
           {% endfor %}
-     </table>
+    </table>
 </div>
 {% endblock %}

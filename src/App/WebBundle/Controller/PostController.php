@@ -90,15 +90,18 @@ class PostController extends WebBaseController
         $posts = array();
         foreach ($post->getTag() as $tag) {
             foreach ($tag->getPost() as $tag_post) {
-                if ($post != $tag_post)
+                if ($post != $tag_post) {
                     $posts[$tag_post->getId()] = $tag_post;
+                }
 
-                if (count($posts) >= $this->container->getParameter('count.related.post'))
+                if (count($posts) >= $this->container->getParameter('count.related.post')) {
                     break;
+                }
             }
 
-            if (count($posts) >= $this->container->getParameter('count.related.post'))
+            if (count($posts) >= $this->container->getParameter('count.related.post')) {
                 break;
+            }
         }
 
         return $posts;
@@ -140,13 +143,12 @@ class PostController extends WebBaseController
         $tag_id = $this->get('request')->get('tag_id');
         $tag    = $this->get('request')->get('tag');
         if (!empty($tag_id)) {
-            $tag             = $this->findOne("Tag", $tag_id);
+            $tag = $this->findOne("Tag", $tag_id);
             foreach ($tag->getPost() as $post) {
-                $in[]            = $post->getId();
+                $in[] = $post->getId();
             }
             $in              = implode(',', $in);
             $params['where'] = "a.id IN ($in)";
         }
     }
-
 }

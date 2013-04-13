@@ -28,5 +28,4 @@ class Post extends AbstractType
     {
         return 'post';
     }
-
 }

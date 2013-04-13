@@ -1,21 +1,21 @@
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <div class="menu widget">
-     <header>
-          <h3>My account</h3>
-     </header>
+    <header>
+        <h3>My account</h3>
+    </header>
 
-     <nav>
-          <ul>
-               <li><a href="{{ path('_profile') }}">Edit profile</li>
-               <li><a href="{{ path('_comments') }}">My comments</a></li>
-               <li><a href="{{ path('_posts') }}">My posts</a></li>
-               <li>
-                   <a href="{{ path('_users_comments') }}">
-                       Users's comments
-                       <!-- Comment notifier -->
-                   </a>
-               </li>
-          </ul>
-     </nav>
+    <nav>
+        <ul>
+            <li><a href="{{ path('_profile') }}">Edit profile</li>
+            <li><a href="{{ path('_comments') }}">My comments</a></li>
+            <li><a href="{{ path('_posts') }}">My posts</a></li>
+            <li>
+                <a href="{{ path('_users_comments') }}">
+                    Users's comments
+                    <!-- Comment notifier -->
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 {% endif %}

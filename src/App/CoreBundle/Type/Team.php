@@ -7,10 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface as FormBuilder;
 
 class Team extends AbstractType
 {
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('role');     
+        $builder->add('role');
     }
 
     public function getDefaultOptions(array $options)
@@ -19,8 +20,9 @@ class Team extends AbstractType
             'data_class' => 'App\CoreBundle\Entity\Team',
         );
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'team';
-    }    
+    }
 }

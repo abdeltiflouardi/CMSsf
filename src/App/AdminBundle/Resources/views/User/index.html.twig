@@ -1,32 +1,32 @@
 {% extends 'AppAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="button-new"><a href="{{ path('_admin_user_add') }}" class="button-green">Add</a></div>
-    <table border="1">
-        <tr>
-            <th>{{ knp_pagination_sortable(users, 'Id', 'a.id')|raw }}</th>
-            <th>Team{# { users|sortable('Team', 'a.team')|raw } #}</th>            
-            <th>{{ knp_pagination_sortable(users, 'Username', 'a.username')|raw }}</th>
-            <th>{{ knp_pagination_sortable(users, 'CreatedAt', 'a.createdAt')|raw }}</th>
-            <th>{{ knp_pagination_sortable(users, 'UpdatedAt', 'a.updatedAt')|raw }}</th>            
-            <th>Actions</th>
-	</tr>
+<div class="button-new"><a href="{{ path('_admin_user_add') }}" class="button-green">Add</a></div>
+<table border="1">
+    <tr>
+        <th>{{ knp_pagination_sortable(users, 'Id', 'a.id')|raw }}</th>
+        <th>Team{# { users|sortable('Team', 'a.team')|raw } #}</th>            
+        <th>{{ knp_pagination_sortable(users, 'Username', 'a.username')|raw }}</th>
+        <th>{{ knp_pagination_sortable(users, 'CreatedAt', 'a.createdAt')|raw }}</th>
+        <th>{{ knp_pagination_sortable(users, 'UpdatedAt', 'a.updatedAt')|raw }}</th>            
+        <th>Actions</th>
+    </tr>
 
 	{% for user in users %}
-	<tr> 
-            <td>{{ user.id }}</td>
-            <td>{% for team in user.team %} {{ team.name }} <br /> {% endfor %}</td>            
-            <td>{{ user.username }}</td>
-            <td>{{ user.createdAt|date }}</td>
-            <td>{{ user.updatedAt|date }}</td>
-            <td>
-                <a href="{{ path('_admin_user_edit', {'id': user.id}) }}">{{ 'Edit'|trans }}</a>
+    <tr> 
+        <td>{{ user.id }}</td>
+        <td>{% for team in user.team %} {{ team.name }} <br /> {% endfor %}</td>            
+        <td>{{ user.username }}</td>
+        <td>{{ user.createdAt|date }}</td>
+        <td>{{ user.updatedAt|date }}</td>
+        <td>
+            <a href="{{ path('_admin_user_edit', {'id': user.id}) }}">{{ 'Edit'|trans }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
-		<a href="{{ path('_admin_user_delete', {'id': user.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur?')">{{ 'Delete'|trans }}</a>
+            <a href="{{ path('_admin_user_delete', {'id': user.id})}}" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur?')">{{ 'Delete'|trans }}</a>
                 {% endif %}
-            </td>
-	</tr>	
+        </td>
+    </tr>	
 	{% endfor %}
-    </table>	
+</table>	
     {{ knp_pagination_render(users) }}    
 {% endblock %}
