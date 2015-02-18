@@ -1,7 +1,7 @@
 Installation from an Archive
 ----------------------------
 
-Download archive from here https://github.com/ouardisoft/CMSsf/archives/master
+Download archive from here https://github.com/abdeltiflouardi/CMSsf/archives/master
 
 Unpack it somewhere under your web server root directory and run the following command.
 
@@ -15,7 +15,7 @@ We highly recommend you that you download the packaged version of this distribut
 
 Run the following commands:
 
-        - git clone git://github.com/ouardisoft/CMSsf.git
+        - git clone git://github.com/abdeltiflouardi/CMSsf.git
         - cd CMSsf
         - php bin/vendors install
 
